@@ -1,0 +1,16 @@
+.page-item {
+    @apply relative inline-flex items-center px-4 py-2 text-sm font-medium;
+    @apply rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50;
+}
+
+.dark .page-item {
+    @apply rounded-md border border-gray-900 bg-gray-600 text-sm font-medium text-white hover:bg-gray-800;
+}
+
+.active-page {
+    @apply bg-blue-400 text-white hover:bg-blue-400 hover:cursor-default;
+}
+
+.dark .active-page {
+    @apply bg-gray-400 text-white hover:bg-gray-400 hover:cursor-default;
+}

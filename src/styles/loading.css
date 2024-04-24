@@ -1,0 +1,85 @@
+.loader {
+    height: 60px;
+    aspect-ratio: 1;
+    position: relative;
+    animation: spin 1s infinite;
+}
+
+.loader::before,
+.loader::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    transform-origin: bottom;
+}
+
+.loader::after {
+    background:
+        radial-gradient(circle 5px, #fff 94%, #0000),
+        radial-gradient(circle 10px, #000 94%, #0000),
+        linear-gradient(#F93318 0 0) top /100% calc(50% - 5px),
+        linear-gradient(#fff 0 0) bottom/100% calc(50% - 5px) #000;
+    background-repeat: no-repeat;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(1turn)
+    }
+}
+
+
+/* HTML: <div class="loader"></div> */
+.loader-loading {
+    --w:10ch;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 30px;
+    line-height: 1.4em;
+    letter-spacing: var(--w);
+    width: var(--w);
+    overflow: hidden;
+    white-space: nowrap;
+    color: #0000;
+    text-shadow: 
+          calc( 0*var(--w)) 0 #fff,calc(-1*var(--w)) 0 #fff,calc(-2*var(--w)) 0 #fff,calc(-3*var(--w)) 0 #fff,calc(-4*var(--w)) 0 #fff, 
+          calc(-5*var(--w)) 0 #fff,calc(-6*var(--w)) 0 #fff,calc(-7*var(--w)) 0 #fff,calc(-8*var(--w)) 0 #fff,calc(-9*var(--w)) 0 #fff;
+    animation: l20 2s infinite linear;
+  }
+  .loader-loading:before {
+    content:"Loading..."
+  }
+  
+  @keyframes l20 {
+    9.09% {text-shadow: 
+          calc( 0*var(--w)) -10px #fff,calc(-1*var(--w)) 0 #fff,calc(-2*var(--w)) 0 #fff,calc(-3*var(--w)) 0 #fff,calc(-4*var(--w)) 0 #fff, 
+          calc(-5*var(--w)) 0 #fff,calc(-6*var(--w)) 0 #fff,calc(-7*var(--w)) 0 #fff,calc(-8*var(--w)) 0 #fff,calc(-9*var(--w)) 0 #fff}
+    18.18% {text-shadow: 
+          calc( 0*var(--w)) 0 #fff,calc(-1*var(--w)) -10px #fff,calc(-2*var(--w)) 0 #fff,calc(-3*var(--w)) 0 #fff,calc(-4*var(--w)) 0 #fff, 
+          calc(-5*var(--w)) 0 #fff,calc(-6*var(--w)) 0 #fff,calc(-7*var(--w)) 0 #fff,calc(-8*var(--w)) 0 #fff,calc(-9*var(--w)) 0 #fff}
+    27.27% {text-shadow: 
+          calc( 0*var(--w)) 0 #fff,calc(-1*var(--w)) 0 #fff,calc(-2*var(--w)) -10px #fff,calc(-3*var(--w)) 0 #fff,calc(-4*var(--w)) 0 #fff, 
+          calc(-5*var(--w)) 0 #fff,calc(-6*var(--w)) 0 #fff,calc(-7*var(--w)) 0 #fff,calc(-8*var(--w)) 0 #fff,calc(-9*var(--w)) 0 #fff}
+    36.36% {text-shadow: 
+          calc( 0*var(--w)) 0 #fff,calc(-1*var(--w)) 0 #fff,calc(-2*var(--w)) 0 #fff,calc(-3*var(--w)) -10px #fff,calc(-4*var(--w)) 0 #fff, 
+          calc(-5*var(--w)) 0 #fff,calc(-6*var(--w)) 0 #fff,calc(-7*var(--w)) 0 #fff,calc(-8*var(--w)) 0 #fff,calc(-9*var(--w)) 0 #fff}
+    45.45% {text-shadow: 
+          calc( 0*var(--w)) 0 #fff,calc(-1*var(--w)) 0 #fff,calc(-2*var(--w)) 0 #fff,calc(-3*var(--w)) 0 #fff,calc(-4*var(--w)) -10px #fff, 
+          calc(-5*var(--w)) 0 #fff,calc(-6*var(--w)) 0 #fff,calc(-7*var(--w)) 0 #fff,calc(-8*var(--w)) 0 #fff,calc(-9*var(--w)) 0 #fff}
+    54.54% {text-shadow: 
+          calc( 0*var(--w)) 0 #fff,calc(-1*var(--w)) 0 #fff,calc(-2*var(--w)) 0 #fff,calc(-3*var(--w)) 0 #fff,calc(-4*var(--w)) 0 #fff, 
+          calc(-5*var(--w)) -10px #fff,calc(-6*var(--w)) 0 #fff,calc(-7*var(--w)) 0 #fff,calc(-8*var(--w)) 0 #fff,calc(-9*var(--w)) 0 #fff}
+    63.63% {text-shadow: 
+          calc( 0*var(--w)) 0 #fff,calc(-1*var(--w)) 0 #fff,calc(-2*var(--w)) 0 #fff,calc(-3*var(--w)) 0 #fff,calc(-4*var(--w)) 0 #fff, 
+          calc(-5*var(--w)) 0 #fff,calc(-6*var(--w)) -10px #fff,calc(-7*var(--w)) 0 #fff,calc(-8*var(--w)) 0 #fff,calc(-9*var(--w)) 0 #fff}
+    72.72% {text-shadow: 
+          calc( 0*var(--w)) 0 #fff,calc(-1*var(--w)) 0 #fff,calc(-2*var(--w)) 0 #fff,calc(-3*var(--w)) 0 #fff,calc(-4*var(--w)) 0 #fff, 
+          calc(-5*var(--w)) 0 #fff,calc(-6*var(--w)) 0 #fff,calc(-7*var(--w)) -10px #fff,calc(-8*var(--w)) 0 #fff,calc(-9*var(--w)) 0 #fff}
+    81.81% {text-shadow: 
+          calc( 0*var(--w)) 0 #fff,calc(-1*var(--w)) 0 #fff,calc(-2*var(--w)) 0 #fff,calc(-3*var(--w)) 0 #fff,calc(-4*var(--w)) 0 #fff, 
+          calc(-5*var(--w)) 0 #fff,calc(-6*var(--w)) 0 #fff,calc(-7*var(--w)) 0 #fff,calc(-8*var(--w)) -10px #fff,calc(-9*var(--w)) 0 #fff}
+    90.90% {text-shadow: 
+          calc( 0*var(--w)) 0 #fff,calc(-1*var(--w)) 0 #fff,calc(-2*var(--w)) 0 #fff,calc(-3*var(--w)) 0 #fff,calc(-4*var(--w)) 0 #fff, 
+          calc(-5*var(--w)) 0 #fff,calc(-6*var(--w)) 0 #fff,calc(-7*var(--w)) 0 #fff,calc(-8*var(--w)) 0 #fff,calc(-9*var(--w)) -10px #fff}
+  }
