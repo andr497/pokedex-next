@@ -7,7 +7,7 @@ function isHexColor(value: string): value is HexColor {
     return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(value);
 }
 
-const useBrightness = (color: HexColor) => {
+const useBrightness = (color: string) => {
     const isBright = useMemo<boolean>(() => {
         return checkBrightness(color);
     }, [color]);

@@ -12,7 +12,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { useRecoilState } from "recoil";
 import { searchTextPokemonState } from "recoil/atoms";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface MenuOptions {
     name: string;
@@ -29,19 +29,7 @@ const options: MenuOptions[] = [
         name: "Home",
         url: "/",
     },
-    {
-        name: "List",
-        url: "/pokemon",
-    },
-    {
-        name: "Search",
-        url: "/search",
-    },
 ];
-
-function className(...classes) {
-    return classes.filter(Boolean).join(" ");
-}
 
 export default function Navbar() {
     const [searchText, setSearchText] = useRecoilState<string>(
@@ -49,7 +37,7 @@ export default function Navbar() {
     );
 
     const pathname = usePathname();
-    const showSearchBar = pathname === "/";
+    const showSearchBar = false;
     return (
         <Disclosure as="nav" className={`dark:bg-gray-800 bg-blue-300`}>
             {({ open }) => (

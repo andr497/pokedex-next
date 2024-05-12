@@ -1,3 +1,4 @@
+import { getPokemonByGenerations } from "@/api/generation";
 import { getPokemonById, getPokemonSpeciesById } from "api/pokemon";
 import axios from "axios";
 import {
@@ -9,12 +10,12 @@ import { IPokemonEvolutionChain } from "interfaces/IGeneral";
 
 export const findPokemonById = async (idToSearch: number | string) => {
     try {
-        const pokemonData = await getPokemonById(idToSearch);
+        const { data: pokemonData } = await getPokemonById(idToSearch);
         const id = pokemonData.is_default
             ? idToSearch
             : pokemonData.species.name;
 
-        const pokemonSpeciesData = await getPokemonSpeciesById(id);
+        const { data: pokemonSpeciesData } = await getPokemonSpeciesById(id);
 
         const pokemon = { ...pokemonData, ...pokemonSpeciesData };
 
@@ -40,9 +41,12 @@ export const findPokemonById = async (idToSearch: number | string) => {
                 weight: convertHectogramToKilogram(pokemon.weight),
                 types: pokemon.types,
                 image: pokemon.sprites.other["official-artwork"].front_default,
-                image_shiny: pokemon.sprites.other["official-artwork"].front_shiny,
+                image_shiny:
+                    pokemon.sprites.other["official-artwork"].front_shiny,
                 forms: pokemon.forms,
-                capture_rate: pokemon.capture_rate
+                capture_rate: pokemon.capture_rate,
+                cries: pokemon.cries,
+                generation: pokemon.generation,
             },
             abilities: pokemon.abilities,
             varieties: pokemon.varieties,
@@ -69,3 +73,13 @@ const getEvolutionChain = async (
     return processEvolutionChain(evolutionData);
 };
 
+export const findPokemonByGenerations = async (idToSearch: number | string) => {
+    const { pokemonSpecies, generation } = await getPokemonByGenerations(
+        idToSearch
+    );
+
+    return {
+        pokemonSpecies: pokemonSpecies.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)),
+        generation
+    }
+};

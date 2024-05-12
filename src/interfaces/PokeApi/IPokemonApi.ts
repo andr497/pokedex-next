@@ -17,6 +17,7 @@ export interface Pokemon {
     moves: PokemonMove[];
     past_types: PokemonTypePast[];
     sprites: PokemonSprites;
+    cries: PokemonCries,
     species: NamedAPIResource;
     stats: PokemonStat[];
     types: PokemonType<keyof typeof COLOR>[];
@@ -77,6 +78,11 @@ export interface PokemonSprites {
     back_female: string;
     back_shiny_female: string;
     other: PokemonSpritesOther;
+}
+
+export interface PokemonCries {
+    latest: string;
+    legacy: string;
 }
 
 export interface PokemonSpritesOther {

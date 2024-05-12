@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { Variants, motion } from "framer-motion";
 import Backdrop from "./Backdrop";
 
 export interface ModalProps {
-    handleClose: React.ComponentPropsWithRef<"div">["onClick"];
+    handleClose: React.MouseEventHandler;
     title: string;
-    content: string | (() => React.ReactElement);
+    content: string | (() => ReactNode);
 }
 
 const dropIn: Variants = {

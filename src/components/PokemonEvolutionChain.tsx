@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Pokemon } from "interfaces/PokeApi/IPokemonApi";
 import { colorPokemonTypes } from "helpers/pokemonHelpers";
 import { IPokemonEvolutionChain } from "interfaces/IGeneral";
@@ -15,7 +16,7 @@ import CustomImage from "./CustomImage";
 import useBreakpoints from "./../hooks/useBreakpoints";
 
 interface Props {
-    pokemonIdActual: number,
+    pokemonIdActual: number;
     data: IPokemonEvolutionChain[][];
 }
 
@@ -50,7 +51,10 @@ const PokemonEvolutionChain = ({ data, pokemonIdActual }: Props) => {
                                 >
                                     <PokemonEvolutionChainDetails
                                         pokemon={pokemon}
-                                        isSelected={pokemonIdActual === parseInt(pokemon.id)}
+                                        isSelected={
+                                            pokemonIdActual ===
+                                            parseInt(pokemon.id)
+                                        }
                                         firstPokemon={chainKey === 0}
                                     />
                                     {chainLength ? (
@@ -84,7 +88,7 @@ const PokemonEvolutionChainDetails = ({
     const [color, setColor] = useState<Pick<Pokemon, "types">>({ types: [] });
     const [loading, setLoading] = useState(false);
     const width = useBreakpoints();
-    console.log(width)
+    console.log(width);
 
     useEffect(() => {
         (async () => {
@@ -108,14 +112,20 @@ const PokemonEvolutionChainDetails = ({
         <>
             <div className={`flex self-center p-3 flex-col`}>
                 <CustomImage
-                className="duration-300"
+                    className="duration-300"
                     alt={pokemon.species_name}
                     src={pokemon.image ?? ""}
                     width={180}
                     height={180}
                     style={{
-                        filter: `drop-shadow(${isSelected ? "5px 5px 1px" : "2px 2px 0px"} ${colorType2})
-                                 drop-shadow(${isSelected ? "-5px -5px 1px" : "-2px -2px 0px"} ${colorType1})`,
+                        filter: `drop-shadow(${
+                            isSelected ? "5px 5px 1px" : "2px 2px 0px"
+                        } ${colorType2})
+                                 drop-shadow(${
+                                     isSelected
+                                         ? "-5px -5px 1px"
+                                         : "-2px -2px 0px"
+                                 } ${colorType1})`,
                     }}
                 />
                 <div className="w-full">
@@ -145,6 +155,14 @@ const PokemonEvolutionChainDetails = ({
                                 </span>
                             ))}
                     </p>
+                    {pokemon.held_item && (
+                        <Image
+                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${pokemon.held_item}.png`}
+                            alt=""
+                            width={30}
+                            height={30}
+                        />
+                    )}
                     <span>{fixGenderText(pokemon.gender)}</span>
                 </div>
             ) : null}

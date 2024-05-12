@@ -23,12 +23,12 @@ export default function RootLayout({
                 <link rel="shortcut icon" href="/logo.png" type="image/x-icon" />
             </head>
             <body
-                className={`${font.className} theme-mode duration-500`}
+                className={`${font.className} theme-mode duration-500 flex flex-col justify-items-center min-h-screen`}
                 suppressHydrationWarning={true}
             >
                 <ProviderWrapper>
                     <Navbar />
-                    <main className="container">{children}</main>
+                    <main className="container grow p-2">{children}</main>
                 </ProviderWrapper>
             </body>
         </html>

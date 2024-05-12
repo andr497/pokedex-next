@@ -40,6 +40,7 @@ const SelectTypePokemon = ({
                     options={options ?? []}
                     getLabel={getLabel}
                     onChange={setPrimaryTypeOption}
+                    idKey="id"
                 />
             </label>
 
@@ -51,6 +52,7 @@ const SelectTypePokemon = ({
                     options={options ?? []}
                     getLabel={getLabel}
                     onChange={setSecondaryTypeOption}
+                    idKey="id"
                 />
             </label>
         </section>

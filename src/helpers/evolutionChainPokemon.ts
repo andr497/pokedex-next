@@ -23,7 +23,7 @@ export interface IEvolutionChain {
     id: number;
     baby_trigger_item?: null;
     chain: ChainLink;
-    types: GeneralInfoPokemon["types"]
+    types: GeneralInfoPokemon["types"];
 }
 
 interface ChainLink {
@@ -73,10 +73,11 @@ export const processEvolutionChain = (
                 let pokemonID = node.species.url.split("/")[6];
                 let urlArtWork = ARTWORK_BASE_URL;
                 let evo_details = node.evolution_details[0];
-                
+
                 return {
                     ...a,
                     [depth]: [
+                        // @ts-ignore
                         ...(a[depth] || []),
                         {
                             id: pokemonID,
@@ -120,4 +121,93 @@ export const processEvolutionChain = (
                 };
             }, {})
     );
+};
+
+export const fixTriggerName = (name: string) => {
+    if (!name) return "";
+
+    if (name === "shed") {
+        return "level up 20 \n with empty PokéBall and \n an open slot in party";
+    }
+
+    return name.replace("-", " ");
+};
+
+export const fixGenderText = (gender: number) => {
+    if (!gender) return null;
+
+    let fullName = gender === 1 ? "♀️" : "‍♂️";
+
+    return "Only " + fullName;
+};
+
+export const fixEvolutionMethod = ({
+    min_level,
+    min_happiness,
+    min_affection,
+    min_beauty,
+    trigger_name,
+    item,
+    held_item,
+    relative_physical_stats,
+    known_move,
+    known_move_type,
+    time_of_day,
+    location,
+    needs_overworld_rain,
+    turn_upside_down,
+    trade_species,
+    party_species,
+    ...others
+}: IPokemonEvolutionChain) => {
+    let fixTrigger = fixTriggerName(trigger_name);
+    let minLevelArray = Object.entries({
+        min_level,
+        min_happiness,
+        min_affection,
+        min_beauty,
+    }).filter(([, v]) => v !== null);
+
+    const textLevel =
+        minLevelArray.length === 1
+            ? minLevelArray[0][0] === "min_level"
+                ? minLevelArray[0][1]
+                : `${minLevelArray[0][1]} of ${minLevelArray[0][0].replace(
+                      "min_",
+                      ""
+                  )}`
+            : "";
+
+    const fixItem =
+        item !== null
+            ? ` ${item.replace("-", " ")}`
+            : held_item !== null
+            ? ` holding ${held_item.replace("-", " ")}`
+            : "";
+
+    //Data to show if
+
+    const moreDetails = [
+        relative_physical_stats === 0
+            ? "Attack = Defense"
+            : relative_physical_stats === 1
+            ? "Attack > Defense"
+            : relative_physical_stats === -1
+            ? "Attack < Defense"
+            : null,
+        known_move && `knowing ${known_move}`,
+        known_move_type && `knowing a ${known_move_type} move`,
+        time_of_day && `at ${time_of_day} time`,
+        location && `at ${location}`,
+        needs_overworld_rain && "during rain",
+        turn_upside_down && "holding the console upside down",
+        trade_species && `with ${trade_species}`,
+        party_species && `with ${party_species} in party`,
+    ]
+        .filter(Boolean)
+        .join("\n");
+
+    return `${fixTrigger}${fixItem} ${textLevel}${
+        moreDetails ? "\n" + moreDetails : ""
+    }`;
 };

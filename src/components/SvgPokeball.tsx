@@ -16,7 +16,7 @@ const BaseSvgPokeballComponent = ({
     colorType1,
     colorType2,
     ...props
-}: SvgProps) => {
+}: SvgProps | any) => {
     return <ReactSVG {...props} />;
 };
 
@@ -25,18 +25,25 @@ const SvgPokeball = styled(BaseSvgPokeballComponent)((props) => {
     const isDark = theme === "dark";
     const { colorType1, colorType2 } = props;
 
-    return {
-        "& > div > svg": {
-            width: "150px",
-            height: "150px",
-        },
-        path: {
-            fill: isDark ? "#1F2937" : "white",
-        },
-        filter: `drop-shadow(-5px 0 8px ${colorType1})
+    let style = {};
+    if(colorType1 && colorType1) {
+        style = {
+            filter: `drop-shadow(-5px 0 8px ${colorType1})
                 drop-shadow(5px 0 8px ${colorType2})
                 blur(.2rem)
-        `,
+            `,
+        }
+    }
+
+    return {
+        "& > div > svg": {
+            width: "300px",
+            height: "300px",
+        },
+        path: {
+            fill: isDark ? "#FFFFFF10" : "#00000010",
+        },
+        ...style
     };
 });
 

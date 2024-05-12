@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme"
 
+
 const config: Config = {
     darkMode: ["class"],
     content: [
@@ -73,6 +74,8 @@ const config: Config = {
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
+                "spin-slow": "spin 5s linear infinite",
+                "rotate": "spin 5s ease-in infinite"
             },
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans]

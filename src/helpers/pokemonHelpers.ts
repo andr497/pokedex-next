@@ -73,3 +73,5 @@ export function checkBrightness(color: string): boolean {
 
     return brightness < 155;
 }
+
+

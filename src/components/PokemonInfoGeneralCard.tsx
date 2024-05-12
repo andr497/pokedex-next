@@ -1,27 +1,30 @@
 "use client";
 import { useEffect, useState } from "react";
+
+import { AnimatePresence } from "framer-motion";
+
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import useModal from "hooks/useModal";
+import { getAbilityById } from "api/pokemon";
+import { ModalProps } from "components/Modal/Modal";
+import { useParams, useRouter } from "next/navigation";
+import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
+import { PokemonSpecies } from "interfaces/PokeApi/IPokemonSpecies";
+import { LockOpenIcon as HiddenIcon } from "@heroicons/react/20/solid";
+import { Pokemon, PokemonAbility } from "interfaces/PokeApi/IPokemonApi";
+
+import Chip from "./Chip/Chip";
+import IconSvg from "./IconSvg";
+import Divider from "./Divider/Divider";
+import Loading from "../../app/loading";
 import {
     checkBrightness,
     colorPokemonTypes,
     fixAbilitiesName,
     fixVarietiesName,
 } from "./../helpers/pokemonHelpers";
-import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
-
-import Divider from "./Divider/Divider";
-import { Pokemon, PokemonAbility } from "interfaces/PokeApi/IPokemonApi";
-import Chip from "./Chip/Chip";
-import { PokemonSpecies } from "interfaces/PokeApi/IPokemonSpecies";
-import { SparklesIcon as HiddenIcon } from "@heroicons/react/20/solid";
-import IconSvg from "./IconSvg";
-
-import dynamic from "next/dynamic";
-import { ModalProps } from "components/Modal/Modal";
-import useModal from "hooks/useModal";
-import { AnimatePresence } from "framer-motion";
-import { getAbilityById } from "api/pokemon";
-import { useParams, useRouter } from "next/navigation";
-import Loading from "../../app/loading";
+import AudioPlayer from "./AudioPlayer/AudioPlayer";
 
 const Modal = dynamic(() => import("components/Modal/Modal"), {
     ssr: false,
@@ -102,6 +105,9 @@ const PokemonInfoGeneralCard = ({ data, abilities, varieties }: Props) => {
         <article className={"rounded mx-4 p-2"}>
             <div className="">
                 <div className="table w-full">
+                    <Link href={`/generation/${data.generation.name}`}>
+                        Go back to list
+                    </Link>
                     <PokemonCardTypography
                         title={"National N°"}
                         subtitle={data.id.toString().padStart(4, "0")}
@@ -128,6 +134,16 @@ const PokemonInfoGeneralCard = ({ data, abilities, varieties }: Props) => {
                         subtitle={`${data.shape}`}
                         subtitleClass={"capitalize"}
                     />
+                </div>
+                <Divider label="Cries" />
+                <div className="w-full">
+                    {data.cries.latest ? (
+                        <AudioPlayer src={`${data.cries.latest}`} />
+                    ) : null}
+
+                    {data.cries.legacy ? (
+                        <AudioPlayer src={`${data.cries.legacy}`} />
+                    ) : null}
                 </div>
                 <Divider label="Types" />
                 <div
@@ -244,7 +260,7 @@ const PokemonCardTypography = ({
 }: {
     title: string;
     subtitle: string;
-    subtitleClass?: React.HTMLAttributes<"span">["className"]
+    subtitleClass?: React.HTMLAttributes<"span">["className"];
 }) => {
     return (
         <>
@@ -252,7 +268,9 @@ const PokemonCardTypography = ({
                 <span className="font-bold w-1/2 pr-4 text-right table-cell">
                     {title}
                 </span>
-                <span className={`font-thin w-1/2 text-left table-cell ${subtitleClass}`}>
+                <span
+                    className={`font-thin w-1/2 text-left table-cell ${subtitleClass}`}
+                >
                     {subtitle}
                 </span>
             </h4>

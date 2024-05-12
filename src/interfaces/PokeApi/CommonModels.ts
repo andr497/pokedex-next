@@ -73,3 +73,10 @@ export type VersionGroupFlavorText = {
     language: NamedAPIResource;
     version_group: NamedAPIResource;
 }
+
+export type PaginationData<T> = {
+    count: number,
+    next: string | null,
+    previous: null,
+    results: T
+}

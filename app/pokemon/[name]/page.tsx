@@ -1,23 +1,20 @@
-import PokemonInfoGeneralCard from "components/PokemonInfoGeneralCard";
-import PokemonStats from "components/PokemonStats";
-import { Metadata } from "next";
-import { findPokemonById } from "server/PokemonRepository";
-import {
-    checkBrightness,
-    colorPokemonTypes,
-    fixPokemonName,
-} from "helpers/pokemonHelpers";
 import { Suspense } from "react";
-import Loading from "../../loading";
-import { notFound } from "next/navigation";
 
-import PokemonNavigationName from "components/PokemonNavigationName";
-import PokemonEvolutionChain from "components/PokemonEvolutionChain";
+import { Metadata } from "next";
+
+import { notFound } from "next/navigation";
+import PokemonStats from "components/PokemonStats";
 import SetBackground from "components/SetBackground";
-import PokemonGameIndex from "components/PokemonGameIndex";
-import PokemonDetailImage from "components/PokemonDetailImage";
+import { findPokemonById } from "server/PokemonRepository";
 import PokemonTypeTable from "components/PokemonTypeTable";
+import PokemonDetailImage from "components/PokemonDetailImage";
 import { findPokemonTypes } from "server/TypePokemonRepository";
+import PokemonNavigationName from "components/PokemonNavigationName";
+import PokemonInfoGeneralCard from "components/PokemonInfoGeneralCard";
+import EvolutionChainContainer from "@/components/EvolutionChain/EvolutionChainContainer";
+import { colorPokemonTypes } from "helpers/pokemonHelpers";
+
+import Loading from "../../loading";
 
 interface PropTypes {
     params: {
@@ -70,8 +67,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                     />
                 </section>
                 <section className="w-full xl:col-span-4 lg:col-span-4 md:col-span-6 sm:col-span-6 col-span-12 max-sm:order-first">
-                    <PokemonDetailImage
-                        data={data.general} />
+                    <PokemonDetailImage data={data.general} />
                 </section>
                 <section className="w-100 col-span-4 max-lg:col-span-12">
                     <PokemonStats
@@ -84,20 +80,26 @@ export default async function PokemonPage({ params }: PropTypes) {
                         <h4 className="font-heading font-medium text-center text-4xl mb-8">
                             Evolution Chain
                         </h4>
-                        <PokemonEvolutionChain pokemonIdActual={data.general.id} data={data.evolution_chain} />
+                        <EvolutionChainContainer
+                            pokemonIdActual={data.general.id}
+                            pokemonChain={data.evolution_chain}
+                        />
                     </div>
                 </section>
 
                 <section className="w-full xl:col-span-4 lg:col-span-4 md:col-span-6 sm:col-span-6 col-span-12 max-sm:order-first">
                     <div className="w-full">
-                        <h4 id="typing" className="font-heading font-medium text-center text-4xl mb-8">
+                        <h4
+                            id="typing"
+                            className="font-heading font-medium text-center text-4xl mb-8"
+                        >
                             Typing
                         </h4>
                         <PokemonTypeTable data={typesDetails} />
                     </div>
                 </section>
 
-                <section className="flex align-middle justify-around col-span-12 w-full mt-4 mb-4">
+                {/* <section className="flex align-middle justify-around col-span-12 w-full mt-4 mb-4">
                     <div className="w-full">
                         <h4 className="font-heading font-medium text-center text-4xl mb-8">
                             Pokédex Entries
@@ -107,7 +109,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                             types={{ colorType1, colorType2 }}
                         />
                     </div>
-                </section>
+                </section> */}
             </section>
         </Suspense>
     );

@@ -1,11 +1,13 @@
 import { Suspense } from "react";
-import PokemonListGrid from "components/PokemonListGrid";
+
+import GenerationGrid from "@/components/GenerationGrid/GenerationGrid";
+
 import Loading from "./loading";
 
 export default function Home() {
     return (
         <Suspense fallback={<Loading />}>
-            <PokemonListGrid />
+            <GenerationGrid />
         </Suspense>
     );
 }

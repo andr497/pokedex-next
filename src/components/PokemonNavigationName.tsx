@@ -1,28 +1,49 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
+
+import { motion } from "framer-motion";
 
 import Link from "next/link";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { colorPokemonTypes, fixPokemonName } from "helpers/pokemonHelpers";
+import { TOTAL_POKEMON } from "@/helpers/constants";
 import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
-import { AnimatePresence, motion } from "framer-motion";
+import { colorPokemonTypes, fixPokemonName } from "helpers/pokemonHelpers";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 interface Props {
     data: GeneralInfoPokemon;
 }
 
 const PokemonNavigationName = ({ data }: Props) => {
-    const { colorType1, colorType2 } = colorPokemonTypes(data);
+    const {
+        colors: { colorType1, colorType2 },
+        nextPokemon,
+        prevPokemon,
+        isFirst,
+        isLast,
+        pokemonName,
+    } = useMemo(
+        () => ({
+            colors: colorPokemonTypes(data),
+            pokemonName: fixPokemonName(data.name),
+            isFirst: data.id === 1,
+            isLast: data.id === TOTAL_POKEMON,
+            prevPokemon: data.id === 1 ? data.id : data.id - 1,
+            nextPokemon: data.id === TOTAL_POKEMON ? 1 : data.id + 1,
+        }),
+        [data]
+    );
 
-    const prevPokemon = data.id === 1 ? data.id : data.id - 1;
-    const nextPokemon = data.id === 1017 ? 1 : data.id + 1;
     return (
         <>
             <Link
                 prefetch={false}
-                style={{ color: colorType1 }}
+                style={{
+                    color: colorType1,
+                    visibility: isFirst ? "hidden" : "visible",
+                }}
                 className="flex justify-center align-middle"
                 href={`/pokemon/${prevPokemon}`}
+                aria-label="Previous pokemon"
             >
                 <ChevronLeftIcon className="xl:w-36 lg:w-32 md:w-28 sm:w-24 w-12" />
             </Link>
@@ -40,14 +61,18 @@ const PokemonNavigationName = ({ data }: Props) => {
                         WebkitTextFillColor: "transparent",
                     }}
                 >
-                    {fixPokemonName(data.name)}
+                    {pokemonName}
                 </h1>
             </motion.div>
             <Link
                 prefetch={false}
-                style={{ color: colorType2 }}
+                style={{
+                    color: colorType2,
+                    visibility: isLast ? "hidden" : "visible",
+                }}
                 className="flex justify-normal align-middle"
                 href={`/pokemon/${nextPokemon}`}
+                aria-label="Next pokemon"
             >
                 <ChevronRightIcon className="xl:w-36 lg:w-32 md:w-28 sm:w-24 w-12" />
             </Link>

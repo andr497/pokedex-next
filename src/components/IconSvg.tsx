@@ -1,12 +1,13 @@
 "use client";
-import styled from "styled-components";
-import { ReactSVG } from "react-svg";
-import { useTheme } from "next-themes";
 import React, { ComponentPropsWithRef } from "react";
+
+import { ReactSVG } from "react-svg";
+import styled from "styled-components";
 
 type SvgProps = ComponentPropsWithRef<typeof ReactSVG>;
 
 const BaseSvgComponent = (props: SvgProps) => {
+    //@ts-ignore
     return <ReactSVG {...props} />;
 };
 

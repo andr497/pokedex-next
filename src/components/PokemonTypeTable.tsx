@@ -6,6 +6,7 @@ import IconSvg from "./IconSvg";
 import { COLOR } from "helpers/constants";
 import { checkBrightness } from "helpers/pokemonHelpers";
 import useBrightness from "@/hooks/useBrightness";
+import Divider from "./Divider/Divider";
 
 interface Props {
     data: TypeDefenses;
@@ -19,38 +20,41 @@ const PokemonTypeTable = ({ data }: Props) => {
         <ul className="w-full">
             {Object.entries(data).map(
                 ([key, values]: [string, StringPokemonType[]]) => {
-                    if (values.length > 0) {
-                        return (
-                            <li
-                                className="flex flex-col justify-content items-center border-b dark:border-gray-500"
-                                key={`${key}`}
-                            >
-                                <div className="capitalize">
-                                    {key.replace("_", " ")}
-                                </div>
-                                <div className="min-h-[50px]">
-                                    {values.length === 0 ? (
-                                        <span>None</span>
-                                    ) : (
-                                        <>
-                                            {values.map(
-                                                (type: StringPokemonType) => {
-                                                    return (
-                                                        <PokemonTypeChip
-                                                            key={`card-type-${type}-${key}`}
-                                                            type={type}
-                                                        />
-                                                    );
-                                                }
-                                            )}
-                                        </>
-                                    )}
-                                </div>
-                            </li>
-                        );
-                    } else {
-                        return null;
-                    }
+                    return (
+                        <React.Fragment key={`typing-weaknes${key}`}>
+                            {values.length > 0 && (
+                                <li className="flex flex-col justify-content items-center">
+                                    <div className="w-full">
+                                        <Divider
+                                            label={key
+                                                .replace("_", " ")
+                                                .toUpperCase()}
+                                        />
+                                    </div>
+                                    <div className="min-h-[50px]">
+                                        {values.length === 0 ? (
+                                            <span>None</span>
+                                        ) : (
+                                            <>
+                                                {values.map(
+                                                    (
+                                                        type: StringPokemonType
+                                                    ) => {
+                                                        return (
+                                                            <PokemonTypeChip
+                                                                key={`card-type-${type}-${key}`}
+                                                                type={type}
+                                                            />
+                                                        );
+                                                    }
+                                                )}
+                                            </>
+                                        )}
+                                    </div>
+                                </li>
+                            )}
+                        </React.Fragment>
+                    );
                 }
             )}
         </ul>
@@ -67,6 +71,7 @@ const PokemonTypeChip = ({ type }: { type: StringPokemonType }) => {
                     src={`/assets/types/${type}.svg`}
                     title={`icon-${type}`}
                     width={18}
+                    color={fontColor}
                 />
             }
             className="capitalize"

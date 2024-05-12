@@ -1,7 +1,9 @@
 import { useMemo } from "react";
-import "@/styles/pagination.css";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+
 import { LIMIT_PAGE } from "helpers/constants";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+
+import "@/styles/pagination.css";
 
 interface PaginationProps {
     itemsPerPage?: number;

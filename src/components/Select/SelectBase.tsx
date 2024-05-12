@@ -1,4 +1,4 @@
-import { SelectHTMLAttributes } from "react";
+import { SelectHTMLAttributes, useMemo } from "react";
 import { useSelect, UseSelectParams } from "hooks/useSelect";
 import {
     useSelectOptions,
@@ -12,10 +12,11 @@ const SelectBase = <Option,>({
     options,
     onChange,
     getLabel,
+    idKey,
     ...props
 }: UseSelectOptionsParams<Option> & UseSelectParams<Option> & SelectProps) => {
     const selectProps = useSelect({ selectedOption, options, onChange });
-    const selectOptions = useSelectOptions({ options, getLabel });
+    const selectOptions = useSelectOptions({ options, getLabel, idKey });
     return (
         <>
             <select
