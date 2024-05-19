@@ -39,7 +39,7 @@ const PokemonDetailImage = ({ data }: Props) => {
                 className="relative w-full h-full flex justify-center"
             >
                 <CustomImage
-                    loading="eager"
+                    loading="lazy"
                     alt={data.name}
                     src={data.image ?? ""}
                     width={300}
