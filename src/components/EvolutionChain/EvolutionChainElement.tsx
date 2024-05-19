@@ -28,15 +28,15 @@ const EvolutionChainElement = ({
             }`}
         >
             {chain.map((pokemon, key) => (
-                        <EvolutionChainDetails
-                            key={`pokemon-chain-${key}`}
-                            pokemon={pokemon}
-                            isSelected={pokemonId === parseInt(pokemon.id)}
-                            firstPokemon={firstPokemon}
-                            hasEvolution={hasEvolution}
-                            numberOfPosibleEvolutions={chainElementLength}
-                        />
-                    ))}
+                <EvolutionChainDetails
+                    key={`pokemon-chain-${key}`}
+                    pokemon={pokemon}
+                    isSelected={pokemonId === parseInt(pokemon.id)}
+                    firstPokemon={firstPokemon}
+                    hasEvolution={hasEvolution}
+                    numberOfPosibleEvolutions={chainElementLength}
+                />
+            ))}
         </div>
     );
 };

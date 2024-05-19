@@ -1,23 +1,44 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 
-import { IPokemonList, PokemonData } from "@/interfaces/IPokemonList";
+import { IPokemonList } from "@/interfaces/IPokemonList";
 import { MagnifyingGlassIcon as SearchIcon } from "@heroicons/react/20/solid";
 
 import PokemonCard from "../PokemonCard";
 import useSearch from "@/hooks/useSearch";
 import { Generation } from "@/interfaces/PokeApi/IGenerations";
 import CounterApiResource from "../ApiNamedResource/Counter";
+import ButtonToTop from "../Common/ButtonToTop";
+import SelectType from "../Select/SelectType";
 
 interface Props {
-    pokemonData: PokemonData[];
+    pokemonData: IPokemonList[];
     generation: Generation;
 }
 
 const PokemonGrid = ({ pokemonData, generation }: Props) => {
-    const { handleChange, list: pokemonList } = useSearch({
+    const {
+        handleChange,
+        handleFiltersChange,
+        list: pokemonList,
+    } = useSearch({
         data: pokemonData,
         key: "name",
+        filters: [
+            {
+                filterKey: "types",
+                filterCallback: (data, value) => {
+                    const filtered = data.filter((e) => {
+                        return (
+                            e.types.filter((t) => t.type.name.includes(value))
+                                .length > 0
+                        );
+                    });
+
+                    return filtered;
+                },
+            },
+        ],
     });
 
     const generationName = useMemo(
@@ -27,6 +48,7 @@ const PokemonGrid = ({ pokemonData, generation }: Props) => {
 
     return (
         <section className="flex flex-col gap-4">
+            <ButtonToTop />
             <section className="flex flex-wrap text-center justify-between gap-4">
                 <div className="w-full">
                     <div className="max-w-4xl mx-auto text-center">
@@ -35,9 +57,6 @@ const PokemonGrid = ({ pokemonData, generation }: Props) => {
                         </h2>
                         <p className="mt-3 text-xl text-gray-500 sm:mt-4">
                             {`You can see the list of ${generationName[0].name} pokemons below`}
-                        </p>
-                        <p>
-                            {generation.version_groups.map((version) => version.name).join(" ")}
                         </p>
                     </div>
                 </div>
@@ -53,6 +72,13 @@ const PokemonGrid = ({ pokemonData, generation }: Props) => {
                 <CounterApiResource label={"Moves"} list={generation.moves} />
             </section>
 
+            <div className="w-full">
+                <SelectType
+                    name="types"
+                    aria-label="pokemon-types"
+                    onChange={handleFiltersChange}
+                />
+            </div>
             <div className="relative grid grid-cols-1">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <SearchIcon className="block h-6 w-6" />

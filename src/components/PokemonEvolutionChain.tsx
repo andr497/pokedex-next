@@ -11,7 +11,7 @@ import { IPokemonEvolutionChain } from "interfaces/IGeneral";
 import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
 import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
 
-import Chip from "./Chip/Chip";
+import Chip from "./Common/Chip";
 import CustomImage from "./CustomImage";
 import useBreakpoints from "./../hooks/useBreakpoints";
 
@@ -88,7 +88,6 @@ const PokemonEvolutionChainDetails = ({
     const [color, setColor] = useState<Pick<Pokemon, "types">>({ types: [] });
     const [loading, setLoading] = useState(false);
     const width = useBreakpoints();
-    console.log(width);
 
     useEffect(() => {
         (async () => {

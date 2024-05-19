@@ -1,11 +1,19 @@
-import { calculateStatsPokemon, StatsPokemonCalculated } from "@/helpers/PokemonStatsHelper";
+import {
+    calculateStatsPokemon,
+    StatsNamesCombine,
+    StatsPokemonCalculated,
+    StatsPokemonClean,
+} from "@/helpers/PokemonStatsHelper";
 import { StatsPokemon } from "@/interfaces/IPokemonDetails";
 import React, { useEffect, useState } from "react";
 
 const initialValueStatsState = {
-    base: [],
-    min: [],
-    max: [],
+    hp: [],
+    attack: [],
+    defense: [],
+    speed: [],
+    "special-attack": [],
+    "special-defense": [],
 };
 
 interface Props {
@@ -16,7 +24,7 @@ interface Props {
 }
 
 const useStats = ({ stats }: Props) => {
-    const [valueStats, setValueStats] = useState<StatsPokemonCalculated>(
+    const [valueStats, setValueStats] = useState<StatsNamesCombine>(
         initialValueStatsState
     );
 

@@ -9,9 +9,9 @@ export interface StatsPokemonClean {
 }
 
 export interface StatsPokemonCalculated {
-    base: StatsPokemonClean[],
-    min: StatsPokemonClean[],
-    max: StatsPokemonClean[],
+    base: StatsPokemonClean[];
+    min: StatsPokemonClean[];
+    max: StatsPokemonClean[];
 }
 
 type minmax = "MAX" | "MIN";
@@ -47,8 +47,8 @@ const calculatePercentageStats = (
     arr: StatsPokemonClean[],
     minmax?: minmax
 ) => {
-
-    let MAX_STAT: number = minmax === "MAX" ? 903 : minmax === "MIN" ? 620 : 255;
+    let MAX_STAT: number =
+        minmax === "MAX" ? 903 : minmax === "MIN" ? 620 : 255;
 
     arr.forEach((v) => {
         v.percentage = (v.base_stat * 100) / max.base_stat;
@@ -68,7 +68,7 @@ const calculateMAXMINStats = (
     if (minmax === "MAX") {
         MAX_IV = 31;
         MAX_EV = 252;
-        NATURE = 1.1
+        NATURE = 1.1;
     }
 
     let newStats: StatsPokemonClean[] = [];
@@ -79,9 +79,14 @@ const calculateMAXMINStats = (
             valor =
                 id === SHEDINJA_ID
                     ? 1
-                    : (((2 * stat.base_stat + MAX_IV + (MAX_EV / 4)) * 100) / 100) + 100 + 10;
+                    : ((2 * stat.base_stat + MAX_IV + MAX_EV / 4) * 100) / 100 +
+                      100 +
+                      10;
         } else {
-            valor = Math.floor(((((2 * stat.base_stat + MAX_IV + (MAX_EV / 4)) * 100) / 100) + 5) * NATURE)
+            valor = Math.floor(
+                (((2 * stat.base_stat + MAX_IV + MAX_EV / 4) * 100) / 100 + 5) *
+                    NATURE
+            );
             // valor = Math.floor(
             //     Math.floor(
             //         ((2 * stat.base_stat + MAX_IV + MAX_EV) * 100) / 100 + 5
@@ -101,16 +106,34 @@ const calculateMAXMINStats = (
     return newStats;
 };
 
-export function calculateStatsPokemon(stats: StatsPokemon[], id: number): StatsPokemonCalculated {
+const STATS_NAME = ["attack"];
+
+export interface StatsNamesCombine {
+    attack: StatsPokemonClean[];
+    defense: StatsPokemonClean[];
+    hp: StatsPokemonClean[];
+    speed: StatsPokemonClean[];
+    "special-attack": StatsPokemonClean[];
+    "special-defense": StatsPokemonClean[];
+}
+
+export function calculateStatsPokemon(
+    stats: StatsPokemon[],
+    id: number
+): StatsNamesCombine {
     let cleanStats = processStatsPokemonObject(stats);
 
     let maxStats = calculateMAXMINStats(cleanStats, id);
 
     let minStats = calculateMAXMINStats(cleanStats, id, "MIN");
 
-    return {
-        base: cleanStats,
-        min: minStats,
-        max: maxStats,
-    };
+    let test: any = {};
+    cleanStats.forEach((value, index) => {
+        test = {
+            ...test,
+            [value.name]: [value, minStats[index], maxStats[index]],
+        };
+    });
+
+    return test;
 }

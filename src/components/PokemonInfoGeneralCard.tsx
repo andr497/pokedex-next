@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -9,23 +9,15 @@ import useModal from "hooks/useModal";
 import { getAbilityById } from "api/pokemon";
 import { ModalProps } from "components/Modal/Modal";
 import { useParams, useRouter } from "next/navigation";
+import IconSvg from "@/components/StyledComponents/IconSvg";
 import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
+import { AudioPlayer, Chip, Divider } from "@/components/Common";
 import { PokemonSpecies } from "interfaces/PokeApi/IPokemonSpecies";
 import { LockOpenIcon as HiddenIcon } from "@heroicons/react/20/solid";
 import { Pokemon, PokemonAbility } from "interfaces/PokeApi/IPokemonApi";
+import { checkBrightness, colorPokemonTypes, fixAbilitiesName, fixVarietiesName } from "@/helpers/pokemonHelpers";
 
-import Chip from "./Chip/Chip";
-import IconSvg from "./IconSvg";
-import Divider from "./Divider/Divider";
 import Loading from "../../app/loading";
-import {
-    checkBrightness,
-    colorPokemonTypes,
-    fixAbilitiesName,
-    fixVarietiesName,
-} from "./../helpers/pokemonHelpers";
-import AudioPlayer from "./AudioPlayer/AudioPlayer";
-
 const Modal = dynamic(() => import("components/Modal/Modal"), {
     ssr: false,
 });
@@ -102,7 +94,12 @@ const PokemonInfoGeneralCard = ({ data, abilities, varieties }: Props) => {
     };
 
     return (
-        <article className={"rounded mx-4 p-2"}>
+        <motion.article
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0 }}
+            className={"rounded mx-4 p-2"}
+        >
             <div className="">
                 <div className="table w-full">
                     <Link href={`/generation/${data.generation.name}`}>
@@ -216,7 +213,7 @@ const PokemonInfoGeneralCard = ({ data, abilities, varieties }: Props) => {
                 <div
                     className={`grid ${
                         varieties.length === 1 ? "col-span-12" : "grid-cols-2"
-                    }`}
+                    } ${varieties.length > 4 ? "h-[150px] overflow-scroll" : ""}`}
                 >
                     {varieties.map((value, key) => {
                         const principalId = value.pokemon.url.split("/")[6];
@@ -247,7 +244,7 @@ const PokemonInfoGeneralCard = ({ data, abilities, varieties }: Props) => {
                 {loadingModal && <Loading />}
                 {open && <Modal handleClose={toggle} {...modalProps} />}
             </AnimatePresence>
-        </article>
+        </motion.article>
     );
 };
 

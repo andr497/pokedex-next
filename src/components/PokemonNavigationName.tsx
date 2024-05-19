@@ -45,12 +45,18 @@ const PokemonNavigationName = ({ data }: Props) => {
                 href={`/pokemon/${prevPokemon}`}
                 aria-label="Previous pokemon"
             >
-                <ChevronLeftIcon className="xl:w-36 lg:w-32 md:w-28 sm:w-24 w-12" />
+                <motion.div
+                    initial={{ x: -50 }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.5, origin: 1 }}
+                >
+                    <ChevronLeftIcon className="xl:w-36 lg:w-32 md:w-28 sm:w-24 w-12" />
+                </motion.div>
             </Link>
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
                 className="flex items-center justify-center"
             >
                 <h1
@@ -74,7 +80,13 @@ const PokemonNavigationName = ({ data }: Props) => {
                 href={`/pokemon/${nextPokemon}`}
                 aria-label="Next pokemon"
             >
-                <ChevronRightIcon className="xl:w-36 lg:w-32 md:w-28 sm:w-24 w-12" />
+                <motion.div
+                    initial={{ x: 50 }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.5, origin: 1 }}
+                >
+                    <ChevronRightIcon className="xl:w-36 lg:w-32 md:w-28 sm:w-24 w-12" />
+                </motion.div>
             </Link>
         </>
     );

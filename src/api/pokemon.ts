@@ -3,9 +3,12 @@ import axios, { AxiosResponse } from "axios";
 import { IAbility } from "interfaces/PokeApi/IAbility";
 import { Pokemon } from "interfaces/PokeApi/IPokemonApi";
 import { LIMIT_PAGE, OFFSET_PAGE } from "helpers/constants";
-import { AllPokemonSpecies, PokemonSpecies } from "interfaces/PokeApi/IPokemonSpecies";
+import {
+    AllPokemonSpecies,
+    PokemonSpecies,
+} from "interfaces/PokeApi/IPokemonSpecies";
 
-import { axiosInstance } from "./config";
+import { axiosCacheInstance, axiosInstance } from "./config";
 
 export const fetchPokemonList = async (url: string) => {
     const allPokemonResponse = await axios({
@@ -39,7 +42,9 @@ export const getPokemonList = async (url: string) => {
     let pokemonList = await Promise.all(
         data.results.map(async (value: any) => {
             let pokemonId = value.url.split("/")[6];
-            let pokemon = await getPokemonById(pokemonId).then((res) => res.data);
+            let pokemon = await getPokemonById(pokemonId).then(
+                (res) => res.data
+            );
 
             return {
                 id: pokemonId,
@@ -62,15 +67,17 @@ export const getAllPokemon = async (): Promise<
         method: "get",
         url: `/pokemon-species`,
         params: {
-            limit: 2000,
+            limit: -1,
         },
     });
 
     return response.data.results;
 };
 
-export const getPokemonById = async (id: number | string): Promise<AxiosResponse<Pokemon>> => {
-    const response = await axiosInstance({
+export const getPokemonById = async (
+    id: number | string
+): Promise<AxiosResponse<Pokemon>> => {
+    const response = await axiosCacheInstance({
         method: "get",
         url: `/pokemon/${id}`,
     });
@@ -81,7 +88,7 @@ export const getPokemonById = async (id: number | string): Promise<AxiosResponse
 export const getPokemonSpeciesById = async (
     id: number | string
 ): Promise<AxiosResponse<PokemonSpecies>> => {
-    const response = await axiosInstance({
+    const response = await axiosCacheInstance({
         method: "get",
         url: `/pokemon-species/${id}`,
     });

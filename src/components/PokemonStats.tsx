@@ -1,13 +1,14 @@
 "use client";
 import React, { useState } from "react";
 
-import { Tab } from "@headlessui/react";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import useStats from "@/hooks/useStats";
 import { StatsPokemon } from "interfaces/IPokemonDetails";
 import { StatsPokemonCalculated } from "helpers/PokemonStatsHelper";
 
 import ProgressBar from "./ProgressBar/ProgressBar";
 import { StatsPokemonClean } from "./../helpers/PokemonStatsHelper";
+import { motion } from 'framer-motion';
 
 interface Props {
     stats: {
@@ -24,14 +25,14 @@ const PokemonStats = ({ stats, types }: Props) => {
     const { valueStats } = useStats({ stats });
 
     return (
-        <Tab.Group
+        <TabGroup
             onChange={(index) => {
                 setSelected(index);
             }}
             defaultIndex={0}
             selectedIndex={selected}
         >
-            <Tab.List>
+            <TabList>
                 {valueStats &&
                     Object.keys(valueStats).map((title, index) => (
                         <Tab
@@ -51,9 +52,9 @@ const PokemonStats = ({ stats, types }: Props) => {
                             {title}
                         </Tab>
                     ))}
-            </Tab.List>
+            </TabList>
 
-            <Tab.Panels className="sm:w-max-[300px]">
+            <TabPanels className="sm:w-max-[300px]">
                 {valueStats &&
                     Object.entries(valueStats).map(
                         (
@@ -61,12 +62,13 @@ const PokemonStats = ({ stats, types }: Props) => {
                             stats_index
                         ) => {
                             return (
-                                <Tab.Panel
+                                <TabPanel
                                     key={`tab-panel-${key}`}
                                     hidden={selected !== stats_index}
                                 >
                                     {stats.map((stat, stat_index) => (
-                                        <div
+                                        <motion.div
+                                        
                                             key={`stats-bar-${selected}-${stat_index}`}
                                         >
                                             <ProgressBar
@@ -75,14 +77,14 @@ const PokemonStats = ({ stats, types }: Props) => {
                                                 value={stat.base_stat}
                                                 percentage={stat.percentage!}
                                             />
-                                        </div>
+                                        </motion.div>
                                     ))}
-                                </Tab.Panel>
+                                </TabPanel>
                             );
                         }
                     )}
-            </Tab.Panels>
-        </Tab.Group>
+            </TabPanels>
+        </TabGroup>
     );
 };
 

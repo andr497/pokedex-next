@@ -15,6 +15,8 @@ import EvolutionChainContainer from "@/components/EvolutionChain/EvolutionChainC
 import { colorPokemonTypes } from "helpers/pokemonHelpers";
 
 import Loading from "../../loading";
+import { WrapperTable } from "@/components/TableMove";
+import ContainerBarStat from "@/components/PokemonStats/ContainerBarStat";
 
 interface PropTypes {
     params: {
@@ -50,7 +52,6 @@ export default async function PokemonPage({ params }: PropTypes) {
 
     return (
         <Suspense fallback={<Loading />}>
-            <SetBackground type={data.general.types[0].type.name} />
             <section
                 className={
                     "grid xl:grid-cols-12 md:grid-cols-12 sm:grid-cols-4"
@@ -70,7 +71,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                     <PokemonDetailImage data={data.general} />
                 </section>
                 <section className="w-100 col-span-4 max-lg:col-span-12">
-                    <PokemonStats
+                    <ContainerBarStat
                         stats={data.stats}
                         types={{ colorType1, colorType2 }}
                     />
@@ -87,7 +88,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                     </div>
                 </section>
 
-                <section className="w-full xl:col-span-4 lg:col-span-4 md:col-span-6 sm:col-span-6 col-span-12 max-sm:order-first">
+                <section className="w-full xl:col-span-4 lg:col-span-4 md:col-span-6 sm:col-span-6 col-span-12">
                     <div className="w-full">
                         <h4
                             id="typing"
@@ -97,6 +98,9 @@ export default async function PokemonPage({ params }: PropTypes) {
                         </h4>
                         <PokemonTypeTable data={typesDetails} />
                     </div>
+                </section>
+                <section className="w-full col-span-12">
+                    <WrapperTable pokemonId={data.general.id} />
                 </section>
 
                 {/* <section className="flex align-middle justify-around col-span-12 w-full mt-4 mb-4">

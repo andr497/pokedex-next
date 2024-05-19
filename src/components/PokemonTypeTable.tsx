@@ -1,12 +1,12 @@
 "use client";
 import { TypeDefenses } from "interfaces/PokeApi/IPokemonTypes";
 import React from "react";
-import Chip from "./Chip/Chip";
-import IconSvg from "./IconSvg";
+import Chip from "./Common/Chip";
+import IconSvg from "./StyledComponents/IconSvg";
 import { COLOR } from "helpers/constants";
 import { checkBrightness } from "helpers/pokemonHelpers";
 import useBrightness from "@/hooks/useBrightness";
-import Divider from "./Divider/Divider";
+import Divider from "./Common/Divider";
 
 interface Props {
     data: TypeDefenses;

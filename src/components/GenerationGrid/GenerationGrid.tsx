@@ -5,17 +5,16 @@ import useSWR from "swr";
 
 import Link from "next/link";
 import { getGenerations } from "@/api/generation";
-import { Generation } from "@/interfaces/PokeApi/IGenerations";
-
-import SvgPokeball from "../SvgPokeball";
-import { GENERATION_HOVER_COLORS } from "@/helpers/constants";
 import { GenerationNames } from "@/interfaces/ICommons";
-import Loading from "../../../app/loading";
-
+import { GENERATION_HOVER_COLORS } from "@/helpers/constants";
+import { Generation } from "@/interfaces/PokeApi/IGenerations";
 import { MapIcon, UsersIcon } from "@heroicons/react/20/solid";
 
+import SvgPokeball from "../SvgPokeball";
+import Loading from "../../../app/loading";
+
 const GenerationGrid = () => {
-    const { data, error, isLoading } = useSWR("1", getGenerations);
+    const { data, isLoading } = useSWR("1", getGenerations);
     const [generations, setGenerations] = useState<Generation[]>([]);
 
     useEffect(() => {
@@ -31,7 +30,7 @@ const GenerationGrid = () => {
     return (
         <>
             <section className="p-2 mb-1">
-                <h1 className={`text-7xl text-center`}>Choose a generation</h1>
+                <h1 className={`text-7xl text-center max-sm:text-4xl`}>Choose a generation</h1>
             </section>
             <section className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 place-items-center">
                 {generations.map((generation, key) => {
@@ -39,6 +38,7 @@ const GenerationGrid = () => {
                         GENERATION_HOVER_COLORS[
                             generation.name as GenerationNames
                         ];
+
                     return (
                         <Link
                             href={`/generation/${generation.id}`}

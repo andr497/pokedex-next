@@ -2,17 +2,16 @@
 import React from "react";
 
 import Link from "next/link";
-import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
-import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
-
-import Chip from "../Chip/Chip";
-import CustomImage from "../CustomImage";
+import Image from "next/image";
+import Chip from "@/components/Common/Chip";
 import useBreakpoints from "@/hooks/useBreakpoints";
 import { IMAGE_ITEM_BASE_URL } from "@/helpers/constants";
-import Image from "next/image";
 import useEvolutionChain from "@/hooks/useEvolutionChain";
-import styled from "styled-components";
 import { checkBrightness } from "@/helpers/pokemonHelpers";
+import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
+import { PokemonImage } from "@/components/StyledComponents/Image";
+import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
+import { motion } from "framer-motion";
 
 interface Props {
     pokemon: IPokemonEvolutionChain;
@@ -21,16 +20,6 @@ interface Props {
     hasEvolution: boolean;
     numberOfPosibleEvolutions: number;
 }
-
-const PokemonImage = styled(CustomImage)((props) => {
-    const { colorType1, colorType2 } = props;
-    return {
-        ".card-pokemon-container:hover &": {
-            filter: `drop-shadow(5px 5px 0px ${colorType2})
-            drop-shadow(-5px -5px 0px ${colorType1})`,
-        },
-    };
-});
 
 const EvolutionChainDetails = ({
     pokemon,
@@ -43,13 +32,17 @@ const EvolutionChainDetails = ({
     const {
         evolutionDescription,
         pokemonGender,
+        isLoading,
         color: { colorType1, colorType2 },
     } = useEvolutionChain({
         pokemon,
     });
 
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
             className={`flex flex-wrap justify-center
                 ${firstPokemon ? "self-center" : ""}
                 ${
@@ -122,7 +115,7 @@ const EvolutionChainDetails = ({
                     {"This pokemon doesn´t evolve"}
                 </small>
             )}
-        </div>
+        </motion.div>
     );
 };
 

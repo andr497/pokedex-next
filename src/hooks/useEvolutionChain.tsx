@@ -36,6 +36,7 @@ const useEvolutionChain = ({ pokemon }: Props) => {
         color,
         pokemonGender,
         evolutionDescription,
+        isLoading
     };
 };
 

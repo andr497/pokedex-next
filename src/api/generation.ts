@@ -8,7 +8,7 @@ import {
 
 import { axiosInstance } from "./config";
 import { getPokemonById, getPokemonSpeciesById } from "./pokemon";
-import { PokemonData } from "@/interfaces/IPokemonList";
+import { IPokemonList, PokemonData } from "@/interfaces/IPokemonList";
 
 export const getGenerationById = async (
     id: string | number
@@ -46,7 +46,10 @@ export const getGenerations = async (): Promise<Generation[]> => {
 
 export const getPokemonByGenerations = async (
     id: string | number
-): Promise<{ pokemonSpecies: PokemonData[]; generation: Generation }> => {
+): Promise<{
+    pokemonSpecies: IPokemonList[];
+    generation: Generation;
+}> => {
     const {
         data: { pokemon_species, ...generation },
     } = await getGenerationById(id);
@@ -56,12 +59,14 @@ export const getPokemonByGenerations = async (
             const splittedUrl = pokemon.url
                 .split("/")
                 .filter((value) => value !== "");
-            const id = splittedUrl[splittedUrl.length - 1] as string;
-            const responsePokemonSpecies = await getPokemonSpeciesById(id);
+            const id = parseInt(splittedUrl[splittedUrl.length - 1]);
             const responsePokemon = await getPokemonById(id);
+            const { types } = responsePokemon.data;
+
             return {
-                ...responsePokemon.data,
-                ...responsePokemonSpecies.data,
+                id,
+                name: pokemon.name,
+                types,
             };
         })
     );

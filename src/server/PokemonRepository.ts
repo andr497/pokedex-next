@@ -49,6 +49,7 @@ export const findPokemonById = async (idToSearch: number | string) => {
                 generation: pokemon.generation,
             },
             abilities: pokemon.abilities,
+            moves: pokemon.moves,
             varieties: pokemon.varieties,
             stats: {
                 id: pokemon.id,

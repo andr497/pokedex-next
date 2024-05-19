@@ -36,7 +36,5 @@ export const getAllPokemonTypes = async ({
         }
     );
 
-    results.unshift({id: "", name: "Select a type"})
-
     return results;
 };

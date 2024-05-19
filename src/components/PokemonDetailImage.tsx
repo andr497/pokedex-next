@@ -1,14 +1,16 @@
 "use client";
 import React, { useMemo, useState } from "react";
 
-import Chip from "components/Chip/Chip";
-import CustomImage from "components/CustomImage";
-import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
-import { checkBrightness, colorPokemonTypes } from "helpers/pokemonHelpers";
+import { motion } from "framer-motion";
+
+import Chip from "@/components/Common/Chip";
+import CustomImage from "@/components/CustomImage";
+import { GeneralInfoPokemon } from "@/interfaces/IPokemonDetails";
+import { checkBrightness, colorPokemonTypes } from "@/helpers/pokemonHelpers";
 
 import Toggle from "./Toggle/Toggle";
 
-import "../styles/flip.css";
+import "@/styles/flip.css";
 
 interface Props {
     data: GeneralInfoPokemon;
@@ -21,12 +23,17 @@ const PokemonDetailImage = ({ data }: Props) => {
         setActiveShiny((prev) => !prev);
     };
 
-    const { colorType1, colorType2 } = useMemo(() => {
+    const { colorType1 } = useMemo(() => {
         return colorPokemonTypes(data);
     }, [data]);
 
     return (
-        <div className="flex items-center justify-center flex-col relative">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-center flex-col relative"
+        >
             <div
                 id="image-pokemon-container"
                 className="relative w-full h-full flex justify-center"
@@ -76,7 +83,7 @@ const PokemonDetailImage = ({ data }: Props) => {
                     color: checkBrightness(colorType1) ? "#fff" : "#000",
                 }}
             />
-        </div>
+        </motion.div>
     );
 };
 
