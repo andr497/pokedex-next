@@ -103,7 +103,7 @@ const Pagination = ({
                             {pages.map((value, key) => {
                                 const activePage =
                                     currentPage === value ? "active-page " : "";
-                                const disabled = value === "...";
+                                //const disabled = value === "...";
                                 return (
                                     <button
                                         key={`page-${key}`}

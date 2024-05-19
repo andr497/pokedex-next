@@ -23,16 +23,13 @@ interface Props {
 
 const EvolutionChainDetails = ({
     pokemon,
-    isSelected,
     firstPokemon,
     hasEvolution,
-    numberOfPosibleEvolutions,
 }: Props) => {
     const width = useBreakpoints();
     const {
         evolutionDescription,
         pokemonGender,
-        isLoading,
         color: { colorType1, colorType2 },
     } = useEvolutionChain({
         pokemon,

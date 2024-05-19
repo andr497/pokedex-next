@@ -3,21 +3,13 @@ import React, { ComponentPropsWithRef } from "react";
 
 import useSWR from "swr";
 
-import { getAllPokemonTypes } from "@/api/types";
-import { NamedAPIResourceWithId } from "@/interfaces/PokeApi/CommonModels";
-
-import SelectBase from "./SelectBase";
 import { Select } from "@headlessui/react";
-import IconSvg from "../StyledComponents/IconSvg";
-
-const getLabel = ({ name }: NamedAPIResourceWithId) => {
-    return name.charAt(0).toUpperCase() + name.substring(1, name.length);
-};
+import { getAllPokemonTypes } from "@/api/types";
 
 type SelectProps = ComponentPropsWithRef<"select">;
 
 const SelectType = ({ ...selectProps }: SelectProps) => {
-    const { data: options, isLoading } = useSWR(
+    const { data: options } = useSWR(
         { limit: 18 },
         getAllPokemonTypes
     );

@@ -1,11 +1,10 @@
+"use client"
 import {
     calculateStatsPokemon,
-    StatsNamesCombine,
-    StatsPokemonCalculated,
-    StatsPokemonClean,
+    StatsNamesCombine
 } from "@/helpers/PokemonStatsHelper";
 import { StatsPokemon } from "@/interfaces/IPokemonDetails";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const initialValueStatsState = {
     hp: [],

@@ -28,7 +28,7 @@ const maxValueArrObject = (arr: StatsPokemonClean[]): StatsPokemonClean => {
 const processStatsPokemonObject = (stats: StatsPokemon[]) => {
     let cleanArray: StatsPokemonClean[] = [];
 
-    stats.forEach((value, key) => {
+    stats.forEach((value) => {
         cleanArray.push({
             base_stat: value.base_stat,
             effort: value.effort,
@@ -45,10 +45,7 @@ const processStatsPokemonObject = (stats: StatsPokemon[]) => {
 const calculatePercentageStats = (
     max: StatsPokemonClean,
     arr: StatsPokemonClean[],
-    minmax?: minmax
 ) => {
-    let MAX_STAT: number =
-        minmax === "MAX" ? 903 : minmax === "MIN" ? 620 : 255;
 
     arr.forEach((v) => {
         v.percentage = (v.base_stat * 100) / max.base_stat;
@@ -101,12 +98,10 @@ const calculateMAXMINStats = (
     });
 
     const max = maxValueArrObject(newStats);
-    calculatePercentageStats(max, newStats, minmax);
+    calculatePercentageStats(max, newStats);
 
     return newStats;
 };
-
-const STATS_NAME = ["attack"];
 
 export interface StatsNamesCombine {
     attack: StatsPokemonClean[];

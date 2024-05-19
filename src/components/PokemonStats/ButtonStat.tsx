@@ -1,7 +1,7 @@
 "use client";
 import { Dispatch, SetStateAction } from "react";
 
-import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
+import { Field, Radio, RadioGroup } from "@headlessui/react";
 
 const options = ["Base", "Min", "Max"];
 

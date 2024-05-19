@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 
 import { notFound } from "next/navigation";
-import PokemonStats from "components/PokemonStats";
 import SetBackground from "components/SetBackground";
 import { findPokemonById } from "server/PokemonRepository";
 import PokemonTypeTable from "components/PokemonTypeTable";
@@ -15,7 +14,7 @@ import EvolutionChainContainer from "@/components/EvolutionChain/EvolutionChainC
 import { colorPokemonTypes } from "helpers/pokemonHelpers";
 
 import Loading from "../../loading";
-import { WrapperTable } from "@/components/TableMove";
+//import { WrapperTable } from "@/components/TableMove";
 import ContainerBarStat from "@/components/PokemonStats/ContainerBarStat";
 
 interface PropTypes {

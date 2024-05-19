@@ -1,7 +1,5 @@
 "use client";
-import { useState } from "react";
-import { Variants, motion } from "framer-motion";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Disclosure } from "@headlessui/react";
 import Link from "next/link";
 import Image from "next/image";
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -12,17 +10,11 @@ import {
 } from "@heroicons/react/20/solid";
 import { useRecoilState } from "recoil";
 import { searchTextPokemonState } from "recoil/atoms";
-import { usePathname, useRouter } from "next/navigation";
 
 interface MenuOptions {
     name: string;
     url: string;
 }
-
-const animation: Variants = {
-    open: { opacity: 1, x: 0 },
-    closed: { opacity: 0, x: "-100%" },
-};
 
 const options: MenuOptions[] = [
     {
@@ -36,7 +28,7 @@ export default function Navbar() {
         searchTextPokemonState
     );
 
-    const pathname = usePathname();
+    //const pathname = usePathname();
     const showSearchBar = false;
     return (
         <Disclosure as="nav" className={`dark:bg-gray-800 bg-blue-300`}>

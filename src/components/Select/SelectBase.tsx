@@ -1,4 +1,4 @@
-import { SelectHTMLAttributes, useMemo } from "react";
+import { SelectHTMLAttributes } from "react";
 import { useSelect, UseSelectParams } from "hooks/useSelect";
 import {
     useSelectOptions,

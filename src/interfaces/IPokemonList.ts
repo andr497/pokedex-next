@@ -1,4 +1,3 @@
-import { pokemonTypes } from "./IPokemonTypes";
 import { Pokemon } from "./PokeApi/IPokemonApi";
 import { PokemonSpecies } from "./PokeApi/IPokemonSpecies";
 

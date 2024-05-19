@@ -157,8 +157,7 @@ export const fixEvolutionMethod = ({
     needs_overworld_rain,
     turn_upside_down,
     trade_species,
-    party_species,
-    ...others
+    party_species
 }: IPokemonEvolutionChain) => {
     let fixTrigger = fixTriggerName(trigger_name);
     let minLevelArray = Object.entries({

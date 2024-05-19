@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { motion } from "framer-motion";
 import Carousel from "react-multi-carousel";
 
 import { FlavorText } from "interfaces/PokeApi/CommonModels";
@@ -44,6 +43,8 @@ const PokemonGameIndex = ({ data, types }: Props) => {
 
         setGroupData(filterdData);
     }, [data]);
+
+    console.log(types);
 
     return (
         <>

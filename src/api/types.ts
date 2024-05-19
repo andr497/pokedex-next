@@ -1,4 +1,3 @@
-import axios from "axios";
 import { axiosInstance } from "./config";
 import { NamedAPIResourceWithId, NamedAPIResource } from "interfaces/PokeApi/CommonModels";
 

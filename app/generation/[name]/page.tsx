@@ -1,13 +1,10 @@
 import { Suspense } from "react";
 
-import { Metadata } from "next";
-
 import { notFound } from "next/navigation";
-import PokemonCard from "@/components/PokemonCard";
+import PokemonGrid from "@/components/PokemonGrid/PokemonGrid";
 import { findPokemonByGenerations } from "server/PokemonRepository";
 
 import Loading from "../../loading";
-import PokemonGrid from "@/components/PokemonGrid/PokemonGrid";
 
 interface PropTypes {
     params: {

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 import { Generation } from "@/interfaces/PokeApi/IGenerations";
 import {
@@ -7,8 +7,8 @@ import {
 } from "@/interfaces/PokeApi/CommonModels";
 
 import { axiosInstance } from "./config";
-import { getPokemonById, getPokemonSpeciesById } from "./pokemon";
-import { IPokemonList, PokemonData } from "@/interfaces/IPokemonList";
+import { getPokemonById } from "./pokemon";
+import { IPokemonList } from "@/interfaces/IPokemonList";
 
 export const getGenerationById = async (
     id: string | number

@@ -1,21 +1,12 @@
 "use client";
-import React, { useState } from "react";
-
-import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import Link from "next/link";
 import { ARTWORK_BASE_URL } from "helpers/constants";
 import { IPokemonList } from "interfaces/IPokemonList";
-import {
-    checkBrightness,
-    colorPokemonTypes,
-    fixPokemonName,
-} from "helpers/pokemonHelpers";
+import { checkBrightness, colorPokemonTypes, fixPokemonName } from "helpers/pokemonHelpers";
 
 import IconSvg from "./StyledComponents/IconSvg";
-import CustomImage from "./CustomImage";
-import SvgPokeball from "./SvgPokeball";
-import { motion } from "framer-motion";
 import { PokemonImage } from "./StyledComponents/Image";
 
 interface PokemonCardProps {
@@ -107,7 +98,5 @@ const PokemonCard = ({ pokemon = null }: PokemonCardProps) => {
         </motion.div>
     );
 };
-
-const PokemonTypesCard = () => {};
 
 export default PokemonCard;

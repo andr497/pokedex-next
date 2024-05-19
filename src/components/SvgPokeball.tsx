@@ -1,7 +1,8 @@
-import styled from "styled-components";
-import { ReactSVG } from "react-svg";
-import { useTheme } from "next-themes";
 import React, { ComponentPropsWithRef } from "react";
+
+import { ReactSVG } from "react-svg";
+import styled from "styled-components";
+import { useTheme } from "next-themes";
 
 interface ColorTypesProps {
     colorType1?: string;
@@ -26,13 +27,13 @@ const SvgPokeball = styled(BaseSvgPokeballComponent)((props) => {
     const { colorType1, colorType2 } = props;
 
     let style = {};
-    if(colorType1 && colorType1) {
+    if (colorType1 && colorType1) {
         style = {
             filter: `drop-shadow(-5px 0 8px ${colorType1})
                 drop-shadow(5px 0 8px ${colorType2})
                 blur(.2rem)
             `,
-        }
+        };
     }
 
     return {
@@ -43,7 +44,7 @@ const SvgPokeball = styled(BaseSvgPokeballComponent)((props) => {
         path: {
             fill: isDark ? "#FFFFFF10" : "#00000010",
         },
-        ...style
+        ...style,
     };
 });
 

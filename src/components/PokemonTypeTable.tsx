@@ -4,7 +4,6 @@ import React from "react";
 import Chip from "./Common/Chip";
 import IconSvg from "./StyledComponents/IconSvg";
 import { COLOR } from "helpers/constants";
-import { checkBrightness } from "helpers/pokemonHelpers";
 import useBrightness from "@/hooks/useBrightness";
 import Divider from "./Common/Divider";
 

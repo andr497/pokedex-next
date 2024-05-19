@@ -231,7 +231,7 @@ const PokemonInfoGeneralCard = ({ data, abilities, varieties }: Props) => {
                                 )}
                                 size="small"
                                 rounded="full"
-                                onClick={(e) => {
+                                onClick={() => {
                                     if (principalId == params.name) return;
                                     router.replace(`/pokemon/${principalId}`);
                                 }}

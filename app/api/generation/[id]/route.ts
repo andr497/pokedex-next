@@ -1,6 +1,7 @@
 import { getGenerationById } from "@/api/generation";
 import { getPokemonById, getPokemonSpeciesById } from "@/api/pokemon";
 import { AxiosError } from "axios";
+import { NextRequest } from "next/server";
 
 type Params = {
     params: {
@@ -8,7 +9,7 @@ type Params = {
     };
 };
 
-export async function GET({ params }: Params) {
+export async function GET(request: NextRequest, { params }: Params) {
     try {
         let { id } = params;
 

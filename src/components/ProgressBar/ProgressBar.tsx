@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useBrightness from "@/hooks/useBrightness";
 
 type Props = {

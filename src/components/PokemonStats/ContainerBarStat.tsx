@@ -1,14 +1,11 @@
 "use client";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import BarStat from "./BarStat";
 import useStats from "@/hooks/useStats";
 import { StatsPokemon } from "@/interfaces/IPokemonDetails";
-import {
-    StatsPokemonCalculated,
-    StatsPokemonClean,
-} from "@/helpers/PokemonStatsHelper";
-import { StatsNamesCombine } from "./../../helpers/PokemonStatsHelper";
+import { StatsPokemonClean } from "@/helpers/PokemonStatsHelper";
+
+import BarStat from "./BarStat";
 import ButtonStat from "./ButtonStat";
 
 interface Props {
@@ -19,8 +16,6 @@ interface Props {
     types: { colorType1: string; colorType2: string };
 }
 
-type StatsNamesCombineKey = keyof StatsNamesCombine;
-
 const ContainerBarStat = ({ stats, types }: Props) => {
     const { valueStats } = useStats({ stats });
     const [selected, setSelected] = useState<number>(0);
@@ -30,13 +25,9 @@ const ContainerBarStat = ({ stats, types }: Props) => {
         prevSelectRef.current = selected;
     }, [selected]);
 
-    const handleItemClick = (index: number) => {
-        setSelected(index);
-    };
-
     return (
         <div>
-            <ButtonStat 
+            <ButtonStat
                 selected={selected}
                 setSelected={setSelected}
                 types={types}
