@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import { NextRequest } from "next/server";
+import ServerError from "@/helpers/ServerError";
 import { axiosCacheInstance } from "@/api/config";
 import { Pokemon } from "@/interfaces/PokeApi/IPokemonApi";
 import { PokemonSpecies } from "@/interfaces/PokeApi/IPokemonSpecies";
