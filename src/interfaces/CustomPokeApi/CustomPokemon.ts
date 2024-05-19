@@ -4,5 +4,5 @@ import { PokemonSpecies } from "../PokeApi/IPokemonSpecies";
 export type CustomPokemon = {
     id: PokemonSpecies["id"];
     name: PokemonSpecies["name"];
-    type: Pokemon["types"];
+    types: Pokemon["types"];
 };

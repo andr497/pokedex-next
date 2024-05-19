@@ -1,14 +1,11 @@
+import { AxiosResponse } from "axios";
+
+import { NextRequest } from "next/server";
 import { axiosCacheInstance } from "@/api/config";
-import { CustomPokemon } from "@/interfaces/CustomPokeApi/CustomPokemon";
-import {
-    NamedAPIResource,
-    PaginationData,
-} from "@/interfaces/PokeApi/CommonModels";
 import { Pokemon } from "@/interfaces/PokeApi/IPokemonApi";
 import { PokemonSpecies } from "@/interfaces/PokeApi/IPokemonSpecies";
-import { getPokemonList } from "api/pokemon";
-import { AxiosResponse } from "axios";
-import { NextRequest } from "next/server";
+import { CustomPokemon } from "@/interfaces/CustomPokeApi/CustomPokemon";
+import { NamedAPIResource, PaginationData } from "@/interfaces/PokeApi/CommonModels";
 
 // export async function GET(request: Request) {
 //     try {
@@ -58,7 +55,7 @@ export async function GET(request: NextRequest) {
                     await axiosCacheInstance.get(`/pokemon/${id}`);
 
                 const { name, ...restPokemonSpecies } = pokemonSpeciesResponse.data
-                const { types, ...others } = pokemonResponse.data
+                const { types } = pokemonResponse.data
                 return {
                     id: restPokemonSpecies.id,
                     name,
