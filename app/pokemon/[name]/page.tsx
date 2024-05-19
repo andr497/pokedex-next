@@ -52,6 +52,7 @@ export default async function PokemonPage({ params }: PropTypes) {
 
     return (
         <Suspense fallback={<Loading />}>
+            <SetBackground type={data.general.types[0].type.name} />
             <section
                 className={
                     "grid xl:grid-cols-12 md:grid-cols-12 sm:grid-cols-4"
@@ -99,9 +100,9 @@ export default async function PokemonPage({ params }: PropTypes) {
                         <PokemonTypeTable data={typesDetails} />
                     </div>
                 </section>
-                <section className="w-full col-span-12">
+                {/* <section className="w-full col-span-12">
                     <WrapperTable pokemonId={data.general.id} />
-                </section>
+                </section> */}
 
                 {/* <section className="flex align-middle justify-around col-span-12 w-full mt-4 mb-4">
                     <div className="w-full">
