@@ -2,14 +2,15 @@
 import React, { useMemo } from "react";
 
 import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
-import EvolutionChainElement from "./EvolutionChainElement";
+
+import EvolutionChainElement from "./Element";
 
 interface Props {
     pokemonIdActual: number;
     pokemonChain: IPokemonEvolutionChain[][];
 }
 
-const EvolutionChainContainer = ({ pokemonChain, pokemonIdActual }: Props) => {
+const Container = ({ pokemonChain, pokemonIdActual }: Props) => {
     const hasEvolution = useMemo(
         () => pokemonChain.length > 1,
         [pokemonChain]
@@ -30,4 +31,4 @@ const EvolutionChainContainer = ({ pokemonChain, pokemonIdActual }: Props) => {
     );
 };
 
-export default EvolutionChainContainer;
+export default Container;

@@ -3,19 +3,19 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 
 import { notFound } from "next/navigation";
+import { Loading } from "@/components/Loading";
 import SetBackground from "components/SetBackground";
-import { findPokemonById } from "server/PokemonRepository";
+import { PokemonStats } from "@/components/Pokemon/Stats";
 import PokemonTypeTable from "components/PokemonTypeTable";
+import { colorPokemonTypes } from "helpers/pokemonHelpers";
+import { findPokemonById } from "server/PokemonRepository";
 import PokemonDetailImage from "components/PokemonDetailImage";
 import { findPokemonTypes } from "server/TypePokemonRepository";
 import PokemonNavigationName from "components/PokemonNavigationName";
+import { EvolutionChain } from "@/components/Pokemon/EvolutionChain";
 import PokemonInfoGeneralCard from "components/PokemonInfoGeneralCard";
-import EvolutionChainContainer from "@/components/EvolutionChain/EvolutionChainContainer";
-import { colorPokemonTypes } from "helpers/pokemonHelpers";
 
-import Loading from "../../loading";
 //import { WrapperTable } from "@/components/TableMove";
-import ContainerBarStat from "@/components/PokemonStats/ContainerBarStat";
 
 interface PropTypes {
     params: {
@@ -71,7 +71,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                     <PokemonDetailImage data={data.general} />
                 </section>
                 <section className="w-100 col-span-4 max-lg:col-span-12">
-                    <ContainerBarStat
+                    <PokemonStats
                         stats={data.stats}
                         types={{ colorType1, colorType2 }}
                     />
@@ -81,7 +81,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                         <h4 className="font-heading font-medium text-center text-4xl mb-8">
                             Evolution Chain
                         </h4>
-                        <EvolutionChainContainer
+                        <EvolutionChain
                             pokemonIdActual={data.general.id}
                             pokemonChain={data.evolution_chain}
                         />

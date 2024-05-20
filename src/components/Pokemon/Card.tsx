@@ -6,14 +6,14 @@ import { ARTWORK_BASE_URL } from "helpers/constants";
 import { IPokemonList } from "interfaces/IPokemonList";
 import { checkBrightness, colorPokemonTypes, fixPokemonName } from "helpers/pokemonHelpers";
 
-import IconSvg from "./StyledComponents/IconSvg";
-import { PokemonImage } from "./StyledComponents/Image";
+import IconSvg from "@/components/StyledComponents/IconSvg";
+import { PokemonImage } from "@/components/StyledComponents/Image";
 
 interface PokemonCardProps {
     pokemon: IPokemonList | null;
 }
 
-const PokemonCard = ({ pokemon = null }: PokemonCardProps) => {
+const Card = ({ pokemon = null }: PokemonCardProps) => {
     if (pokemon === null) {
         return <></>;
     }
@@ -99,4 +99,4 @@ const PokemonCard = ({ pokemon = null }: PokemonCardProps) => {
     );
 };
 
-export default PokemonCard;
+export default Card;

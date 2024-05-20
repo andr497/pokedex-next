@@ -1,8 +1,9 @@
 "use client";
+
 import React, { useMemo } from "react";
 
+import EvolutionChainDetails from "./Details";
 import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
-import EvolutionChainDetails from "./EvolutionChainDetails";
 
 interface Props {
     pokemonId: number;
