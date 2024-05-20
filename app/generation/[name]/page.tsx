@@ -1,10 +1,9 @@
 import { Suspense } from "react";
 
 import { notFound } from "next/navigation";
-import PokemonGrid from "@/components/PokemonGrid/PokemonGrid";
+import { Loading } from "@/components/Loading";
 import { findPokemonByGenerations } from "server/PokemonRepository";
-
-import Loading from "../../loading";
+import GenerationDetailsContainer from "@/components/Generation/Details/Container";
 
 interface PropTypes {
     params: {
@@ -22,7 +21,10 @@ export default async function GenerationPage({ params }: PropTypes) {
 
     return (
         <Suspense fallback={<Loading />}>
-            <PokemonGrid pokemonData={data.pokemonSpecies} generation={data.generation} />
+            <GenerationDetailsContainer
+                pokemonData={data.pokemonSpecies}
+                generation={data.generation}
+            />
         </Suspense>
     );
 }

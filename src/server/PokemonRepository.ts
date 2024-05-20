@@ -1,12 +1,14 @@
 import { getPokemonByGenerations } from "@/api/generation";
 import { getPokemonById, getPokemonSpeciesById } from "api/pokemon";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import {
     convertDecimeterToMeter,
     convertHectogramToKilogram,
 } from "helpers/converterHelper";
 import { processEvolutionChain } from "helpers/evolutionChainPokemon";
 import { IPokemonEvolutionChain } from "interfaces/IGeneral";
+import { CustomPokemon } from "@/interfaces/CustomPokeApi/CustomPokemon";
+import { axiosCacheInstance } from "@/api/config";
 
 export const findPokemonById = async (idToSearch: number | string) => {
     try {
@@ -80,7 +82,24 @@ export const findPokemonByGenerations = async (idToSearch: number | string) => {
     );
 
     return {
-        pokemonSpecies: pokemonSpecies.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)),
-        generation
-    }
+        pokemonSpecies: pokemonSpecies.sort((a, b) =>
+            a.id < b.id ? -1 : a.id > b.id ? 1 : 0
+        ),
+        generation,
+    };
+};
+
+export const searchPokemonByName = async (
+    name: string
+): Promise<CustomPokemon[]> => {
+    const response: AxiosResponse<{ pokemon: CustomPokemon[] }> =
+        await axiosCacheInstance({
+            url: `/api/pokemon`,
+            baseURL: `http://localhost:3000`,
+            params: {
+                name,
+            },
+        });
+
+    return response.data.pokemon;
 };
