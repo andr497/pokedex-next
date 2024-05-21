@@ -1,5 +1,8 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+
+import { AnimatePresence, motion } from "framer-motion";
+
 import { ArrowUpIcon } from "@heroicons/react/20/solid";
 
 const ButtonToTop = () => {
@@ -28,19 +31,27 @@ const ButtonToTop = () => {
         });
     };
     return (
-        <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className={`z-50 back-to-top fixed bottom-8 right-8 
-            flex justify-center items-center
-            bg-gray-600 outline-4 outline-gray-50 p-0 
-            rounded-full h-14 w-14 
-            transition-all duration-1300  ease-in-out
-            ${isVisible ? "visible" : "invisible"}`}
-            onClick={scrollToTop}
-        >
-            <ArrowUpIcon width={20} height={20} className="text-gray-50" />
-        </motion.button>
+        <AnimatePresence>
+            {isVisible && (
+                <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className={`z-50 back-to-top fixed bottom-8 right-8 
+                                flex justify-center items-center
+                                bg-gray-600 outline-4 outline-gray-50 p-0 
+                                rounded-full h-14 w-14 
+                                transition-all duration-1300  ease-in-out`}
+                    onClick={scrollToTop}
+                >
+                    <ArrowUpIcon
+                        width={20}
+                        height={20}
+                        className="text-gray-50"
+                    />
+                </motion.button>
+            )}
+        </AnimatePresence>
     );
 };
 
