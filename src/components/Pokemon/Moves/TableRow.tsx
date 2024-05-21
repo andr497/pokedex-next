@@ -3,10 +3,9 @@ import React, { useMemo } from "react";
 
 import { COLOR } from "@/helpers/constants";
 import useBreakpoints from "@/hooks/useBreakpoints";
+import IconSvg from "@/components/StyledComponents/IconSvg";
 import { CombinePokemonMove } from "@/interfaces/PokeApi/IMoves";
 import { MoveLearnMethod, VersionGroup } from "@/interfaces/TableMoveTypes";
-
-import IconSvg from "../StyledComponents/IconSvg";
 
 interface TableRowProps {
     pokemonMove: CombinePokemonMove;
