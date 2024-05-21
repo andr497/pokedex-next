@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import useModal from "hooks/useModal";
 import { getAbilityById } from "api/pokemon";
@@ -16,7 +15,12 @@ import { AudioPlayer, Chip, Divider } from "@/components/Common";
 import { PokemonSpecies } from "interfaces/PokeApi/IPokemonSpecies";
 import { LockOpenIcon as HiddenIcon } from "@heroicons/react/20/solid";
 import { Pokemon, PokemonAbility } from "interfaces/PokeApi/IPokemonApi";
-import { checkBrightness, colorPokemonTypes, fixAbilitiesName, fixVarietiesName } from "@/helpers/pokemonHelpers";
+import {
+    checkBrightness,
+    colorPokemonTypes,
+    fixAbilitiesName,
+    fixVarietiesName,
+} from "@/helpers/pokemonHelpers";
 
 import PokemonCardTypography from "./CardTypography";
 
