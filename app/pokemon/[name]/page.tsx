@@ -4,16 +4,18 @@ import { Metadata } from "next";
 
 import { notFound } from "next/navigation";
 import { Loading } from "@/components/Loading";
-import SetBackground from "components/SetBackground";
 import { PokemonStats } from "@/components/Pokemon/Stats";
-import PokemonTypeTable from "components/PokemonTypeTable";
 import { colorPokemonTypes } from "helpers/pokemonHelpers";
 import { findPokemonById } from "server/PokemonRepository";
-import PokemonDetailImage from "components/PokemonDetailImage";
 import { findPokemonTypes } from "server/TypePokemonRepository";
-import PokemonNavigationName from "components/PokemonNavigationName";
+import {
+    PokemonDetailImage,
+    PokemonNavigationName,
+    PokemonCardInfo,
+} from "@/components/Pokemon/Details";
 import { EvolutionChain } from "@/components/Pokemon/EvolutionChain";
-import PokemonInfoGeneralCard from "components/PokemonInfoGeneralCard";
+import { WeaknessResistantList } from "@/components/Pokemon/WeaknessResistant"
+
 
 //import { WrapperTable } from "@/components/TableMove";
 
@@ -51,7 +53,6 @@ export default async function PokemonPage({ params }: PropTypes) {
 
     return (
         <Suspense fallback={<Loading />}>
-            <SetBackground type={data.general.types[0].type.name} />
             <section
                 className={
                     "grid xl:grid-cols-12 md:grid-cols-12 sm:grid-cols-4"
@@ -61,7 +62,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                     <PokemonNavigationName data={data.general} />
                 </section>
                 <section className="w-full col-span-12 xl:col-span-4 lg:col-span-4 md:col-span-6 sm:col-span-6">
-                    <PokemonInfoGeneralCard
+                    <PokemonCardInfo
                         data={data.general}
                         abilities={data.abilities}
                         varieties={data.varieties}
@@ -96,7 +97,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                         >
                             Typing
                         </h4>
-                        <PokemonTypeTable data={typesDetails} />
+                        <WeaknessResistantList data={typesDetails} />
                     </div>
                 </section>
                 {/* <section className="w-full col-span-12">

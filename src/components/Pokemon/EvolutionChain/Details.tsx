@@ -25,6 +25,7 @@ const EvolutionChainDetails = ({
     pokemon,
     firstPokemon,
     hasEvolution,
+    isSelected
 }: Props) => {
     const width = useBreakpoints();
     const {

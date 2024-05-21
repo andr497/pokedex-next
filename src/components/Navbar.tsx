@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { useRecoilState } from "recoil";
 import { searchTextPokemonState } from "recoil/atoms";
+import { useRouter } from "next/navigation";
 
 interface MenuOptions {
     name: string;
@@ -24,12 +25,15 @@ const options: MenuOptions[] = [
 ];
 
 export default function Navbar() {
+    const router = useRouter();
     const [searchText, setSearchText] = useRecoilState<string>(
         searchTextPokemonState
     );
 
-    //const pathname = usePathname();
-    const showSearchBar = false;
+    const handleSearch = (text: string) => {
+        router.replace(`/pokemon?q=${text}`);
+    };
+
     return (
         <Disclosure as="nav" className={`dark:bg-gray-800 bg-blue-300`}>
             {({ open }) => (
@@ -90,10 +94,12 @@ export default function Navbar() {
                                     </div>
                                 </div>
                             </div>
-                            <div
-                                className={`${
-                                    showSearchBar ? "block" : "hidden"
-                                } relative`}
+                            <form
+                                className={`relative`}
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleSearch(searchText);
+                                }}
                             >
                                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                     <SearchIcon className="block h-6 w-6" />
@@ -112,7 +118,7 @@ export default function Navbar() {
                                         setSearchText(text);
                                     }}
                                 />
-                            </div>
+                            </form>
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                                 <ThemeSwitcher />
                             </div>
