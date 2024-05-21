@@ -4,19 +4,20 @@ import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
 import Chip from "@/components/Common/Chip";
+import Toggle from "@/components/Toggle/Toggle";
 import CustomImage from "@/components/CustomImage";
 import { GeneralInfoPokemon } from "@/interfaces/IPokemonDetails";
 import { checkBrightness, colorPokemonTypes } from "@/helpers/pokemonHelpers";
 
-import Toggle from "./Toggle/Toggle";
-
 import "@/styles/flip.css";
+import useSvgTypeBackground from "@/hooks/useSvgTypeBackground";
 
 interface Props {
     data: GeneralInfoPokemon;
 }
 
-const PokemonDetailImage = ({ data }: Props) => {
+const Image = ({ data }: Props) => {
+    useSvgTypeBackground({type: data.types[0].type.name})
     const [activeShiny, setActiveShiny] = useState<boolean>(false);
 
     const toggleImage = () => {
@@ -26,7 +27,6 @@ const PokemonDetailImage = ({ data }: Props) => {
     const { colorType1 } = useMemo(() => {
         return colorPokemonTypes(data);
     }, [data]);
-
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
@@ -87,4 +87,4 @@ const PokemonDetailImage = ({ data }: Props) => {
     );
 };
 
-export default PokemonDetailImage;
+export default Image;

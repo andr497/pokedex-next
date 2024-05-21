@@ -7,6 +7,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import useModal from "hooks/useModal";
 import { getAbilityById } from "api/pokemon";
+import { Loading } from "@/components/Loading";
 import { ModalProps } from "components/Modal/Modal";
 import { useParams, useRouter } from "next/navigation";
 import IconSvg from "@/components/StyledComponents/IconSvg";
@@ -17,7 +18,8 @@ import { LockOpenIcon as HiddenIcon } from "@heroicons/react/20/solid";
 import { Pokemon, PokemonAbility } from "interfaces/PokeApi/IPokemonApi";
 import { checkBrightness, colorPokemonTypes, fixAbilitiesName, fixVarietiesName } from "@/helpers/pokemonHelpers";
 
-import Loading from "../../app/loading";
+import PokemonCardTypography from "./CardTypography";
+
 const Modal = dynamic(() => import("components/Modal/Modal"), {
     ssr: false,
 });
@@ -28,7 +30,7 @@ interface Props {
     varieties: PokemonSpecies["varieties"];
 }
 
-const PokemonInfoGeneralCard = ({ data, abilities, varieties }: Props) => {
+const Card = ({ data, abilities, varieties }: Props) => {
     const params = useParams();
     const router = useRouter();
 
@@ -102,9 +104,6 @@ const PokemonInfoGeneralCard = ({ data, abilities, varieties }: Props) => {
         >
             <div className="">
                 <div className="table w-full">
-                    <Link href={`/generation/${data.generation.name}`}>
-                        Go back to list
-                    </Link>
                     <PokemonCardTypography
                         title={"National N°"}
                         subtitle={data.id.toString().padStart(4, "0")}
@@ -213,7 +212,9 @@ const PokemonInfoGeneralCard = ({ data, abilities, varieties }: Props) => {
                 <div
                     className={`grid ${
                         varieties.length === 1 ? "col-span-12" : "grid-cols-2"
-                    } ${varieties.length > 4 ? "h-[150px] overflow-scroll" : ""}`}
+                    } ${
+                        varieties.length > 4 ? "h-[150px] overflow-scroll" : ""
+                    }`}
                 >
                     {varieties.map((value, key) => {
                         const principalId = value.pokemon.url.split("/")[6];
@@ -248,29 +249,4 @@ const PokemonInfoGeneralCard = ({ data, abilities, varieties }: Props) => {
     );
 };
 
-export default PokemonInfoGeneralCard;
-
-const PokemonCardTypography = ({
-    title,
-    subtitle,
-    subtitleClass = "",
-}: {
-    title: string;
-    subtitle: string;
-    subtitleClass?: React.HTMLAttributes<"span">["className"];
-}) => {
-    return (
-        <>
-            <h4 className="table-row w-full">
-                <span className="font-bold w-1/2 pr-4 text-right table-cell">
-                    {title}
-                </span>
-                <span
-                    className={`font-thin w-1/2 text-left table-cell ${subtitleClass}`}
-                >
-                    {subtitle}
-                </span>
-            </h4>
-        </>
-    );
-};
+export default Card;

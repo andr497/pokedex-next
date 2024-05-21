@@ -13,7 +13,7 @@ interface Props {
     data: GeneralInfoPokemon;
 }
 
-const PokemonNavigationName = ({ data }: Props) => {
+const NavigationName = ({ data }: Props) => {
     const {
         colors: { colorType1, colorType2 },
         nextPokemon,
@@ -92,4 +92,4 @@ const PokemonNavigationName = ({ data }: Props) => {
     );
 };
 
-export default PokemonNavigationName;
+export default NavigationName;
