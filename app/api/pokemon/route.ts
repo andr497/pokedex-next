@@ -6,7 +6,10 @@ import { axiosCacheInstance } from "@/api/config";
 import { Pokemon } from "@/interfaces/PokeApi/IPokemonApi";
 import { PokemonSpecies } from "@/interfaces/PokeApi/IPokemonSpecies";
 import { CustomPokemon } from "@/interfaces/CustomPokeApi/CustomPokemon";
-import { NamedAPIResource, PaginationData } from "@/interfaces/PokeApi/CommonModels";
+import {
+    NamedAPIResource,
+    PaginationData,
+} from "@/interfaces/PokeApi/CommonModels";
 
 // export async function GET(request: Request) {
 //     try {
@@ -35,12 +38,13 @@ export async function GET(request: NextRequest) {
             params: {
                 limit,
             },
-            
         });
+
+        const cleanName = name.trim().replaceAll(" ", "-").toLocaleLowerCase();
 
         const filteredPokemonSpecies: NamedAPIResource[] =
             pokemonSpecies.data.results.filter((value) =>
-                value.name.includes(name)
+                value.name.includes(cleanName)
             );
 
         const allPokemonDetails: CustomPokemon[] = await Promise.all(
@@ -55,12 +59,13 @@ export async function GET(request: NextRequest) {
                 const pokemonResponse: AxiosResponse<Pokemon> =
                     await axiosCacheInstance.get(`/pokemon/${id}`);
 
-                const { name, ...restPokemonSpecies } = pokemonSpeciesResponse.data
-                const { types } = pokemonResponse.data
+                const { name, ...restPokemonSpecies } =
+                    pokemonSpeciesResponse.data;
+                const { types } = pokemonResponse.data;
                 return {
                     id: restPokemonSpecies.id,
                     name,
-                    types
+                    types,
                 };
             })
         );
