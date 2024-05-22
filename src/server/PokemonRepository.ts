@@ -95,7 +95,7 @@ export const searchPokemonByName = async (
     const response: AxiosResponse<{ pokemon: CustomPokemon[] }> =
         await axiosCacheInstance({
             url: `/api/pokemon`,
-            baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || `http://localhost:300`,
+            baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
             params: {
                 name,
             },

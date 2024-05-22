@@ -29,8 +29,8 @@ export const getAllMovesPokemonMoves = async (moves: PokemonMove[]) => {
 export const getAllPokemonMovesProcess = async (id: string | number) => {
     const response: AxiosResponse<{moves: CombinePokemonMove[]}> = await axiosCacheInstance({
         method: "get",
-        baseURL: "http://localhost:3000/api",
-        url: `/moves/${id}`,
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+        url: `/api/moves/${id}`,
     });
 
     return response.data;

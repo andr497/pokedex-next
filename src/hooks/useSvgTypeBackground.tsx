@@ -18,7 +18,7 @@ const useSvgTypeBackground = ({ type }: Props) => {
         (async () => {
             const response = await axiosCacheInstance({
                 method: "get",
-                baseURL: "http://localhost:3000/",
+                baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
                 url: `/assets/types/${type}.svg`,
             });
 
