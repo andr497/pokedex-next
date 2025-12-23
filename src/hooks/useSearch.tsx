@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 interface Props<T extends Record<string, unknown>, K extends keyof T> {
     data: T[];
@@ -17,7 +17,6 @@ const useSearch = <T extends Record<K, unknown>, K extends keyof T>({
     key,
     filters = [],
 }: Props<T, K>) => {
-    const [list, setList] = useState<T[]>(data);
     const [search, setSearch] = useState<string>("");
     const [filtersState, setFiltersState] = useState<any>({});
 
@@ -38,26 +37,22 @@ const useSearch = <T extends Record<K, unknown>, K extends keyof T>({
         });
     };
 
-    useEffect(() => {
-        let filterList = data.filter((e) => {
-            return e[key]!.toString()
-                .toLocaleLowerCase()
-                .includes(search.toLocaleLowerCase());
+    const list = useMemo(() => {
+        let filterList = data.filter((e) =>
+            e[key]!.toString().toLowerCase().includes(search.toLowerCase())
+        );
+
+        filters.forEach(({ filterKey, filterCallback }) => {
+            if (filtersState[filterKey] !== undefined) {
+                filterList = filterCallback(
+                    filterList,
+                    filtersState[filterKey]
+                );
+            }
         });
 
-        if (filtersState !== null) {
-            filters.forEach(({ filterKey, filterCallback }) => {
-                if (typeof filtersState[filterKey] !== "undefined") {
-                    filterList = filterCallback(
-                        filterList,
-                        filtersState[filterKey]
-                    );
-                }
-            });
-        }
-
-        setList(filterList);
-    }, [search, filtersState]);
+        return filterList;
+    }, [data, key, search, filters, filtersState]);
 
     return {
         handleChange,

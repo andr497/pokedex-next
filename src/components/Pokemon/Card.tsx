@@ -2,9 +2,13 @@
 import { motion } from "framer-motion";
 
 import Link from "next/link";
-import { ARTWORK_BASE_URL } from "helpers/constants";
+import { ARTWORK_BASE_URL } from "@/helpers/constants";
 import { IPokemonList } from "interfaces/IPokemonList";
-import { checkBrightness, colorPokemonTypes, fixPokemonName } from "helpers/pokemonHelpers";
+import {
+    checkBrightness,
+    colorPokemonTypes,
+    fixPokemonName,
+} from "@/helpers/pokemonHelpers";
 
 import IconSvg from "@/components/StyledComponents/IconSvg";
 import { PokemonImage } from "@/components/StyledComponents/Image";
@@ -29,13 +33,13 @@ const Card = ({ pokemon = null }: PokemonCardProps) => {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0 }}
             viewport={{ once: true }}
-            className={`group card-pokemon-container hover:-translate-y-1 relative mx-auto overflow-hidden rounded w-max-md sm:w-full dark:bg-gray-800 p-[1px]  transition-all duration-300 ease-in-out open:opacity-50 hover:bg-gradient-to-r`}
+            className={`group card-pokemon-container hover:-translate-y-1 relative mx-auto overflow-hidden rounded w-max-md sm:w-full dark:bg-gray-800 p-px  transition-all duration-300 ease-in-out open:opacity-50 hover:bg-linear-to-r`}
             style={{
                 backgroundImage: `linear-gradient(to right, ${colorType1}, ${colorType2})`,
             }}
         >
             <Link prefetch={false} href={`/pokemon/${pokemon.id}`}>
-                <div className="group-hover:animate-spin-slow opacity-0 absolute -top-40 -bottom-40 left-10 right-10 bg-gradient-to-r from-transparent via-white/90 dark:via-gray-800 to-transparent group-hover:opacity-100"></div>
+                <div className="group-hover:animate-spin-slow opacity-0 absolute -top-40 -bottom-40 left-10 right-10 bg-linear-to-r from-transparent via-white/90 dark:via-gray-800 to-transparent group-hover:opacity-100"></div>
                 <div className="relative rounded dark:bg-gray-800 bg-gray-100 p-6 text-center">
                     <div className="relative flex justify-center align-middle my-4">
                         <PokemonImage

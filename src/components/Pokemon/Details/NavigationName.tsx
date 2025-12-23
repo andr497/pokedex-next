@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { TOTAL_POKEMON } from "@/helpers/constants";
 import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
-import { colorPokemonTypes, fixPokemonName } from "helpers/pokemonHelpers";
+import { colorPokemonTypes, fixPokemonName } from "@/helpers/pokemonHelpers";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 interface Props {

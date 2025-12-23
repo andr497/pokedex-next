@@ -20,9 +20,9 @@ const Card = ({ generation }: Props) => {
     return (
         <Link
             href={`/generation/${generation.id}`}
-            className={`group relative mx-auto overflow-hidden rounded w-full dark:bg-gray-800 bg-gray-100 p-[1px] transition-all duration-300 ease-in-out hover:bg-gradient-to-r ${from} hover:via-purple-500 ${to}`}
+            className={`group relative mx-auto overflow-hidden rounded w-full dark:bg-gray-800 bg-gray-100 p-px transition-all duration-300 ease-in-out hover:bg-linear-to-r ${from} hover:via-purple-500 ${to}`}
         >
-            <div className="group-hover:animate-spin-slow opacity-0 absolute -top-40 -bottom-40 left-10 right-10 bg-gradient-to-r from-transparent via-white/90 dark:via-gray-800 to-transparent group-hover:opacity-100"></div>
+            <div className="group-hover:animate-spin-slow opacity-0 absolute -top-40 -bottom-40 left-10 right-10 bg-linear-to-r from-transparent via-white/90 dark:via-gray-800 to-transparent group-hover:opacity-100"></div>
 
             <div className="relative rounded dark:bg-gray-800 bg-gray-100 p-6">
                 <h2 className="text-center text-4xl mt-8 font-bold min-h-18 px-12 uppercase">

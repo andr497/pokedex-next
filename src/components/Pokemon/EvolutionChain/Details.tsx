@@ -79,7 +79,7 @@ const EvolutionChainDetails = ({
                 </div>
             </Link>
             {!firstPokemon && (
-                <div className="flex items-center break-words max-w-max p-5 self-center text-center flex-col-reverse max-sm:flex-grow max-sm:max-w-full">
+                <div className="flex items-center wrap-break-word max-w-max p-5 self-center text-center flex-col-reverse max-sm:grow max-sm:max-w-full">
                     {width === "xs" ? (
                         <ArrowDownIcon className="w-11" />
                     ) : (

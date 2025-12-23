@@ -1,4 +1,4 @@
-import { getAllPokemonTypes, getTypeDetail } from "api/types";
+import { getAllPokemonTypes, getTypeDetail } from "@/api/types";
 import { PokemonType } from "interfaces/PokeApi/IPokemonApi";
 import {
     TypeDetail,

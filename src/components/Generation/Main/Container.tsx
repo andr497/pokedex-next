@@ -13,9 +13,8 @@ const GenerationGrid = () => {
     const [generations, setGenerations] = useState<Generation[]>([]);
 
     useEffect(() => {
-        if (data) {
-            setGenerations(data);
-        }
+        if (!data) return;
+        setGenerations(data);
     }, [data]);
 
     if (isLoading) {

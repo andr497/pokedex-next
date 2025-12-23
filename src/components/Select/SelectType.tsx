@@ -9,10 +9,7 @@ import { getAllPokemonTypes } from "@/api/types";
 type SelectProps = ComponentPropsWithRef<"select">;
 
 const SelectType = ({ ...selectProps }: SelectProps) => {
-    const { data: options } = useSWR(
-        { limit: 18 },
-        getAllPokemonTypes
-    );
+    const { data: options } = useSWR({ limit: 18 }, getAllPokemonTypes);
 
     return (
         <>

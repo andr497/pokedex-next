@@ -4,10 +4,10 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import dynamic from "next/dynamic";
-import useModal from "hooks/useModal";
-import { getAbilityById } from "api/pokemon";
+import useModal from "@/hooks/useModal";
+import { getAbilityById } from "@/api/pokemon";
 import { Loading } from "@/components/Loading";
-import { ModalProps } from "components/Modal/Modal";
+import { ModalProps } from "@/components/Modal/Modal";
 import { useParams, useRouter } from "next/navigation";
 import IconSvg from "@/components/StyledComponents/IconSvg";
 import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
@@ -24,7 +24,7 @@ import {
 
 import PokemonCardTypography from "./CardTypography";
 
-const Modal = dynamic(() => import("components/Modal/Modal"), {
+const Modal = dynamic(() => import("@/components/Modal/Modal"), {
     ssr: false,
 });
 

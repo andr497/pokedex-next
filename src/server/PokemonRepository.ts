@@ -1,11 +1,11 @@
 import { getPokemonByGenerations } from "@/api/generation";
-import { getPokemonById, getPokemonSpeciesById } from "api/pokemon";
+import { getPokemonById, getPokemonSpeciesById } from "@/api/pokemon";
 import axios, { AxiosResponse } from "axios";
 import {
     convertDecimeterToMeter,
     convertHectogramToKilogram,
-} from "helpers/converterHelper";
-import { processEvolutionChain } from "helpers/evolutionChainPokemon";
+} from "@/helpers/converterHelper";
+import { processEvolutionChain } from "@/helpers/evolutionChainPokemon";
 import { IPokemonEvolutionChain } from "interfaces/IGeneral";
 import { CustomPokemon } from "@/interfaces/CustomPokeApi/CustomPokemon";
 import { axiosCacheInstance } from "@/api/config";
@@ -61,6 +61,7 @@ export const findPokemonById = async (idToSearch: number | string) => {
             flavor_text_entries: pokemon.flavor_text_entries,
         };
     } catch (e) {
+        console.error(e);
         return null;
     }
 };

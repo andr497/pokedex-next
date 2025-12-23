@@ -10,7 +10,7 @@ const ThemeSwitcher = () => {
     const { theme, setTheme } = useTheme();
 
     useEffect(() => {
-        setMounted(true);
+        setMounted((prev) => (prev ? prev : true));
     }, []);
 
     if (!mounted) {
@@ -21,8 +21,8 @@ const ThemeSwitcher = () => {
         setTheme(theme === "dark" ? "light" : "dark");
     };
     return (
-        <button 
-            className={`inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700`} 
+        <button
+            className={`inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700`}
             onClick={handleClick}
         >
             {theme === "light" ? (

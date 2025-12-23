@@ -1,13 +1,12 @@
 import type { Config } from "tailwindcss";
-import defaultTheme from "tailwindcss/defaultTheme"
-
+import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
     darkMode: ["class"],
     content: [
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
         container: {
@@ -53,8 +52,8 @@ const config: Config = {
                     foreground: "hsl(var(--card-foreground))",
                 },
                 type_normal: {
-                    DEFAULT: "#FF0000"
-                }
+                    DEFAULT: "#FF0000",
+                },
             },
             borderRadius: {
                 lg: "var(--radius)",
@@ -75,11 +74,11 @@ const config: Config = {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
                 "spin-slow": "spin 5s linear infinite",
-                "rotate": "spin 5s ease-in infinite"
+                rotate: "spin 5s ease-in infinite",
             },
             fontFamily: {
-                sans: ['Inter var', ...defaultTheme.fontFamily.sans]
-            }
+                sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+            },
         },
     },
     plugins: [],

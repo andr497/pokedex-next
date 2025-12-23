@@ -30,7 +30,7 @@ const TableRadioFilters = <T extends string>({
                         className="group 
                         relative h-full flex cursor-pointer rounded 
                         bg-gray-700 py-4 px-5 text-white shadow-md transition 
-                        focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white data-[checked]:bg-gray-800
+                        focus:outline-none data-focus:outline-1 data-focus:outline-white data-checked:bg-gray-800
                         hover:bg-blue-500 duration-300
                         max-sm:p-2
                         "

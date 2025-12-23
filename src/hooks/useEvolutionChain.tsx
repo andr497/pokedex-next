@@ -1,19 +1,21 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import useSWR from "swr";
 
 import { getPokemonById } from "@/api/pokemon";
 import { colorPokemonTypes } from "@/helpers/pokemonHelpers";
 import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
-import { fixEvolutionMethod, fixGenderText } from "@/helpers/evolutionChainPokemon";
+import {
+    fixEvolutionMethod,
+    fixGenderText,
+} from "@/helpers/evolutionChainPokemon";
 
 interface Props {
     pokemon: IPokemonEvolutionChain;
 }
 
 const useEvolutionChain = ({ pokemon }: Props) => {
-    const [color, setColor] = useState({ colorType1: "", colorType2: "" });
     const { data, isLoading } = useSWR(`${pokemon.id}`, getPokemonById);
 
     const evolutionDescription = useMemo(
@@ -25,18 +27,16 @@ const useEvolutionChain = ({ pokemon }: Props) => {
         return fixGenderText(pokemon.gender);
     }, [pokemon]);
 
-    useEffect(() => {
-        if (!isLoading) {
-            const colors = colorPokemonTypes(data!.data);
-            setColor(colors);
-        }
+    const color = useMemo(() => {
+        if (isLoading) return { colorType1: "", colorType2: "" };
+        return colorPokemonTypes(data!.data);
     }, [data]);
 
     return {
         color,
         pokemonGender,
         evolutionDescription,
-        isLoading
+        isLoading,
     };
 };
 

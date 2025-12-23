@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
-import { useRecoilState } from "recoil";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
 
 import { useRouter } from "next/navigation";
@@ -18,7 +17,7 @@ import {
 
 import BrandImage from "./BrandImage";
 import InputSearch from "./InputSearch";
-import { searchTextPokemonState } from "@/recoil/atoms";
+import { usePokemonStore } from "@/store/pokemon.store";
 import ThemeSwitcher from "../ThemeSwitcher";
 import Link from "next/link";
 
@@ -36,9 +35,10 @@ const options: MenuOptions[] = [
 
 const Navbar = () => {
     const router = useRouter();
-    const [searchText, setSearchText] = useRecoilState<string>(
-        searchTextPokemonState
-    );
+    const {
+        searchTextPokemon: searchText,
+        setSearchTextPokemon: setSearchText,
+    } = usePokemonStore();
 
     const handleSearch = (text: string) => {
         router.replace(`/pokemon?q=${text}`);
@@ -55,7 +55,7 @@ const Navbar = () => {
             className="bg-white border-b-2 border-gray-300 dark:border-0 dark:bg-gray-800"
         >
             {({ open }) => (
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <div className="max-w-(--breakpoint-xl) flex flex-wrap items-center justify-between mx-auto p-4">
                     <BrandImage />
 
                     <div className="flex md:order-2">

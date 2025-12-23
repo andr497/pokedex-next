@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 
-import { IAbility } from "interfaces/PokeApi/IAbility";
-import { Pokemon } from "interfaces/PokeApi/IPokemonApi";
-import { LIMIT_PAGE, OFFSET_PAGE } from "helpers/constants";
+import { IAbility } from "@/interfaces/PokeApi/IAbility";
+import { Pokemon } from "@/interfaces/PokeApi/IPokemonApi";
+import { LIMIT_PAGE, OFFSET_PAGE } from "@/helpers/constants";
 import {
     AllPokemonSpecies,
     PokemonSpecies,
-} from "interfaces/PokeApi/IPokemonSpecies";
+} from "@/interfaces/PokeApi/IPokemonSpecies";
 
 import { axiosCacheInstance, axiosInstance } from "./config";
 

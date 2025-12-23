@@ -13,10 +13,6 @@ const CustomImage = ({ alt, ...props }: props) => {
 
     const { colorType1, colorType2, ...restProps } = props;
 
-    useEffect(() => {
-        setSrc(props.src);
-    }, [props.src]);
-
     return (
         <Image
             {...restProps}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import useBrightness from "@/hooks/useBrightness";
 
 type Props = {
@@ -13,13 +13,12 @@ type Props = {
 };
 
 const ProgressBar = ({ title, value, percentage, color }: Props) => {
-    const [filledPercentage, setFilledPercentage] = useState(0);
     const fontColor = useBrightness(color.colorType2);
 
-    useEffect(() => {
+    const filledPercentage = useMemo(() => {
         const actualPercentage = percentage <= 5 ? 5 : percentage;
 
-        setFilledPercentage(actualPercentage);
+        return actualPercentage;
     }, [percentage]);
 
     return (

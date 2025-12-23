@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { LIMIT_PAGE } from "helpers/constants";
+import { LIMIT_PAGE } from "@/helpers/constants";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 import "@/styles/pagination.css";
