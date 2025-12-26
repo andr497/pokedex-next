@@ -2,6 +2,12 @@
 
 import CounterApiResource from "@/components/ApiNamedResource/Counter";
 import { Generation } from "@/interfaces/PokeApi/IGenerations";
+import {
+    Squares2X2Icon,
+    BoltIcon,
+    TagIcon,
+    ShieldCheckIcon,
+} from "@heroicons/react/20/solid";
 import { useMemo } from "react";
 
 interface Props {
@@ -15,30 +21,45 @@ const Details = ({ generation }: Props) => {
     );
 
     return (
-        <div>
-            <section className="flex flex-wrap text-center justify-between gap-4">
-                <div className="w-full">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <h2 className="text-3xl font-extrabold dark:text-gray-200 text-gray-800 sm:text-4xl">
+        <>
+            <section className="flex flex-col md:flex-row gap-6 justify-between items-start md:items-end border-b pb-6 mt-5 mb-10">
+                <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-3">
+                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-linear-to-r from-primary to-secondary text-transparent bg-clip-text">
                             {generationName[0].name}
-                        </h2>
-                        <p className="mt-3 text-xl dark:text-gray-500 text-gray-600 sm:mt-4">
-                            {`You can see the list of ${generationName[0].name} pokemons below`}
-                        </p>
+                        </h1>
+                        <span className="px-3 py-1 rounded-full bg-surface-dark border border-[#354f6b] text-xs font-bold text-primary uppercase tracking-wider">
+                            {generation.main_region.name}
+                        </span>
                     </div>
+                    <p className="text-lg text-muted">
+                        {`You can see the list of ${generationName[0].name} pokemons below`}
+                    </p>
                 </div>
+            </section>
+            <section className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
                 <CounterApiResource
-                    label={"Pokémon"}
+                    label={"Total species"}
                     list={generation.pokemon_species}
+                    icon={Squares2X2Icon}
                 />
                 <CounterApiResource
                     label={"Abilities"}
                     list={generation.abilities}
+                    icon={BoltIcon}
                 />
-                <CounterApiResource label={"Types"} list={generation.types} />
-                <CounterApiResource label={"Moves"} list={generation.moves} />
+                <CounterApiResource
+                    label={"New Types"}
+                    list={generation.types}
+                    icon={TagIcon}
+                />
+                <CounterApiResource
+                    label={"New Moves"}
+                    list={generation.moves}
+                    icon={ShieldCheckIcon}
+                />
             </section>
-        </div>
+        </>
     );
 };
 

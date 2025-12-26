@@ -12,6 +12,7 @@ import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
 import { PokemonImage } from "@/components/StyledComponents/Image";
 import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
+import clsx from "clsx";
 
 interface Props {
     pokemon: IPokemonEvolutionChain;
@@ -25,7 +26,7 @@ const EvolutionChainDetails = ({
     pokemon,
     firstPokemon,
     hasEvolution,
-    isSelected
+    isSelected,
 }: Props) => {
     const width = useBreakpoints();
     const {
@@ -41,49 +42,54 @@ const EvolutionChainDetails = ({
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className={`flex flex-wrap justify-center
-                ${firstPokemon ? "self-center" : ""}
-                ${
-                    !hasEvolution
-                        ? `flex-col w-full`
-                        : "flex-row-reverse max-sm:flex-col-reverse"
-                }
-            `}
+            className={clsx("flex flex-wrap justify-center", {
+                "self-center": firstPokemon,
+                "flex-col w-full": !hasEvolution,
+                "flex-row-reverse max-md:flex-col-reverse": hasEvolution,
+            })}
         >
             <Link
                 prefetch={false}
                 href={`/pokemon/${pokemon.id}`}
-                className="group card-pokemon-container flex self-center flex-col"
+                className="group card-pokemon-container flex flex-col items-center justify-center gap-2 lg:gap-8 relative"
             >
-                <PokemonImage
-                    className="duration-300 max-sm:max-w-[180px] w-full max-w-[200px]"
-                    alt={`Evolution chain - ${pokemon.species_name}`}
-                    src={pokemon.image ?? ""}
-                    width={180}
-                    height={180}
-                    colorType1={colorType1}
-                    colorType2={colorType2}
-                />
-                <div className="w-full flex justify-center items-center">
-                    <Chip
-                        className="capitalize w-full max-sm:text-sm"
-                        label={pokemon.species_name}
-                        size="small"
+                <div className="relative w-32 h-32 flex items-center justify-center mb-1">
+                    <PokemonImage
+                        className="duration-300 max-sm:max-w-45 w-full max-w-50"
+                        alt={`Evolution chain - ${pokemon.species_name}`}
+                        src={pokemon.image ?? ""}
+                        width={120}
+                        height={120}
+                        colorType1={colorType1}
+                        colorType2={colorType2}
+                    />
+                    <span className="absolute -top-2 -right-2 bg-muted/20 border border-border text-muted text-xs font-bold px-2 py-1 rounded-full">
+                        # {pokemon.id.toString().padStart(3, "0")}
+                    </span>
+                </div>
+                <h4 className="font-bold text-sm  capitalize">
+                    <span
+                    /*className="capitalize w-full max-sm:text-sm"
                         style={{
                             background: colorType1,
                             color: checkBrightness(colorType1)
                                 ? "#fff"
                                 : "#000",
-                        }}
-                    />
-                </div>
+                        }}*/
+                    >
+                        {pokemon.species_name}
+                    </span>
+                </h4>
             </Link>
             {!firstPokemon && (
-                <div className="flex items-center break-words max-w-max p-5 self-center text-center flex-col-reverse max-sm:flex-grow max-sm:max-w-full">
+                <div
+                    className="flex flex-col items-center justify-center-safe gap-2 py-4 md:py-0"
+                    //flex items-center wrap-break-word max-w-max p-5 self-center text-center flex-col-reverse max-sm:grow max-sm:max-w-full
+                >
                     {width === "xs" ? (
-                        <ArrowDownIcon className="w-11" />
+                        <ArrowDownIcon className="w-8" />
                     ) : (
-                        <ArrowRightIcon className="w-16" />
+                        <ArrowRightIcon className="w-11" />
                     )}
                     <p>
                         {evolutionDescription
@@ -91,7 +97,7 @@ const EvolutionChainDetails = ({
                             .map((value, index) => (
                                 <span
                                     key={index}
-                                    className="capitalize text-sm max-sm:text-xs"
+                                    className="capitalize font-semibold text-xs"
                                 >
                                     {value} <br />
                                 </span>
@@ -100,6 +106,14 @@ const EvolutionChainDetails = ({
                     {pokemon.held_item && (
                         <Image
                             src={`${IMAGE_ITEM_BASE_URL}${pokemon.held_item}.png`}
+                            alt=""
+                            width={30}
+                            height={30}
+                        />
+                    )}
+                    {pokemon.item && (
+                        <Image
+                            src={`${IMAGE_ITEM_BASE_URL}${pokemon.item}.png`}
                             alt=""
                             width={30}
                             height={30}

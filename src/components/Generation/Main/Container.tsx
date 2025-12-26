@@ -23,23 +23,16 @@ const GenerationGrid = () => {
     }
 
     return (
-        <>
-            <section className="p-2 mb-1">
-                <h1 className={`text-7xl text-center max-sm:text-4xl`}>
-                    Choose a generation
-                </h1>
-            </section>
-            <section className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 place-items-center">
-                {generations.map((generation, key) => {
-                    return (
-                        <GenerationCard
-                            key={`generation-${key}`}
-                            generation={generation}
-                        />
-                    );
-                })}
-            </section>
-        </>
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {generations.map((generation, key) => {
+                return (
+                    <GenerationCard
+                        key={`generation-${key}`}
+                        generation={generation}
+                    />
+                );
+            })}
+        </section>
     );
 };
 

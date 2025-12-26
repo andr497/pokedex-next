@@ -26,31 +26,31 @@ const BarStat = ({ stats, selected, prev, color }: Props) => {
     }, [selected, prev, stats, completed]);
 
     return (
-        <div className="group relative w-full bg-gray-200 rounded-full h-5 dark:bg-gray-700 overflow-hidden">
-            {typeof completed !== "undefined" && (
-                <>
-                    <div
-                        className="h-full rounded-full bg-blue-500 transition-all duration-1000 ease-in-out"
-                        role="progressbar"
-                        aria-labelledby={`progressbar-${stats[selected].name}`}
-                        aria-label={`progressbar-${stats[selected].name}`}
-                        style={{
-                            background: `linear-gradient(to right, ${color.colorType1}, ${color.colorType2})`,
-                            width: `${completed}%`,
-                        }}
-                    />
-                    <span
-                        className="absolute top-0 text-sm font-medium transition-all duration-1000 ease-in-out"
-                        style={{
-                            right: `${102 - completed}%`,
-                            color: fontColor,
-                        }}
-                    >
-                        {stats[selected].base_stat}
-                    </span>
-                </>
-            )}
-        </div>
+        <>
+            <span className="font-bold text-muted w-12 uppercase">
+                {stats[selected].initials}
+            </span>
+            <span className="font-bold w-12 text-right">
+                {stats[selected].base_stat}
+            </span>
+
+            <div className="flex-1 mx-4 relative overflow-hidden self-center h-3.5 bg-foreground/15 rounded-full">
+                {typeof completed !== "undefined" && (
+                    <>
+                        <div
+                            className="h-full rounded-full bg-blue-500 transition-all duration-1000 ease-in-out"
+                            role="progressbar"
+                            aria-labelledby={`progressbar-${stats[selected].name}`}
+                            aria-label={`progressbar-${stats[selected].name}`}
+                            style={{
+                                background: `linear-gradient(to right, ${color.colorType1}, ${color.colorType2})`,
+                                width: `${completed}%`,
+                            }}
+                        />
+                    </>
+                )}
+            </div>
+        </>
     );
 };
 

@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 
 import { Generation } from "@/interfaces/PokeApi/IGenerations";
 import {
@@ -12,13 +12,23 @@ import { IPokemonList } from "@/interfaces/IPokemonList";
 
 export const getGenerationById = async (
     id: string | number
-): Promise<AxiosResponse<Generation>> => {
-    const response = await axiosInstance({
-        method: "get",
-        url: `/generation/${id}`,
-    });
+): Promise<AxiosResponse<Generation> | null> => {
+    try {
+        const response = await axiosInstance({
+            method: "get",
+            url: `/generation/${id}`,
+        });
 
-    return response;
+        return response;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            if (error.response?.status === 404) {
+                return null;
+            }
+        }
+
+        throw error;
+    }
 };
 
 export const getGenerations = async (): Promise<Generation[]> => {
@@ -35,7 +45,9 @@ export const getGenerations = async (): Promise<Generation[]> => {
                 .filter((value) => value !== "");
             const id = splitted[splitted.length - 1];
 
-            const generation = await getGenerationById(id);
+            const generation = (await getGenerationById(
+                id
+            )) as AxiosResponse<Generation>;
 
             return generation.data;
         })
@@ -49,10 +61,13 @@ export const getPokemonByGenerations = async (
 ): Promise<{
     pokemonSpecies: IPokemonList[];
     generation: Generation;
-}> => {
+} | null> => {
+    const generationData = await getGenerationById(id);
+    if (!generationData) return null;
+
     const {
         data: { pokemon_species, ...generation },
-    } = await getGenerationById(id);
+    } = generationData;
 
     const pokemonSpecies = await Promise.all(
         pokemon_species.map(async (pokemon) => {

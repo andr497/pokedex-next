@@ -11,13 +11,10 @@ interface Props {
 }
 
 const Container = ({ pokemonChain, pokemonIdActual }: Props) => {
-    const hasEvolution = useMemo(
-        () => pokemonChain.length > 1,
-        [pokemonChain]
-    );
+    const hasEvolution = useMemo(() => pokemonChain.length > 1, [pokemonChain]);
 
     return (
-        <div className="w-full flex flex-wrap justify-center max-sm:flex-col">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 lg:gap-12 relative">
             {pokemonChain.map((chain, key) => (
                 <EvolutionChainElement
                     key={`chain-${key}`}

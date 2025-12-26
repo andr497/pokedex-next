@@ -1,5 +1,5 @@
 "use client";
-import React, { ComponentPropsWithRef } from "react";
+import { ComponentPropsWithRef } from "react";
 
 import useSWR from "swr";
 
@@ -18,7 +18,7 @@ const SelectType = ({ ...selectProps }: SelectProps) => {
         <>
             <Select
                 className={
-                    "capitalize p-2 text-gray-900 border border-gray-300 rounded bg-gray-50 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    "appearance-none w-full bg-base-100 border border-border text-foreground py-3.5 pl-4 pr-10 rounded-lg focus:outline-none focus:right-2 focus:ring-primary cursor-pointer"
                 }
                 {...selectProps}
             >

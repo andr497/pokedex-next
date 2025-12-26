@@ -15,26 +15,29 @@ const SearchFilters = ({
     placeholder,
 }: Props) => {
     return (
-        <section className="w-full flex flex-col gap-4">
-            <div className="w-full">
-                <SelectType
-                    name="types"
-                    aria-label="pokemon-types"
-                    onChange={handleFiltersChange}
-                />
-            </div>
-            <div className="relative grid grid-cols-1">
-                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <SearchIcon className="block h-6 w-6" />
+        <section className="flex flex-col lg:flex-row gap-4 mb-8">
+            <div className="flex-1 relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <SearchIcon className="block h-5 w-5" />
                     <span className="sr-only">Search icon</span>
                 </div>
                 <input
                     type="text"
-                    className={`w-full p-2 ps-10 text-gray-900 border border-gray-300 rounded bg-gray-50 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                    className={`block w-full pl-12 pr-4 py-3.5 bg-base-100 border border-border rounded-lg text-foreground placeholder-text-secondary focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none`}
                     onChange={handleChange}
                     placeholder={`${placeholder}`}
                 />
             </div>
+            <div className="flex gap-3 overflow-x-auto pb-2 lg:pb-0">
+                <div className="relative min-w-40">
+                    <SelectType
+                        name="types"
+                        aria-label="pokemon-types"
+                        onChange={handleFiltersChange}
+                    />
+                </div>
+            </div>
+            <div className="relative grid grid-cols-1"></div>
         </section>
     );
 };

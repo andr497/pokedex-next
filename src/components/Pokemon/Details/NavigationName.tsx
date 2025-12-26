@@ -41,7 +41,7 @@ const NavigationName = ({ data }: Props) => {
                     color: colorType1,
                     visibility: isFirst ? "hidden" : "visible",
                 }}
-                className="flex justify-center align-middle"
+                className="flex justify-center align-middle hover:scale-105 transition duration-300"
                 href={`/pokemon/${prevPokemon}`}
                 aria-label="Previous pokemon"
             >
@@ -76,7 +76,7 @@ const NavigationName = ({ data }: Props) => {
                     color: colorType2,
                     visibility: isLast ? "hidden" : "visible",
                 }}
-                className="flex justify-normal align-middle"
+                className="flex justify-normal align-middle hover:scale-105 transition duration-300"
                 href={`/pokemon/${nextPokemon}`}
                 aria-label="Next pokemon"
             >

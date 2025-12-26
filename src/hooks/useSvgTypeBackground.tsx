@@ -33,7 +33,10 @@ const useSvgTypeBackground = ({ type }: Props) => {
 
             Array.from(svgElements).forEach((element) => {
                 element.setAttribute("fill", fillColor);
-                element.setAttribute("opacity", theme === "dark" ? "1" : "0.2");
+                element.setAttribute(
+                    "opacity",
+                    theme === "dark" ? "0.2" : "0.2"
+                );
             });
 
             const modifiedSvgString = new XMLSerializer().serializeToString(
@@ -53,9 +56,9 @@ const useSvgTypeBackground = ({ type }: Props) => {
             pokemonContainer.style.backgroundPosition = "center";
         })().catch((error) => {
             if (error instanceof AxiosError) {
-                console.log(error);
+                console.error(error);
             } else if (error instanceof Error) {
-                console.log(error);
+                console.error(error);
             }
         });
     }, [type, theme]);

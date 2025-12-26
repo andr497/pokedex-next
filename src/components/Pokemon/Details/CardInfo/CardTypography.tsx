@@ -11,16 +11,16 @@ const CardTypography = ({
 }) => {
     return (
         <>
-            <h4 className="table-row w-full">
-                <span className="font-bold w-1/2 pr-4 text-right table-cell">
+            <div className="space-y-1">
+                <p className="text-foreground/60 text-xs font-medium uppercase tracking-wider">
                     {title}
-                </span>
-                <span
-                    className={`font-thin w-1/2 text-left table-cell ${subtitleClass}`}
+                </p>
+                <p
+                    className={`text-foreground text-lg font-medium ${subtitleClass}`}
                 >
                     {subtitle}
-                </span>
-            </h4>
+                </p>
+            </div>
         </>
     );
 };

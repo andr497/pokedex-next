@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Loading } from "@/components/Loading";
 import { findPokemonByGenerations } from "server/PokemonRepository";
 import GenerationDetailsContainer from "@/components/Generation/Details/Container";
+import Container from "@/components/layout/Container";
 
 interface PropTypes {
     params: {
@@ -21,10 +22,12 @@ export default async function GenerationPage({ params }: PropTypes) {
 
     return (
         <Suspense fallback={<Loading />}>
-            <GenerationDetailsContainer
-                pokemonData={data.pokemonSpecies}
-                generation={data.generation}
-            />
+            <Container>
+                <GenerationDetailsContainer
+                    pokemonData={data.pokemonSpecies}
+                    generation={data.generation}
+                />
+            </Container>
         </Suspense>
     );
 }

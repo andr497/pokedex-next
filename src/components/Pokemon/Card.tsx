@@ -4,24 +4,27 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ARTWORK_BASE_URL } from "helpers/constants";
 import { IPokemonList } from "interfaces/IPokemonList";
-import { checkBrightness, colorPokemonTypes, fixPokemonName } from "helpers/pokemonHelpers";
+import {
+    checkBrightness,
+    colorPokemonTypes,
+    fixPokemonName,
+} from "helpers/pokemonHelpers";
 
 import IconSvg from "@/components/StyledComponents/IconSvg";
 import { PokemonImage } from "@/components/StyledComponents/Image";
 
 interface PokemonCardProps {
-    pokemon: IPokemonList | null;
+    pokemon: IPokemonList;
 }
 
-const Card = ({ pokemon = null }: PokemonCardProps) => {
-    if (pokemon === null) {
-        return <></>;
-    }
+const Card = ({ pokemon }: PokemonCardProps) => {
     const { colorType1, colorType2 } = colorPokemonTypes(pokemon);
 
     let colorType: string[] = [];
     colorType[0] = colorType1;
     colorType[1] = colorType2;
+
+    const pokemonNumber = pokemon.id.toString().padStart(3, "0");
 
     return (
         <motion.div
@@ -29,14 +32,87 @@ const Card = ({ pokemon = null }: PokemonCardProps) => {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0 }}
             viewport={{ once: true }}
-            className={`group card-pokemon-container hover:-translate-y-1 relative mx-auto overflow-hidden rounded w-max-md sm:w-full dark:bg-gray-800 p-[1px]  transition-all duration-300 ease-in-out open:opacity-50 hover:bg-gradient-to-r`}
+            //className={`group card-pokemon-container hover:-translate-y-1 relative mx-auto overflow-hidden rounded-xl w-max-md sm:w-full dark:bg-gray-800 p-px  transition-all duration-300 ease-in-out open:opacity-50 hover:bg-linear-to-r`}
+            style={
+                {
+                    //backgroundImage: `linear-gradient(to right, ${colorType1}, ${colorType2})`,
+                }
+            }
+            className="card-pokemon-container bg-surface p-5 rounded-xl border border-transparent hover:border-border hover:shadow-lg transition-all group cursor-pointer relative overflow-hidden"
+        >
+            <Link prefetch={false} href={`/pokemon/${pokemon.id}`}>
+                <span className="absolute top-2 right-4 text-6xl font-black text-foreground/10 pointer-events-none">
+                    #{pokemonNumber}
+                </span>
+                <div className="flex flex-col items-center">
+                    <div className="relative w-40 h-40 mb-4 transition-transform duration-300 group-hover:scale-110">
+                        <div className="absolute inset-0 bg-type-grass/20 blur-3xl rounded-full"></div>
+                        <PokemonImage
+                            loading="lazy"
+                            quality={70}
+                            className={`w-full h-full object-contain relative z-10 drop-shadow-xl transition duration-200 ease-out hover:ease-in`}
+                            width={250}
+                            height={250}
+                            alt={pokemon.name}
+                            src={`${ARTWORK_BASE_URL}${pokemonNumber}.png`}
+                            colorType1={colorType1}
+                            colorType2={colorType2}
+                        />
+                    </div>
+                    <span className="text-text-secondary font-mono text-sm font-bold mb-1">
+                        #{pokemonNumber}
+                    </span>
+                    <h3 className="capitalize text-foreground text-xl font-bold mb-3">
+                        {fixPokemonName(pokemon.name)}
+                    </h3>
+                    <div className="flex gap-2">
+                        {pokemon.types.map(({ type }, key) => {
+                            const fontColor = `${
+                                checkBrightness(colorType[key])
+                                    ? "white"
+                                    : "black"
+                            }`;
+                            return (
+                                <span
+                                    style={{
+                                        backgroundColor: `${colorType[key]}`,
+                                        color: fontColor,
+                                    }}
+                                    className="flex items-center px-3 py-1 rounded text-xs font-bold uppercase tracking-wider shadow-sm"
+                                    key={`type-${type.name}-${key}`}
+                                >
+                                    <IconSvg
+                                        src={`/assets/types/${type.name}.svg`}
+                                        title={`icon-${type.name}`}
+                                        className="mr-1 max-sm:mr-0"
+                                        width={15}
+                                        color={fontColor}
+                                    />
+                                    <span className="max-sm:hidden">
+                                        {type.name}
+                                    </span>
+                                </span>
+                            );
+                        })}
+                    </div>
+                </div>
+            </Link>
+        </motion.div>
+    );
+    return (
+        <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0 }}
+            viewport={{ once: true }}
+            className={`group card-pokemon-container hover:-translate-y-1 relative mx-auto overflow-hidden rounded-xl w-max-md sm:w-full dark:bg-gray-800 p-px  transition-all duration-300 ease-in-out open:opacity-50 hover:bg-linear-to-r`}
             style={{
                 backgroundImage: `linear-gradient(to right, ${colorType1}, ${colorType2})`,
             }}
         >
             <Link prefetch={false} href={`/pokemon/${pokemon.id}`}>
-                <div className="group-hover:animate-spin-slow opacity-0 absolute -top-40 -bottom-40 left-10 right-10 bg-gradient-to-r from-transparent via-white/90 dark:via-gray-800 to-transparent group-hover:opacity-100"></div>
-                <div className="relative rounded dark:bg-gray-800 bg-gray-100 p-6 text-center">
+                <div className="group-hover:animate-spin-slow opacity-0 absolute -top-40 -bottom-40 left-10 right-10 bg-linear-to-r from-transparent via-white/90 dark:via-gray-800 to-transparent group-hover:opacity-100"></div>
+                <div className="bg-surface p-6 rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group">
                     <div className="relative flex justify-center align-middle my-4">
                         <PokemonImage
                             loading="lazy"

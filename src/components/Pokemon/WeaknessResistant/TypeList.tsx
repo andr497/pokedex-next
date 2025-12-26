@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 
 import { PokemonType } from "@/interfaces/PokeApi/IPokemonApi";
 import { TypeDefenses } from "@/interfaces/PokeApi/IPokemonTypes";
