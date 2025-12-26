@@ -2,6 +2,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 import { Field, Radio, RadioGroup } from "@headlessui/react";
+import clsx from "clsx";
 
 const options = ["Base", "Min", "Max"];
 
@@ -16,35 +17,27 @@ const ButtonStat = ({ selected, setSelected, types }: Props) => {
         <RadioGroup
             value={selected}
             onChange={setSelected}
-            aria-label="Server size"
-            className={
-                "w-full grid grid-cols-4 justify-center items-center gap-2 my-2"
-            }
+            aria-label="Radio group container stats"
+            className={"flex p-1 rounded-lg bg-base-100 w-fit"}
         >
             {options.map((option, index) => (
-                <Field key={option} className={`w-full`}>
+                <Field
+                    key={option}
+                    className={clsx(
+                        {
+                            "bg-foreground/20": selected === index,
+                        },
+                        "px-4 py-1.5 text-xs font-bold text-foreground rounded shadow-sm"
+                    )}
+                >
                     <Radio
                         value={index}
-                        className={`
-                        group relative h-full flex cursor-pointer
-                        ${
-                            selected === index
-                                ? "active font-bold"
-                                : "border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-                        }
-                        border-b-2 rounded-t-lg max-sm:p-2
-                        `}
+                        className={`h-full flex cursor-pointer`}
                         style={{
                             color: selected === index ? types.colorType1 : "",
-                            borderColor:
-                                selected === index ? types.colorType1 : "",
                         }}
                     >
-                        <div className="flex w-full items-center justify-between">
-                            <p className="w-full text-center font-semibold dark:text-white capitalize max-sm:text-xs">
-                                {option}
-                            </p>
-                        </div>
+                        {option}
                     </Radio>
                 </Field>
             ))}

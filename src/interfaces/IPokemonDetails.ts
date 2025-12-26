@@ -10,6 +10,7 @@ export interface GeneralInfoPokemon
     image: string;
     image_shiny: string;
     genera: string;
+    flavor_entry: string;
     color: string;
     shape: string;
 }

@@ -28,7 +28,7 @@ const Chip = ({
 
     return (
         <div
-            className={`inline-flex items-center bg-gray-200 text-black m-2 ${TextAlign[alignText]} ${sizeClass} ${roundedClass} ${className}`}
+            className={`inline-flex items-center ${TextAlign[alignText]} ${sizeClass} ${roundedClass} ${className}`}
             {...props}
         >
             {icon}

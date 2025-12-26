@@ -22,11 +22,12 @@ const EvolutionChainElement = ({
 
     return (
         <div
-            className={`flex flex-wrap justify-center ${
+            /*className={`flex flex-wrap justify-center ${
                 chainElementLength > 1
                     ? "flex-col max-sm:flex-row max-sm:w-full"
                     : "max-sm:flex-col"
-            }`}
+            }`}*/
+            className="flex flex-col items-center group cursor-pointer flex-1"
         >
             {chain.map((pokemon, key) => (
                 <EvolutionChainDetails

@@ -7,14 +7,14 @@ import dynamic from "next/dynamic";
 import useModal from "@/hooks/useModal";
 import { getAbilityById } from "@/api/pokemon";
 import { Loading } from "@/components/Loading";
+import { Chip, Divider } from "@/components/Common";
 import { ModalProps } from "@/components/Modal/Modal";
 import { useParams, useRouter } from "next/navigation";
 import IconSvg from "@/components/StyledComponents/IconSvg";
-import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
-import { AudioPlayer, Chip, Divider } from "@/components/Common";
-import { PokemonSpecies } from "interfaces/PokeApi/IPokemonSpecies";
+import { GeneralInfoPokemon } from "@/interfaces/IPokemonDetails";
+import { PokemonSpecies } from "@/interfaces/PokeApi/IPokemonSpecies";
 import { LockOpenIcon as HiddenIcon } from "@heroicons/react/20/solid";
-import { Pokemon, PokemonAbility } from "interfaces/PokeApi/IPokemonApi";
+import { Pokemon, PokemonAbility } from "@/interfaces/PokeApi/IPokemonApi";
 import {
     checkBrightness,
     colorPokemonTypes,
@@ -104,130 +104,58 @@ const Card = ({ data, abilities, varieties }: Props) => {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0 }}
-            className={"rounded mx-4 p-2"}
+            className={""}
         >
-            <div className="">
-                <div className="table w-full">
-                    <PokemonCardTypography
-                        title={"National N°"}
-                        subtitle={data.id.toString().padStart(4, "0")}
-                    />
+            <div className="grid grid-cols-2 gap-6">
+                <PokemonCardTypography
+                    title={"National N°"}
+                    subtitle={data.id.toString().padStart(4, "0")}
+                />
 
-                    <PokemonCardTypography
-                        title={"Height"}
-                        subtitle={`${data.height} m`}
-                    />
+                <PokemonCardTypography
+                    title={"Height"}
+                    subtitle={`${data.height} m`}
+                />
 
-                    <PokemonCardTypography
-                        title={"Weight"}
-                        subtitle={`${data.weight} kg`}
-                    />
+                <PokemonCardTypography
+                    title={"Weight"}
+                    subtitle={`${data.weight} kg`}
+                />
 
-                    <PokemonCardTypography
-                        title={"Color"}
-                        subtitle={`${data.color}`}
-                        subtitleClass={"capitalize"}
-                    />
+                <PokemonCardTypography
+                    title={"Catch rate"}
+                    subtitle={`${((data.capture_rate / 255) * 100).toFixed(
+                        2
+                    )}%`}
+                />
 
-                    <PokemonCardTypography
-                        title={"Shape"}
-                        subtitle={`${data.shape}`}
-                        subtitleClass={"capitalize"}
-                    />
-                </div>
-                <Divider label="Cries" />
-                <div className="w-full">
-                    {data.cries.latest ? (
-                        <AudioPlayer src={`${data.cries.latest}`} />
-                    ) : null}
+                <PokemonCardTypography
+                    title={"Color"}
+                    subtitle={`${data.color}`}
+                    subtitleClass={"capitalize"}
+                />
 
-                    {data.cries.legacy ? (
-                        <AudioPlayer src={`${data.cries.legacy}`} />
-                    ) : null}
-                </div>
-                <Divider label="Types" />
-                <div
-                    className={`grid ${
-                        data.types.length === 1
-                            ? "justify-center"
-                            : "grid-cols-2"
-                    }`}
-                >
-                    {data.types.map((value, key) => {
-                        const fontColor: string = checkBrightness(color[key])
-                            ? "#fff"
-                            : "#000";
-                        return (
-                            <Chip
-                                icon={
-                                    <IconSvg
-                                        src={`/assets/types/${value.type.name}.svg`}
-                                        title={`icon-${value.type.name}`}
-                                        className="mr-1"
-                                        width={15}
-                                        color={fontColor}
-                                    />
-                                }
-                                className="capitalize"
-                                key={`card-type-${key}`}
-                                label={value.type.name}
-                                size="small"
-                                style={{
-                                    backgroundColor: color[key],
-                                    color: fontColor,
-                                }}
-                            />
-                        );
-                    })}
-                </div>
-                <Divider label="Abilities" />
-                <div
-                    className={`grid ${
-                        abilities.length === 1
-                            ? "justify-center"
-                            : "grid-cols-2"
-                    }`}
-                >
-                    {abilities.map((value, key) => {
-                        return (
-                            <Chip
-                                icon={
-                                    value.is_hidden ? (
-                                        <HiddenIcon
-                                            height={20}
-                                            width={20}
-                                            className="mr-1"
-                                        />
-                                    ) : null
-                                }
-                                className="capitalize cursor-pointer hover:bg-opacity-75"
-                                key={`ability-${key}`}
-                                label={fixAbilitiesName(value.ability.name)}
-                                size="small"
-                                rounded="full"
-                                onClick={() => {
-                                    handleOpenModalAbility(value);
-                                }}
-                            />
-                        );
-                    })}
-                </div>
+                <PokemonCardTypography
+                    title={"Shape"}
+                    subtitle={`${data.shape}`}
+                    subtitleClass={"capitalize"}
+                />
+            </div>
+            <div className="my-5">
                 <Divider label="Varieties" />
                 <div
-                    className={`grid ${
+                    className={`grid mt-4 gap-2 ${
                         varieties.length === 1 ? "col-span-12" : "grid-cols-2"
-                    } ${
-                        varieties.length > 4 ? "h-[150px] overflow-scroll" : ""
-                    }`}
+                    } ${varieties.length > 4 ? "overflow-scroll" : ""}`}
                 >
                     {varieties.map((value, key) => {
                         const principalId = value.pokemon.url.split("/")[6];
                         return (
                             <Chip
-                                className={`capitalize ${
+                                className={`capitalize bg-foreground/15  ${
                                     principalId === params.name
-                                        ? "cursor-default bg-opacity-90"
-                                        : "cursor-pointer hover:bg-opacity-75"
+                                        ? "cursor-default bg-foreground/25"
+                                        : "cursor-pointer hover:bg-foreground/40"
                                 }`}
                                 key={`variety-${key}`}
                                 label={fixVarietiesName(
@@ -235,7 +163,6 @@ const Card = ({ data, abilities, varieties }: Props) => {
                                     value.is_default
                                 )}
                                 size="small"
-                                rounded="full"
                                 onClick={() => {
                                     if (principalId == params.name) return;
                                     router.replace(`/pokemon/${principalId}`);

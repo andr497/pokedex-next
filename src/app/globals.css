@@ -1,99 +1,160 @@
 @import "tailwindcss";
 
-::-webkit-scrollbar {
-    width: 10px;
+/* ================================
+   Design tokens (Tailwind v4)
+================================ */
+@theme {
+    /* ================================
+     Base colors
+  ================================ */
+    --color-base-100: oklch(100% 0 0);
+    --color-base-200: oklch(97.466% 0.011 259.822);
+    --color-base-300: oklch(93.268% 0.016 262.751);
+    --color-base-content: oklch(41.886% 0.053 255.824);
+
+    /* ================================
+     Brand colors
+  ================================ */
+    --color-primary: oklch(56.86% 0.255 257.57);
+    --color-primary-content: oklch(91.372% 0.051 257.57);
+
+    --color-secondary: oklch(42.551% 0.161 282.339);
+    --color-secondary-content: oklch(88.51% 0.032 282.339);
+
+    --color-accent: oklch(59.939% 0.191 335.171);
+    --color-accent-content: oklch(11.988% 0.038 335.171);
+
+    --color-neutral: oklch(19.616% 0.063 257.651);
+    --color-neutral-content: oklch(83.923% 0.012 257.651);
+
+    /* ================================
+     Semantic colors
+  ================================ */
+    --color-info: oklch(88.127% 0.085 214.515);
+    --color-info-content: oklch(17.625% 0.017 214.515);
+
+    --color-success: oklch(80.494% 0.077 197.823);
+    --color-success-content: oklch(16.098% 0.015 197.823);
+
+    --color-warning: oklch(89.172% 0.045 71.47);
+    --color-warning-content: oklch(17.834% 0.009 71.47);
+
+    --color-error: oklch(73.092% 0.11 20.076);
+    --color-error-content: oklch(14.618% 0.022 20.076);
+
+    /* ================================
+     UI aliases (NO utilities)
+  ================================ */
+    --color-background: var(--color-base-100);
+    --color-surface: var(--color-base-200);
+    --color-foreground: var(--color-base-content);
+
+    /* Muted & borders (derivados, seguros) */
+    --color-muted: oklch(55% 0.02 260);
+    --color-border: oklch(88% 0.01 260);
+
+    /* ================================
+     Radius
+  ================================ */
+    --radius-lg: 0.75rem;
 }
 
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
+/* ================================
+   Dark mode tokens
+================================ */
+.dark {
+    /* ================================
+     Base colors
+  ================================ */
+    --color-base-100: oklch(20.768% 0.039 265.754);
+    --color-base-200: oklch(19.314% 0.037 265.754);
+    --color-base-300: oklch(17.86% 0.034 265.754);
+    --color-base-content: oklch(84.153% 0.007 265.754);
+
+    /* ================================
+     Brand colors
+  ================================ */
+    --color-primary: oklch(75.351% 0.138 232.661);
+    --color-primary-content: oklch(15.07% 0.027 232.661);
+
+    --color-secondary: oklch(68.011% 0.158 276.934);
+    --color-secondary-content: oklch(13.602% 0.031 276.934);
+
+    --color-accent: oklch(72.36% 0.176 350.048);
+    --color-accent-content: oklch(14.472% 0.035 350.048);
+
+    --color-neutral: oklch(27.949% 0.036 260.03);
+    --color-neutral-content: oklch(85.589% 0.007 260.03);
+
+    /* ================================
+     Semantic colors
+  ================================ */
+    --color-info: oklch(68.455% 0.148 237.251);
+    --color-info-content: oklch(0% 0 0);
+
+    --color-success: oklch(78.452% 0.132 181.911);
+    --color-success-content: oklch(15.69% 0.026 181.911);
+
+    --color-warning: oklch(83.242% 0.139 82.95);
+    --color-warning-content: oklch(16.648% 0.027 82.95);
+
+    --color-error: oklch(71.785% 0.17 13.118);
+    --color-error-content: oklch(14.357% 0.034 13.118);
+
+    /* ================================
+     UI aliases
+  ================================ */
+    --color-background: var(--color-base-100);
+    --color-surface: var(--color-base-300);
+    --color-foreground: var(--color-base-content);
+
+    --color-muted: oklch(65% 0.02 260);
+    --color-border: oklch(30% 0.01 260);
 }
 
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
+body {
+    @apply bg-background text-foreground antialiased;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
+/* ================================
+   Optional component abstractions
+================================ */
+@layer components {
+    .card {
+        @apply bg-surface border border-border rounded-lg;
+    }
+
+    .muted {
+        @apply text-muted;
+    }
 }
 
-/* .pokeball_card {
-  @apply bg-slate-200;
-} */
-
-/*@import 'tailwindcss/variants';
-  
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
- 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
- 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
- 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
- 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
- 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
- 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
- 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
- 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
- 
-    --ring: 215 20.2% 65.1%;
- 
-    --radius: 0.5rem;
-  }
- 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
- 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
- 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
- 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
- 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
- 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
- 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
- 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
- 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
- 
-    --ring: 217.2 32.6% 17.5%;
-  }
+@keyframes wave {
+    0% {
+        transform: scaleY(0.3);
+    }
+    50% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(0.4);
+    }
 }
- 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-} */
+
+.animate-wave {
+    display: inline-block;
+    transform-origin: bottom;
+    animation: wave 0.7s ease-in-out infinite;
+}
+
+.animate-wave.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.animate-wave.delay-2 {
+    animation-delay: 0.2s;
+}
+
+.animate-wave.delay-3 {
+    animation-delay: 0.3s;
+}

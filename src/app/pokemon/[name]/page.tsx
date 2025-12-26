@@ -12,9 +12,18 @@ import {
     PokemonDetailImage,
     PokemonNavigationName,
     PokemonCardInfo,
+    PokemonProfile,
+    PokemonAbilities,
 } from "@/components/Pokemon/Details";
 import { EvolutionChain } from "@/components/Pokemon/EvolutionChain";
 import { WeaknessResistantList } from "@/components/Pokemon/WeaknessResistant";
+import Container from "@/components/layout/Container";
+import {
+    InformationCircleIcon,
+    BoltIcon,
+    ChartBarIcon,
+    RectangleGroupIcon,
+} from "@heroicons/react/20/solid";
 
 //import { WrapperTable } from "@/components/TableMove";
 
@@ -52,74 +61,56 @@ export default async function PokemonPage({ params }: PropTypes) {
 
     return (
         <Suspense fallback={<Loading />}>
-            <section
-                className={
-                    "grid xl:grid-cols-12 md:grid-cols-12 sm:grid-cols-4"
-                }
-            >
-                <section
-                    className="flex align-middle justify-around col-span-12 w-full my-5 max-sm:order-first"
-                    style={{
-                        background: "red",
-                    }}
-                >
-                    <PokemonNavigationName data={data.general} />
+            <Container className="mt-4 space-y-4">
+                <section className="relative w-full rounded-2xl overflow-hidden bg-surface border border-border">
+                    <PokemonProfile data={data.general} />
                 </section>
-                <section className="w-full col-span-12 xl:col-span-4 lg:col-span-4 md:col-span-6 sm:col-span-6">
-                    <PokemonCardInfo
-                        data={data.general}
-                        abilities={data.abilities}
-                        varieties={data.varieties}
-                    />
-                </section>
-                <section className="w-full xl:col-span-4 lg:col-span-4 md:col-span-6 sm:col-span-6 col-span-12 max-sm:order-first">
-                    <PokemonDetailImage data={data.general} />
-                </section>
-                <section className="w-100 col-span-4 max-lg:col-span-12">
-                    <PokemonStats
-                        stats={data.stats}
-                        types={{ colorType1, colorType2 }}
-                    />
-                </section>
-                <section className="flex align-middle justify-around col-span-12 w-full mt-4">
-                    <div className="w-full">
-                        <h4 className="font-heading font-medium text-center text-4xl mb-8">
-                            Evolution Chain
-                        </h4>
-                        <EvolutionChain
-                            pokemonIdActual={data.general.id}
-                            pokemonChain={data.evolution_chain}
-                        />
-                    </div>
-                </section>
+                <section className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                    <div className="space-y-4">
+                        <div className="bg-surface border border-border rounded-xl p-6">
+                            <h3 className="text-base-content text-lg font-bold mb-6 flex items-center gap-2">
+                                <InformationCircleIcon className="w-6" />
+                                Profile
+                            </h3>
+                            <PokemonCardInfo
+                                data={data.general}
+                                abilities={data.abilities}
+                                varieties={data.varieties}
+                            />
+                        </div>
 
-                <section className="w-full xl:col-span-4 lg:col-span-4 md:col-span-6 sm:col-span-6 col-span-12">
-                    <div className="w-full">
-                        <h4
-                            id="typing"
-                            className="font-heading font-medium text-center text-4xl mb-8"
-                        >
-                            Typing
-                        </h4>
-                        <WeaknessResistantList data={typesDetails} />
+                        <div className="bg-surface border border-border rounded-xl p-6">
+                            <h3 className="text-base-content text-lg font-bold mb-6 flex items-center gap-2">
+                                <BoltIcon className="w-6" />
+                                Abilities
+                            </h3>
+                            <PokemonAbilities abilities={data.abilities} />
+                        </div>
                     </div>
-                </section>
-                {/* <section className="w-full col-span-12">
-                    <WrapperTable pokemonId={data.general.id} />
-                </section> */}
-
-                {/* <section className="flex align-middle justify-around col-span-12 w-full mt-4 mb-4">
-                    <div className="w-full">
-                        <h4 className="font-heading font-medium text-center text-4xl mb-8">
-                            Pokédex Entries
-                        </h4>
-                        <PokemonGameIndex
-                            data={data.flavor_text_entries}
+                    <div className="bg-surface border border-border rounded-xl p-6">
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="text-base-content text-lg font-bold flex items-center gap-2">
+                                <ChartBarIcon className="w-6" />
+                                Base Stats
+                            </h3>
+                        </div>
+                        <PokemonStats
+                            stats={data.stats}
                             types={{ colorType1, colorType2 }}
                         />
                     </div>
-                </section> */}
-            </section>
+                </section>
+                <section className="bg-surface border border-border rounded-xl p-6 lg:p-8">
+                    <h3 className="text-base-content text-lg font-bold flex items-center gap-2">
+                        <RectangleGroupIcon className="w-6" />
+                        Evolution Chain
+                    </h3>
+                    <EvolutionChain
+                        pokemonIdActual={data.general.id}
+                        pokemonChain={data.evolution_chain}
+                    />
+                </section>
+            </Container>
         </Suspense>
     );
 }

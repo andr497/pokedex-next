@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithRef } from "react";
+import { ComponentPropsWithRef } from "react";
 
 import { ReactSVG } from "react-svg";
 import styled from "styled-components";
@@ -14,7 +14,9 @@ type ReactSVGProps = ComponentPropsWithRef<typeof ReactSVG>;
 type SvgProps = ReactSVGProps & ColorTypesProps;
 
 const BaseSvgPokeballComponent = ({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     colorType1,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     colorType2,
     ...props
 }: SvgProps | any) => {
@@ -26,7 +28,7 @@ const SvgPokeball = styled(BaseSvgPokeballComponent)((props) => {
     const isDark = theme === "dark";
     const { colorType1, colorType2 } = props;
 
-    let style = {};
+    let style = { ...props.style };
     if (colorType1 && colorType1) {
         style = {
             filter: `drop-shadow(-5px 0 8px ${colorType1})

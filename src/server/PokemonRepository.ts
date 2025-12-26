@@ -29,15 +29,23 @@ export const findPokemonById = async (idToSearch: number | string) => {
             (v) => v.language.name === "en"
         );
 
+        const pokemonFlavor = pokemon.flavor_text_entries.filter(
+            (v) => v.language.name === "en"
+        );
+
         return {
             general: {
                 id: pokemon.id,
-                name: pokemon.name,
+                name: pokemonData.name ?? pokemon.name,
                 color: pokemon.color.name,
                 shape: pokemon?.shape?.name ?? null,
                 genera:
                     pokemon_genera?.length > 0
                         ? pokemon_genera[0]?.genus
+                        : "Not Available",
+                flavor_entry:
+                    pokemonFlavor?.length > 0
+                        ? pokemonFlavor[0]?.flavor_text
                         : "Not Available",
                 height: convertDecimeterToMeter(pokemon.height),
                 weight: convertHectogramToKilogram(pokemon.weight),
@@ -78,9 +86,11 @@ const getEvolutionChain = async (
 };
 
 export const findPokemonByGenerations = async (idToSearch: number | string) => {
-    const { pokemonSpecies, generation } = await getPokemonByGenerations(
-        idToSearch
-    );
+    const data = await getPokemonByGenerations(idToSearch);
+
+    if (!data) return null;
+
+    const { pokemonSpecies, generation } = data;
 
     return {
         pokemonSpecies: pokemonSpecies.sort((a, b) =>

@@ -19,16 +19,14 @@ const Divider: React.FC<DividerProps> = ({
     },
     labelClasses = "mx-2",
 }) => {
-
     return (
         <div className="flex items-center">
             <span
-                className={`flex-1 border-b border-black dark:border-white opacity-25 ${separatorClasses.left} ${separatorClasses.both}`}
-                
+                className={`flex-1 border-b border-foreground/25 ${separatorClasses.left} ${separatorClasses.both}`}
             ></span>
             <h5 className={`font-bold text-md ${labelClasses}`}>{label}</h5>
             <span
-                className={`flex-1 border-b border-black dark:border-white opacity-25 ${separatorClasses.right} ${separatorClasses.both}`}
+                className={`flex-1 border-b border-foreground/25 ${separatorClasses.right} ${separatorClasses.both}`}
             ></span>
         </div>
     );

@@ -4,6 +4,8 @@ import { Roboto } from "next/font/google";
 
 import { Navbar } from "@/components/Navbar";
 import ProviderWrapper from "@/components/ProviderWrapper";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 const font = Roboto({ weight: "400", subsets: [] });
 
@@ -27,12 +29,13 @@ export default function RootLayout({
                 />
             </head>
             <body
-                className={`${font.className} theme-mode duration-500 flex flex-col justify-items-center min-h-screen`}
+                className={`${font.className} min-h-screen font-display text-foreground dark:text-white flex flex-col`}
                 suppressHydrationWarning={true}
             >
                 <ProviderWrapper>
-                    <Navbar />
-                    <main className="container grow p-2">{children}</main>
+                    <Header />
+                    <main className="flex-1">{children}</main>
+                    <Footer />
                 </ProviderWrapper>
             </body>
         </html>

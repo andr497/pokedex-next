@@ -1,11 +1,20 @@
-import { StatsPokemon } from "interfaces/IPokemonDetails";
+import { StatsPokemon } from "@/interfaces/IPokemonDetails";
 import { fixPokemonName } from "./pokemonHelpers";
+
+export type StatName =
+    | "attack"
+    | "defense"
+    | "hp"
+    | "speed"
+    | "special attack"
+    | "special defense";
 
 export interface StatsPokemonClean {
     base_stat: number;
     effort: number;
-    name: string;
+    name: StatName;
     percentage?: number;
+    initials?: string;
 }
 
 export interface StatsPokemonCalculated {
@@ -32,7 +41,7 @@ const processStatsPokemonObject = (stats: StatsPokemon[]) => {
         cleanArray.push({
             base_stat: value.base_stat,
             effort: value.effort,
-            name: fixPokemonName(value.stat.name),
+            name: fixPokemonName(value.stat.name) as StatName,
         });
     });
 
@@ -44,9 +53,8 @@ const processStatsPokemonObject = (stats: StatsPokemon[]) => {
 
 const calculatePercentageStats = (
     max: StatsPokemonClean,
-    arr: StatsPokemonClean[],
+    arr: StatsPokemonClean[]
 ) => {
-
     arr.forEach((v) => {
         v.percentage = (v.base_stat * 100) / max.base_stat;
         //v.percentage = (v.base_stat * 100) / MAX_STAT;
@@ -112,6 +120,15 @@ export interface StatsNamesCombine {
     "special-defense": StatsPokemonClean[];
 }
 
+const statInitial: Record<StatName, string> = {
+    attack: "Atk",
+    defense: "Def",
+    hp: "HP",
+    speed: "Spe",
+    "special attack": "SpA",
+    "special defense": "SpD",
+};
+
 export function calculateStatsPokemon(
     stats: StatsPokemon[],
     id: number
@@ -124,6 +141,12 @@ export function calculateStatsPokemon(
 
     let test: any = {};
     cleanStats.forEach((value, index) => {
+        const initials: string = statInitial[value.name] ?? "";
+
+        value.initials = initials;
+        minStats[index].initials = initials;
+        maxStats[index].initials = initials;
+
         test = {
             ...test,
             [value.name]: [value, minStats[index], maxStats[index]],

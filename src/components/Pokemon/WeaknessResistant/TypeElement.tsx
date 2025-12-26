@@ -10,7 +10,7 @@ interface Props {
 }
 
 const TypeElement = ({ types, label }: Props) => {
-    const fixLabel = useMemo(() => label.replaceAll("-", " "), [label]);
+    const fixLabel = useMemo(() => label.replaceAll("_", " "), [label]);
 
     return (
         <>
@@ -19,7 +19,7 @@ const TypeElement = ({ types, label }: Props) => {
                     <div className="w-full capitalize">
                         <Divider label={fixLabel} />
                     </div>
-                    <div className="min-h-[50px]">
+                    <div className="min-h-12.5">
                         {types.map((type, key) => (
                             <TypeChip
                                 key={`card-type-${type}-${key}`}

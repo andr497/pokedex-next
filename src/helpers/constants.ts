@@ -26,15 +26,24 @@ export const COLOR = {
 };
 
 export const GENERATION_HOVER_COLORS = {
-    "generation-i": ["hover:from-[#FF0000]", "hover:to-[#0000FF]"],
-    "generation-ii": ["hover:from-[#d2c21a]", "hover:to-[#a0a0a0]"],
-    "generation-iii": ["hover:from-[#b80000]", "hover:to-[#0d00b8]"],
-    "generation-iv": ["hover:from-[#6077ff]", "hover:to-[#fc72e4]"],
-    "generation-v": ["hover:from-[#424242]", "hover:to-[#f2f2f2]"],
-    "generation-vi": ["hover:from-[#0084c3]", "hover:to-[#8f0305]"],
-    "generation-vii": ["hover:from-[#ffa500]", "hover:to-[#b401ff]"],
-    "generation-viii": ["hover:from-[#00a2ed]", "hover:to-[#ff0060]"],
-    "generation-ix": ["hover:from-[#bb171f]", "hover:to-[#731f92]"],
+    "generation-i": ["group-hover:from-[#FF0000]", "group-hover:to-[#0000FF]"],
+    "generation-ii": ["group-hover:from-[#d2c21a]", "group-hover:to-[#a0a0a0]"],
+    "generation-iii": [
+        "group-hover:from-[#b80000]",
+        "group-hover:to-[#0d00b8]",
+    ],
+    "generation-iv": ["group-hover:from-[#6077ff]", "group-hover:to-[#fc72e4]"],
+    "generation-v": ["group-hover:from-[#424242]", "group-hover:to-[#f2f2f2]"],
+    "generation-vi": ["group-hover:from-[#0084c3]", "group-hover:to-[#8f0305]"],
+    "generation-vii": [
+        "group-hover:from-[#ffa500]",
+        "group-hover:to-[#b401ff]",
+    ],
+    "generation-viii": [
+        "group-hover:from-[#00a2ed]",
+        "group-hover:to-[#ff0060]",
+    ],
+    "generation-ix": ["group-hover:from-[#bb171f]", "group-hover:to-[#731f92]"],
 };
 
 export const VERSION_GROUP_ARRAY = [
