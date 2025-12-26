@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.2.0",
     "axios": "^1.13.2",
     "axios-cache-interceptor": "^1.10.0",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
     "next": "^16.1.1",
     "next-themes": "^0.4.6",
@@ -24,6 +25,7 @@
     "react-virtualized": "^9.22.6",
     "styled-components": "^6.1.19",
     "swr": "^2.3.8",
+    "tailwind-merge": "^3.4.0",
     "use-media": "^1.5.0",
     "zustand": "^5.0.9"
   },

@@ -6,7 +6,7 @@ const nextConfig = {
     images: {
         deviceSizes: [640, 750, 828, 1080, 1200],
         imageSizes: [32, 64, 75, 96, 128, 256],
-
+        qualities: [70, 75],
         remotePatterns: [
             {
                 protocol: "https",

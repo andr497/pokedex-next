@@ -1,14 +1,14 @@
 import type { Config } from "tailwindcss";
-import defaultTheme from "tailwindcss/defaultTheme";
+//import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
-    darkMode: ["class"],
+    darkMode: "class",
     content: [
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
-    theme: {
+    /*theme: {
         container: {
             center: true,
             padding: "2rem",
@@ -80,7 +80,7 @@ const config: Config = {
                 sans: ["Inter var", ...defaultTheme.fontFamily.sans],
             },
         },
-    },
+    },*/
     plugins: [],
 };
 export default config;
