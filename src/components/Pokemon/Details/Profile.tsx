@@ -136,6 +136,8 @@ function PokemonImage({ data }: Props) {
     }, [data]);
 
     const color = [colorType1, colorType2];
+    const width = 300;
+    const height = 300;
 
     return (
         <>
@@ -148,9 +150,9 @@ function PokemonImage({ data }: Props) {
                         <CustomImage
                             loading="lazy"
                             alt={data.name}
-                            src={data.image ?? ""}
-                            width={300}
-                            height={300}
+                            src={data.image}
+                            width={width}
+                            height={height}
                             className={`${
                                 activeShiny ? "opacity-0" : "opacity-100"
                             } absolute w-full h-full object-contain drop-shadow-2xl z-10`}
@@ -159,9 +161,9 @@ function PokemonImage({ data }: Props) {
                         <CustomImage
                             loading="lazy"
                             alt={data.name}
-                            src={data.image_shiny ?? ""}
-                            width={300}
-                            height={300}
+                            src={data.image_shiny ?? null}
+                            width={width}
+                            height={height}
                             className={`${
                                 activeShiny ? "opacity-100" : "opacity-0"
                             } absolute w-full h-full object-contain drop-shadow-2xl z-10`}

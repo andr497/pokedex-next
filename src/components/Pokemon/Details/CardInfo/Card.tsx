@@ -1,103 +1,23 @@
 "use client";
-import { useState } from "react";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
-import dynamic from "next/dynamic";
-import useModal from "@/hooks/useModal";
-import { getAbilityById } from "@/api/pokemon";
-import { Loading } from "@/components/Loading";
 import { Chip, Divider } from "@/components/Common";
-import { ModalProps } from "@/components/Modal/Modal";
 import { useParams, useRouter } from "next/navigation";
-import IconSvg from "@/components/StyledComponents/IconSvg";
+import { fixVarietiesName } from "@/helpers/pokemonHelpers";
 import { GeneralInfoPokemon } from "@/interfaces/IPokemonDetails";
 import { PokemonSpecies } from "@/interfaces/PokeApi/IPokemonSpecies";
-import { LockOpenIcon as HiddenIcon } from "@heroicons/react/20/solid";
-import { Pokemon, PokemonAbility } from "@/interfaces/PokeApi/IPokemonApi";
-import {
-    checkBrightness,
-    colorPokemonTypes,
-    fixAbilitiesName,
-    fixVarietiesName,
-} from "@/helpers/pokemonHelpers";
 
 import PokemonCardTypography from "./CardTypography";
 
-const Modal = dynamic(() => import("@/components/Modal/Modal"), {
-    ssr: false,
-});
-
 interface Props {
     data: GeneralInfoPokemon;
-    abilities: Pokemon["abilities"];
     varieties: PokemonSpecies["varieties"];
 }
 
-const Card = ({ data, abilities, varieties }: Props) => {
+const Card = ({ data, varieties }: Props) => {
     const params = useParams();
     const router = useRouter();
-
-    const { open, toggle } = useModal();
-    const [loadingModal, setLoadingModal] = useState<boolean>(false);
-    const [modalProps, setModalProps] = useState<
-        Omit<ModalProps, "handleClose">
-    >({
-        title: "",
-        content: "",
-    });
-    const { colorType1, colorType2 } = colorPokemonTypes(data);
-    const color = [colorType1, colorType2];
-
-    const handleOpenModalAbility = (ability: PokemonAbility) => {
-        setLoadingModal(true);
-        getAbilityById(ability.ability.name)
-            .then((response) => {
-                const description = response.effect_entries.filter(
-                    (v) => v.language.name === "en"
-                );
-                setModalProps({
-                    title: `${fixAbilitiesName(ability.ability.name)} ${
-                        ability.is_hidden ? "[hidden]" : ""
-                    }`,
-                    content:
-                        description.length > 0
-                            ? () => (
-                                  <>
-                                      <h6
-                                          className="text-center text-xl"
-                                          style={{
-                                              backgroundColor: colorType1,
-                                              color: checkBrightness(colorType1)
-                                                  ? "#fff"
-                                                  : "#000",
-                                          }}
-                                      >
-                                          Effect
-                                      </h6>
-                                      <p>{description[0].effect}</p>
-                                      <h6
-                                          className="text-center text-xl mb-2"
-                                          style={{
-                                              backgroundColor: colorType1,
-                                              color: checkBrightness(colorType1)
-                                                  ? "#fff"
-                                                  : "#000",
-                                          }}
-                                      >
-                                          Short effect
-                                      </h6>
-                                      <p>{description[0].short_effect}</p>
-                                  </>
-                              )
-                            : "There is no info yet about this ability",
-                });
-                toggle();
-            })
-            .finally(() => {
-                setLoadingModal(false);
-            });
-    };
 
     return (
         <motion.article
@@ -172,10 +92,6 @@ const Card = ({ data, abilities, varieties }: Props) => {
                     })}
                 </div>
             </div>
-            <AnimatePresence>
-                {loadingModal && <Loading />}
-                {open && <Modal handleClose={toggle} {...modalProps} />}
-            </AnimatePresence>
         </motion.article>
     );
 };

@@ -1,7 +1,6 @@
 "use client";
 import { StatsPokemonClean } from "@/helpers/PokemonStatsHelper";
-import useBrightness from "@/hooks/useBrightness";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
     stats: StatsPokemonClean[];
@@ -17,10 +16,10 @@ const BarStat = ({ stats, selected, prev, color }: Props) => {
     const [completed, setCompleted] = useState<number | undefined>(
         stats[prev]?.percentage
     );
-    const fontColor = useBrightness(color.colorType2);
 
     useEffect(() => {
         if (stats[selected] && stats[selected].percentage !== completed) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setCompleted(stats[selected].percentage);
         }
     }, [selected, prev, stats, completed]);

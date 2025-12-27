@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
 
@@ -9,11 +9,7 @@ import {
     DisclosureButton,
     DisclosurePanel,
 } from "@headlessui/react";
-import {
-    Bars3Icon as MenuIcon,
-    MagnifyingGlassIcon as SearchIcon,
-    XMarkIcon as XIcon,
-} from "@heroicons/react/20/solid";
+import { Bars3Icon as MenuIcon } from "@heroicons/react/20/solid";
 
 import BrandImage from "./BrandImage";
 import InputSearch from "./InputSearch";

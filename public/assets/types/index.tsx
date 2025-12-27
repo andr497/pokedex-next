@@ -19,23 +19,25 @@ import TypeRock from "./rock.svg";
 import TypeSteel from "./steel.svg";
 import TypeWater from "./water.svg";
 
-export default {
-  bug: () => TypeBug,
-  dark: () => TypeDark,
-  dragon: () => TypeDragon,
-  electric: <TypeElectric />,
-  fairy: <TypeFairy />,
-  fighting: <TypeFighting />,
-  fire: <TypeFire />,
-  flying: <TypeFlying />,
-  ghost: <TypeGhost />,
-  grass: <TypeGrass />,
-  ground: <TypeGround />,
-  ice: <TypeIce />,
-  normal: <TypeNormal />,
-  poison: <TypePoison />,
-  psychic: <TypePsychic />,
-  rock: <TypeRock />,
-  steel: <TypeSteel />,
-  water: <TypeWater />,
+const pokemonTypeIcons = {
+    bug: TypeBug,
+    dark: TypeDark,
+    dragon: TypeDragon,
+    electric: TypeElectric,
+    fairy: TypeFairy,
+    fighting: TypeFighting,
+    fire: TypeFire,
+    flying: TypeFlying,
+    ghost: TypeGhost,
+    grass: TypeGrass,
+    ground: TypeGround,
+    ice: TypeIce,
+    normal: TypeNormal,
+    poison: TypePoison,
+    psychic: TypePsychic,
+    rock: TypeRock,
+    steel: TypeSteel,
+    water: TypeWater,
 };
+
+export default pokemonTypeIcons;

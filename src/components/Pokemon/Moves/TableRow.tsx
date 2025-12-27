@@ -1,5 +1,4 @@
 "use client";
-import React, { useMemo } from "react";
 
 import { COLOR } from "@/helpers/constants";
 import useBreakpoints from "@/hooks/useBreakpoints";
@@ -15,14 +14,9 @@ interface TableRowProps {
 
 const TableRow = ({ pokemonMove, game, method }: TableRowProps) => {
     const width = useBreakpoints();
-    const version = useMemo(
-        () =>
-            pokemonMove.version_group_details.filter(
-                ({ move_learn_method, version_group }) =>
-                    move_learn_method.name === method &&
-                    version_group.name === game
-            ),
-        [pokemonMove]
+    const version = pokemonMove.version_group_details.filter(
+        ({ move_learn_method, version_group }) =>
+            move_learn_method.name === method && version_group.name === game
     );
 
     return (

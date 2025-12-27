@@ -1,18 +1,16 @@
 "use client";
-import React from "react";
+
+import clsx from "clsx";
+import { motion } from "framer-motion";
 
 import Link from "next/link";
 import Image from "next/image";
-import Chip from "@/components/Common/Chip";
 import useBreakpoints from "@/hooks/useBreakpoints";
 import { IMAGE_ITEM_BASE_URL } from "@/helpers/constants";
 import useEvolutionChain from "@/hooks/useEvolutionChain";
-import { checkBrightness } from "@/helpers/pokemonHelpers";
 import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
 import { PokemonImage } from "@/components/StyledComponents/Image";
 import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
-import { motion } from "framer-motion";
-import clsx from "clsx";
 
 interface Props {
     pokemon: IPokemonEvolutionChain;
@@ -26,7 +24,6 @@ const EvolutionChainDetails = ({
     pokemon,
     firstPokemon,
     hasEvolution,
-    isSelected,
 }: Props) => {
     const width = useBreakpoints();
     const {
@@ -42,10 +39,11 @@ const EvolutionChainDetails = ({
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className={clsx("flex flex-wrap justify-center", {
-                "self-center": firstPokemon,
+            className={clsx("w-full flex flex-wrap", {
+                "justify-center": firstPokemon,
                 "flex-col w-full": !hasEvolution,
-                "flex-row-reverse max-md:flex-col-reverse": hasEvolution,
+                "flex-row-reverse max-md:flex-col-reverse justify-between":
+                    hasEvolution,
             })}
         >
             <Link
@@ -53,17 +51,17 @@ const EvolutionChainDetails = ({
                 href={`/pokemon/${pokemon.id}`}
                 className="group card-pokemon-container flex flex-col items-center justify-center gap-2 lg:gap-8 relative"
             >
-                <div className="relative w-32 h-32 flex items-center justify-center mb-1">
+                <div className="relative w-32 h-32 flex items-center justify-center max-sm:mb-1">
                     <PokemonImage
-                        className="duration-300 max-sm:max-w-45 w-full max-w-50"
+                        className="duration-300 w-full max-sm:w-30 max-w-50"
                         alt={`Evolution chain - ${pokemon.species_name}`}
-                        src={pokemon.image ?? ""}
+                        src={pokemon.image}
                         width={120}
                         height={120}
                         colorType1={colorType1}
                         colorType2={colorType2}
                     />
-                    <span className="absolute -top-2 -right-2 bg-muted/20 border border-border text-muted text-xs font-bold px-2 py-1 rounded-full">
+                    <span className="absolute -top-2 -right-2 bg-muted/20 border border-border text-muted text-xs font-bold max-sm:px-1 max-sm:py-0.5 px-2 py-1 rounded-full">
                         # {pokemon.id.toString().padStart(3, "0")}
                     </span>
                 </div>
@@ -86,7 +84,7 @@ const EvolutionChainDetails = ({
                     className="flex flex-col items-center justify-center-safe gap-2 py-4 md:py-0"
                     //flex items-center wrap-break-word max-w-max p-5 self-center text-center flex-col-reverse max-sm:grow max-sm:max-w-full
                 >
-                    {width === "xs" ? (
+                    {["xs", "sm"].includes(width) ? (
                         <ArrowDownIcon className="w-8" />
                     ) : (
                         <ArrowRightIcon className="w-11" />

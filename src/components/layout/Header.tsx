@@ -12,7 +12,7 @@ type MenuItem = {
 const menu: MenuItem[] = [
     {
         title: "Generations",
-        url: "#",
+        url: "/",
         disabled: false,
     },
     {

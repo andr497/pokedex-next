@@ -16,7 +16,7 @@ const CustomImage = ({ alt, ...props }: props) => {
     return (
         <Image
             {...restProps}
-            src={src}
+            src={src ?? "/NotFound.png"}
             alt={alt}
             onError={() => setSrc("/NotFound.png")}
         />

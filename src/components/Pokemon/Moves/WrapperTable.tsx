@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import useSWR from "swr";
 import { getAllPokemonMovesProcess } from "@/api/moves";
@@ -46,7 +46,10 @@ const WrapperTable = ({ pokemonId }: Props) => {
                         : 0;
                 });
 
-            setPokemonMoves(filteredMoves);
+            //This is just a test, refactor later
+            (async () => {
+                setPokemonMoves(filteredMoves);
+            })();
         }
     }, [method, versionGroup, data]);
 

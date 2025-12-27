@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 
 import Link from "next/link";
 import { ARTWORK_BASE_URL } from "@/helpers/constants";
-import { IPokemonList } from "interfaces/IPokemonList";
+import { IPokemonList } from "@/interfaces/IPokemonList";
 import {
     checkBrightness,
     colorPokemonTypes,
     fixPokemonName,
-} from "helpers/pokemonHelpers";
+} from "@/helpers/pokemonHelpers";
 
 import IconSvg from "@/components/StyledComponents/IconSvg";
 import { PokemonImage } from "@/components/StyledComponents/Image";
@@ -54,7 +54,7 @@ const Card = ({ pokemon }: PokemonCardProps) => {
                             width={250}
                             height={250}
                             alt={pokemon.name}
-                            src={`${ARTWORK_BASE_URL}${pokemonNumber}.png`}
+                            src={`${ARTWORK_BASE_URL}${pokemon.id}.png`}
                             colorType1={colorType1}
                             colorType2={colorType2}
                         />

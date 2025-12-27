@@ -3,7 +3,6 @@
 import { getAbilityById } from "@/api/pokemon";
 import { fixAbilitiesName } from "@/helpers/pokemonHelpers";
 import { Pokemon, PokemonAbility } from "@/interfaces/PokeApi/IPokemonApi";
-import { EyeSlashIcon } from "@heroicons/react/20/solid";
 import useSWR from "swr";
 
 interface Props {

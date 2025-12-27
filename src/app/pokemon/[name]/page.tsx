@@ -74,7 +74,6 @@ export default async function PokemonPage({ params }: PropTypes) {
                             </h3>
                             <PokemonCardInfo
                                 data={data.general}
-                                abilities={data.abilities}
                                 varieties={data.varieties}
                             />
                         </div>
