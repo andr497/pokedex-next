@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 
-import { Navbar } from "@/components/Navbar";
 import ProviderWrapper from "@/components/ProviderWrapper";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
