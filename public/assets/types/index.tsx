@@ -1,5 +1,3 @@
-import React from "react";
-
 import TypeBug from "./bug.svg";
 import TypeDark from "./dark.svg";
 import TypeDragon from "./dragon.svg";
