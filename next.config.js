@@ -17,6 +17,9 @@ const nextConfig = {
     compiler: {
         styledComponents: true,
     },
+    experimental: {
+        viewTransition: true,
+    },
 };
 
 module.exports = nextConfig;

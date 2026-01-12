@@ -26,14 +26,15 @@
     "styled-components": "^6.1.19",
     "swr": "^2.3.8",
     "tailwind-merge": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
     "use-media": "^1.5.0",
     "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^25.0.3",
-    "@types/react": "18",
-    "@types/react-dom": "18",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
     "@types/react-virtualized": "^9.22.3",
     "@types/styled-components": "^5.1.36",
     "@typescript-eslint/eslint-plugin": "^8.50.1",

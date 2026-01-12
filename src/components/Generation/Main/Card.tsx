@@ -1,23 +1,14 @@
-"use client";
-import React, { useMemo } from "react";
 import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Generation } from "@/interfaces/PokeApi/IGenerations";
 
 import SvgPokeball from "@/components/SvgPokeball";
-import { GENERATION_HOVER_COLORS } from "@/helpers/constants";
-import { GenerationNames } from "@/interfaces/ICommons";
 
 interface Props {
     generation: Generation;
 }
 
 const Card = ({ generation }: Props) => {
-    const color: string[] = useMemo(
-        () => GENERATION_HOVER_COLORS[generation.name as GenerationNames],
-        [generation]
-    );
-
     return (
         <Link
             href={`/generation/${generation.id}`}
@@ -52,10 +43,7 @@ const Card = ({ generation }: Props) => {
                             height: "220px",
                         },
                     }}
-                    className="group-hover:rotate-45 
-                                        absolute top-14 -right-24
-                                        rotate-0 transition duration-300 
-                                        ease-out hover:ease-in"
+                    className="group-hover:rotate-45 absolute top-14 -right-24 rotate-0 transition duration-300 ease-out hover:ease-in"
                     title={generation.name}
                 />
             </div>
