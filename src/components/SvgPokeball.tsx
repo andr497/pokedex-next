@@ -1,26 +1,23 @@
-import { ComponentPropsWithRef } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+"use client";
 
-import { ReactSVG } from "react-svg";
 import styled from "styled-components";
 import { useTheme } from "next-themes";
+import ClientReactSVG, { ClientReactSVGProps } from "./ClientReactSVG";
 
 interface ColorTypesProps {
     colorType1?: string;
     colorType2?: string;
 }
 
-type ReactSVGProps = ComponentPropsWithRef<typeof ReactSVG>;
-
-type SvgProps = ReactSVGProps & ColorTypesProps;
+type SvgProps = ClientReactSVGProps & ColorTypesProps;
 
 const BaseSvgPokeballComponent = ({
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     colorType1,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     colorType2,
     ...props
 }: SvgProps | any) => {
-    return <ReactSVG {...props} />;
+    return <ClientReactSVG {...props} />;
 };
 
 const SvgPokeball = styled(BaseSvgPokeballComponent)((props) => {

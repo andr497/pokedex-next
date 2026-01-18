@@ -1,25 +1,33 @@
 "use client";
 
-import { Chip } from "@/components/Common";
+import { useEffect, useMemo, useRef, useState, ViewTransition } from "react";
+
+import clsx from "clsx";
+
+import Link from "next/link";
+import Chip from "@/components/ui/Chip";
+import BgTypes from "@/components/Common/BgTypes";
 import CustomImage from "@/components/CustomImage";
-import IconSvg from "@/components/StyledComponents/IconSvg";
 import { TOTAL_POKEMON } from "@/helpers/constants";
-import {
-    checkBrightness,
-    colorPokemonTypes,
-    fixPokemonName,
-} from "@/helpers/pokemonHelpers";
+import IconSvg from "@/components/StyledComponents/IconSvg";
 import useSvgTypeBackground from "@/hooks/useSvgTypeBackground";
 import { GeneralInfoPokemon } from "@/interfaces/IPokemonDetails";
 import {
     ChevronLeftIcon,
     ChevronRightIcon,
+    FaceSmileIcon,
+    MinusCircleIcon,
     PauseIcon,
     PlayIcon,
+    SparklesIcon,
+    TrophyIcon,
 } from "@heroicons/react/20/solid";
-import clsx from "clsx";
-import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+    addZero,
+    checkBrightness,
+    colorPokemonTypes,
+    fixPokemonName,
+} from "@/helpers/pokemonHelpers";
 
 interface Props {
     data: GeneralInfoPokemon;
@@ -41,29 +49,15 @@ export default function PokemonProfile({ data }: Props) {
             prevPokemon: data.id === 1 ? data.id : data.id - 1,
             nextPokemon: data.id === TOTAL_POKEMON ? 1 : data.id + 1,
         }),
-        [data]
+        [data],
     );
 
     return (
         <>
-            <div
-                className="absolute inset-0 opacity-30 pointer-events-none"
-                style={{
-                    backgroundImage: `linear-gradient(to bottom right, ${colorType1}, transparent, transparent)`,
-                }}
-            ></div>
-
-            <div
-                className="absolute -right-20 -top-20 opacity-20 w-96 h-96 rounded-full blur-3xl pointer-events-none"
-                style={{
-                    backgroundColor: `${colorType2}`,
-                }}
-            ></div>
-
+            <BgTypes colorType1={colorType1} colorType2={colorType2} />
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 lg:p-12 items-center">
                 <div className="hidden lg:flex lg:col-span-1 justify-center">
                     <Link
-                        prefetch={false}
                         style={{
                             color: colorType1,
                             visibility: isFirst ? "hidden" : "visible",
@@ -77,9 +71,8 @@ export default function PokemonProfile({ data }: Props) {
                 <PokemonImage data={data} />
                 <div className="hidden lg:flex lg:col-span-1 justify-center">
                     <Link
-                        prefetch={false}
                         style={{
-                            color: colorType1,
+                            color: colorType2,
                             visibility: isLast ? "hidden" : "visible",
                         }}
                         className="group flex items-center justify-center w-12 h-12 rounded-full transition-all backdrop-blur-sm border border-border/30"
@@ -90,7 +83,6 @@ export default function PokemonProfile({ data }: Props) {
                 </div>
                 <div className="col-span-1 lg:hidden flex justify-between px-4 pb-4 w-full">
                     <Link
-                        prefetch={false}
                         style={{
                             color: colorType1,
                             visibility: isFirst ? "hidden" : "visible",
@@ -104,7 +96,6 @@ export default function PokemonProfile({ data }: Props) {
                         </span>
                     </Link>
                     <Link
-                        prefetch={false}
                         style={{
                             color: colorType2,
                             visibility: isLast ? "hidden" : "visible",
@@ -143,49 +134,71 @@ function PokemonImage({ data }: Props) {
         <>
             <div className="lg:col-span-10 flex flex-col md:flex-row items-center gap-8 md:gap-16 justify-center">
                 <div className="flex-1 flex flex-col items-center relative">
-                    <div
-                        id="image-pokemon-container"
-                        className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center"
-                    >
-                        <CustomImage
-                            loading="lazy"
-                            alt={data.name}
-                            src={data.image}
-                            width={width}
-                            height={height}
-                            className={`${
-                                activeShiny ? "opacity-0" : "opacity-100"
-                            } absolute w-full h-full object-contain drop-shadow-2xl z-10`}
-                            onClick={data.image_shiny ? toggleImage : () => {}}
-                        />
-                        <CustomImage
-                            loading="lazy"
-                            alt={data.name}
-                            src={data.image_shiny ?? null}
-                            width={width}
-                            height={height}
-                            className={`${
-                                activeShiny ? "opacity-100" : "opacity-0"
-                            } absolute w-full h-full object-contain drop-shadow-2xl z-10`}
-                            onClick={data.image_shiny ? toggleImage : () => {}}
-                        />
-                    </div>
+                    <ViewTransition name="pokemon-image">
+                        <div
+                            id="image-pokemon-container"
+                            className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center "
+                        >
+                            <CustomImage
+                                loading="lazy"
+                                alt={data.name}
+                                src={data.image}
+                                width={width}
+                                height={height}
+                                className={`${
+                                    activeShiny ? "opacity-0" : "opacity-100"
+                                } absolute w-full h-full object-contain drop-shadow-2xl z-10 `}
+                                onClick={
+                                    data.image_shiny ? toggleImage : () => {}
+                                }
+                            />
+                            <CustomImage
+                                loading="lazy"
+                                alt={data.name}
+                                src={data.image_shiny ?? null}
+                                width={width}
+                                height={height}
+                                className={`${
+                                    activeShiny ? "opacity-100" : "opacity-0"
+                                } absolute w-full h-full object-contain drop-shadow-2xl z-10`}
+                                onClick={
+                                    data.image_shiny ? toggleImage : () => {}
+                                }
+                            />
+                            <span className="absolute bottom-0 text-muted text-xs z-10">
+                                {!data.image_shiny ? (
+                                    <>No image shiny available</>
+                                ) : (
+                                    <>
+                                        {activeShiny ? (
+                                            <>See normal version</>
+                                        ) : (
+                                            <>See shiny version</>
+                                        )}
+                                    </>
+                                )}
+                            </span>
+                        </div>
+                    </ViewTransition>
                 </div>
 
                 <div className="flex-1 w-full text-center md:text-left space-y-4">
                     <div className="space-y-1">
                         <span className="text-muted font-bold text-lg tracking-wider">
-                            #{data.id}
+                            #{addZero(data.id)}
                         </span>
-                        <h1 className="capitalize text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
-                            {fixPokemonName(data.name)}
-                        </h1>
+                        <ViewTransition name="pokemon-name">
+                            <h1 className="capitalize text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+                                {fixPokemonName(data.name)}
+                            </h1>
+                        </ViewTransition>
                         <p className="text-lg text-muted">{data.genera}</p>
+                        <PokemonRarity data={data} />
                     </div>
                     <div className="flex flex-wrap gap-2 justify-center md:justify-start pt-2">
                         {data.types.map((value, key) => {
                             const fontColor: string = checkBrightness(
-                                color[key]
+                                color[key],
                             )
                                 ? "#fff"
                                 : "#000";
@@ -228,7 +241,7 @@ function PokemonImage({ data }: Props) {
                             <PokemonCryPlayer
                                 src={`${data.cries.legacy}`}
                                 color={colorType1}
-                                title="(legacy)"
+                                title="(old)"
                             />
                         )}
                     </div>
@@ -300,7 +313,7 @@ const PokemonCryPlayer = ({
                             "w-1 rounded-full",
                             isPlaying
                                 ? "h-full animate-wave delay-1"
-                                : "opacity-40 h-2"
+                                : "opacity-40 h-2",
                         )}
                     />
                     <span
@@ -309,7 +322,7 @@ const PokemonCryPlayer = ({
                             "w-1 rounded-full",
                             isPlaying
                                 ? "h-full animate-wave delay-2"
-                                : "opacity-40 h-3"
+                                : "opacity-40 h-3",
                         )}
                     />
                     <span
@@ -318,14 +331,16 @@ const PokemonCryPlayer = ({
                             "w-1 rounded-full",
                             isPlaying
                                 ? "h-full animate-wave delay-3"
-                                : "opacity-40 h-4"
+                                : "opacity-40 h-4",
                         )}
                     />
                     <span
                         style={{ backgroundColor: color }}
                         className={clsx(
                             "w-1 rounded-full ",
-                            isPlaying ? "h-full animate-wave" : "opacity-40 h-2"
+                            isPlaying
+                                ? "h-full animate-wave"
+                                : "opacity-40 h-2",
                         )}
                     />
                 </div>
@@ -336,3 +351,42 @@ const PokemonCryPlayer = ({
         </div>
     );
 };
+
+function PokemonRarity({ data }) {
+    let rarity = {
+        text: "Normal",
+        icon: MinusCircleIcon,
+        className: "bg-gray-100 text-muted",
+    };
+
+    if (data.is_baby) {
+        rarity = {
+            text: "Baby",
+            icon: FaceSmileIcon,
+            className: "bg-yellow-100 text-yellow-700",
+        };
+    } else if (data.is_mythical) {
+        rarity = {
+            text: "Mythical",
+            icon: SparklesIcon,
+            className: "bg-purple-100 text-purple-700",
+        };
+    } else if (data.is_legendary) {
+        rarity = {
+            text: "Legendary",
+            icon: TrophyIcon,
+            className: "bg-amber-100 text-amber-700",
+        };
+    }
+
+    const Icon = rarity.icon;
+
+    return (
+        <span
+            className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${rarity.className}`}
+        >
+            {Icon && <Icon className="w-4 h-4 me-1" />}
+            {rarity.text}
+        </span>
+    );
+}

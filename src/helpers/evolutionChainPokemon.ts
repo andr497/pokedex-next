@@ -1,6 +1,6 @@
-import { IPokemonEvolutionChain } from "interfaces/IGeneral";
+import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
 import { ARTWORK_BASE_URL } from "./constants";
-import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
+import { GeneralInfoPokemon } from "@/interfaces/IPokemonDetails";
 
 interface NodeWithPath<T> {
     node: T;
@@ -141,24 +141,25 @@ export const fixGenderText = (gender: number) => {
     return "Only " + fullName;
 };
 
-export const fixEvolutionMethod = ({
-    min_level,
-    min_happiness,
-    min_affection,
-    min_beauty,
-    trigger_name,
-    item,
-    held_item,
-    relative_physical_stats,
-    known_move,
-    known_move_type,
-    time_of_day,
-    location,
-    needs_overworld_rain,
-    turn_upside_down,
-    trade_species,
-    party_species
-}: IPokemonEvolutionChain) => {
+export const fixEvolutionMethod = (evolutionChain: IPokemonEvolutionChain) => {
+    const {
+        min_level,
+        min_happiness,
+        min_affection,
+        min_beauty,
+        trigger_name,
+        item,
+        held_item,
+        relative_physical_stats,
+        known_move,
+        known_move_type,
+        time_of_day,
+        location,
+        needs_overworld_rain,
+        turn_upside_down,
+        trade_species,
+        party_species,
+    } = evolutionChain;
     let fixTrigger = fixTriggerName(trigger_name);
     let minLevelArray = Object.entries({
         min_level,
@@ -177,12 +178,11 @@ export const fixEvolutionMethod = ({
                   )}`
             : "";
 
-    const fixItem =
-        item !== null
-            ? ` ${item.replace("-", " ")}`
-            : held_item !== null
-            ? ` holding ${held_item.replace("-", " ")}`
-            : "";
+    const fixItem = item
+        ? ` ${item.replace("-", " ")}`
+        : held_item
+        ? ` holding ${held_item.replace("-", " ")}`
+        : "";
 
     //Data to show if
 
@@ -209,4 +209,55 @@ export const fixEvolutionMethod = ({
     return `${fixTrigger}${fixItem} ${textLevel}${
         moreDetails ? "\n" + moreDetails : ""
     }`;
+};
+
+export interface TreeEvolutionNode {
+    id: number;
+    species_name: string;
+    image: string;
+    evolution_method: string;
+    children: TreeEvolutionNode[];
+}
+
+export const fixEvolutionNode = (node: ChainLink): TreeEvolutionNode => {
+    const pokemonID = Number(node?.species?.url.split("/")[6]);
+    const evoDetails = node.evolution_details?.[0];
+
+    return {
+        id: pokemonID,
+        species_name: node.species.name,
+        image: ARTWORK_BASE_URL + pokemonID + ".png",
+        evolution_method: evoDetails
+            ? fixEvolutionMethod({
+                  ...evoDetails,
+                  trigger_name: evoDetails.trigger?.name ?? null,
+                  min_level: evoDetails?.min_level ?? null,
+
+                  item: evoDetails?.item?.name ?? null,
+                  held_item: evoDetails?.held_item?.name ?? null,
+
+                  known_move: evoDetails?.known_move?.name ?? null,
+                  known_move_type: evoDetails?.known_move_type?.name ?? null,
+
+                  min_affection: evoDetails?.min_affection ?? null,
+                  min_beauty: evoDetails?.min_beauty ?? null,
+                  min_happiness: evoDetails?.min_happiness ?? null,
+
+                  needs_overworld_rain:
+                      evoDetails?.needs_overworld_rain ?? null,
+                  party_species: evoDetails?.party_species?.name ?? null,
+                  party_type: evoDetails?.party_type?.name ?? null,
+                  time_of_day: evoDetails?.time_of_day ?? null,
+                  trade_species: evoDetails?.trade_species?.name ?? null,
+                  location: evoDetails?.location?.name ?? null,
+                  turn_upside_down: evoDetails?.turn_upside_down ?? null,
+
+                  relative_physical_stats:
+                      evoDetails?.relative_physical_stats ?? null,
+
+                  gender: evoDetails?.gender ?? null,
+              } as any)
+            : "Not available",
+        children: (node.evolves_to || []).map(fixEvolutionNode),
+    };
 };

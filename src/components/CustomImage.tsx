@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { useState, ComponentPropsWithRef, useEffect } from "react";
 import Image from "next/image";
@@ -12,6 +13,12 @@ const CustomImage = ({ alt, ...props }: props) => {
     const [src, setSrc] = useState(props.src);
 
     const { colorType1, colorType2, ...restProps } = props;
+
+    useEffect(() => {
+        (async () => {
+            setSrc(props.src);
+        })();
+    }, [props.src]);
 
     return (
         <Image

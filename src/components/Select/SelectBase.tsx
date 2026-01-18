@@ -1,9 +1,9 @@
 import { SelectHTMLAttributes } from "react";
-import { useSelect, UseSelectParams } from "hooks/useSelect";
+import { useSelect, UseSelectParams } from "@/hooks/useSelect";
 import {
     useSelectOptions,
     UseSelectOptionsParams,
-} from "hooks/useSelectOptions";
+} from "@/hooks/useSelectOptions";
 
 type SelectProps = Pick<SelectHTMLAttributes<HTMLSelectElement>, "name">;
 

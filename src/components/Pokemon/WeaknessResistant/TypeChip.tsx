@@ -1,5 +1,5 @@
 "use client";
-import Chip from "@/components/Common/Chip";
+import Chip from "@/components/ui/Chip";
 import { COLOR } from "@/helpers/constants";
 import useBrightness from "@/hooks/useBrightness";
 import IconSvg from "@/components/StyledComponents/IconSvg";

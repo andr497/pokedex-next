@@ -1,29 +1,22 @@
 "use client";
-import React, { useMemo } from "react";
-
-import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
-
-import EvolutionChainElement from "./Element";
+import { TreeEvolutionNode } from "@/helpers/evolutionChainPokemon";
+import EvolutionTreeNode from "./Tree";
 
 interface Props {
     pokemonIdActual: number;
-    pokemonChain: IPokemonEvolutionChain[][];
+    pokemonChain: TreeEvolutionNode;
+    types: { colorType1: string; colorType2: string };
 }
 
-const Container = ({ pokemonChain, pokemonIdActual }: Props) => {
-    const hasEvolution = useMemo(() => pokemonChain.length > 1, [pokemonChain]);
-
+const Container = ({ pokemonChain, types, pokemonIdActual }: Props) => {
     return (
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 lg:gap-12 relative">
-            {pokemonChain.map((chain, key) => (
-                <EvolutionChainElement
-                    key={`chain-${key}`}
-                    chain={chain}
-                    pokemonId={pokemonIdActual}
-                    firstPokemon={key === 0}
-                    hasEvolution={hasEvolution}
-                />
-            ))}
+        <div className="flex justify-center py-8">
+            <EvolutionTreeNode
+                pokemon={pokemonChain}
+                types={types}
+                pokemonIdActual={pokemonIdActual}
+                isRoot
+            />
         </div>
     );
 };

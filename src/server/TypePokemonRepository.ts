@@ -1,10 +1,10 @@
 import { getAllPokemonTypes, getTypeDetail } from "@/api/types";
-import { PokemonType } from "interfaces/PokeApi/IPokemonApi";
+import { PokemonType } from "@/interfaces/PokeApi/IPokemonApi";
 import {
     TypeDetail,
     TypeRelations,
     TypeDefenses,
-} from "interfaces/PokeApi/IPokemonTypes";
+} from "@/interfaces/PokeApi/IPokemonTypes";
 
 export const findAllPokemonType = async () => {
     const types = await getAllPokemonTypes({});

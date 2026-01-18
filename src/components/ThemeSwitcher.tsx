@@ -27,8 +27,7 @@ const ThemeSwitcher = () => {
     return (
         <button
             className={`inline-flex items-center p-1 w-8 h-8 justify-center text-sm 
-                text-gray-500 rounded cursor-pointer
-                hover:text-foreground
+                rounded cursor-pointer
                 hover:bg-surface
                 focus:outline-none`}
             onClick={handleClick}

@@ -5,8 +5,10 @@ import {
     convertDecimeterToMeter,
     convertHectogramToKilogram,
 } from "@/helpers/converterHelper";
-import { processEvolutionChain } from "@/helpers/evolutionChainPokemon";
-import { IPokemonEvolutionChain } from "interfaces/IGeneral";
+import {
+    fixEvolutionNode,
+    TreeEvolutionNode,
+} from "@/helpers/evolutionChainPokemon";
 import { CustomPokemon } from "@/interfaces/CustomPokeApi/CustomPokemon";
 import { axiosCacheInstance } from "@/api/config";
 
@@ -26,11 +28,11 @@ export const findPokemonById = async (idToSearch: number | string) => {
         const evolutionChain = await getEvolutionChain(evolutionUrl);
 
         const pokemon_genera = pokemon.genera.filter(
-            (v) => v.language.name === "en"
+            (v) => v.language.name === "en",
         );
 
         const pokemonFlavor = pokemon.flavor_text_entries.filter(
-            (v) => v.language.name === "en"
+            (v) => v.language.name === "en",
         );
 
         return {
@@ -57,6 +59,9 @@ export const findPokemonById = async (idToSearch: number | string) => {
                 capture_rate: pokemon.capture_rate,
                 cries: pokemon.cries,
                 generation: pokemon.generation,
+                is_baby: pokemon.is_baby,
+                is_mythical: pokemon.is_mythical,
+                is_legendary: pokemon.is_legendary,
             },
             abilities: pokemon.abilities,
             moves: pokemon.moves,
@@ -74,15 +79,14 @@ export const findPokemonById = async (idToSearch: number | string) => {
     }
 };
 
-const getEvolutionChain = async (
-    url: string
-): Promise<IPokemonEvolutionChain[][]> => {
+const getEvolutionChain = async (url: string): Promise<TreeEvolutionNode> => {
     const evolutionData = await axios(url, {
         method: "GET",
     }).then(async (res) => {
         return await res.data;
     });
-    return processEvolutionChain(evolutionData);
+    return fixEvolutionNode(evolutionData.chain);
+    //return processEvolutionChain(evolutionData);
 };
 
 export const findPokemonByGenerations = async (idToSearch: number | string) => {
@@ -94,14 +98,14 @@ export const findPokemonByGenerations = async (idToSearch: number | string) => {
 
     return {
         pokemonSpecies: pokemonSpecies.sort((a, b) =>
-            a.id < b.id ? -1 : a.id > b.id ? 1 : 0
+            a.id < b.id ? -1 : a.id > b.id ? 1 : 0,
         ),
         generation,
     };
 };
 
 export const searchPokemonByName = async (
-    name: string
+    name: string,
 ): Promise<CustomPokemon[]> => {
     const response: AxiosResponse<{ pokemon: CustomPokemon[] }> =
         await axiosCacheInstance({

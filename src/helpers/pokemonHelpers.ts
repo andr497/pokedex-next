@@ -32,7 +32,6 @@ export function fixPokemonName(name: string): string {
         return gender === "f" ? `${nidoranName} ♀️` : `${nidoranName} ‍♂️`;
     }
 
-    /* Excepciones de nombres */
     if (name === "type-null") {
         return name.replace("-", ": ");
     }
@@ -44,17 +43,13 @@ export function fixPokemonName(name: string): string {
     if (name.endsWith("-jr")) {
         return name.replace("-", " ") + ".";
     }
-    /* Excepciones de nombres */
 
     return name.replace("-", " ");
 }
 
-export function fixVarietiesName(name: string, is_default: boolean): string {
+export function fixVarietiesName(name: string): string {
     if (name.includes("-")) {
         let [, ...nameToReturn] = name.split("-");
-        if (is_default) {
-            return name.replaceAll("-", " ");
-        }
         return nameToReturn.join(" ");
     }
 
@@ -78,7 +73,14 @@ export function fixVersionGroupName(name: string): string {
         return `${lgp}/${lge}`;
     }
 
-    if (["legend-arceus", "the-crown-tundra", "the-teal-mask", "the-isle-of-armor"].includes(name)) {
+    if (
+        [
+            "legend-arceus",
+            "the-crown-tundra",
+            "the-teal-mask",
+            "the-isle-of-armor",
+        ].includes(name)
+    ) {
         return name.replaceAll("-", " ");
     }
 
@@ -87,6 +89,14 @@ export function fixVersionGroupName(name: string): string {
     }
 
     return name.replaceAll("-", "/");
+}
+
+export function addZero(
+    id: number,
+    maxLength: number = 4,
+    fillString: string = "0",
+) {
+    return id.toString().padStart(maxLength, fillString);
 }
 
 export function checkBrightness(color: string): boolean {

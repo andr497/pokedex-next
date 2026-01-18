@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ARTWORK_BASE_URL } from "@/helpers/constants";
 import { IPokemonList } from "@/interfaces/IPokemonList";
 import {
+    addZero,
     checkBrightness,
     colorPokemonTypes,
     fixPokemonName,
@@ -12,6 +13,7 @@ import {
 
 import IconSvg from "@/components/StyledComponents/IconSvg";
 import { PokemonImage } from "@/components/StyledComponents/Image";
+import BgTypes from "../Common/BgTypes";
 
 interface PokemonCardProps {
     pokemon: IPokemonList;
@@ -24,7 +26,7 @@ const Card = ({ pokemon }: PokemonCardProps) => {
     colorType[0] = colorType1;
     colorType[1] = colorType2;
 
-    const pokemonNumber = pokemon.id.toString().padStart(3, "0");
+    const pokemonNumber = addZero(pokemon.id);
 
     return (
         <motion.div
@@ -33,13 +35,13 @@ const Card = ({ pokemon }: PokemonCardProps) => {
             transition={{ duration: 0 }}
             viewport={{ once: true }}
             //className={`group card-pokemon-container hover:-translate-y-1 relative mx-auto overflow-hidden rounded-xl w-max-md sm:w-full dark:bg-gray-800 p-px  transition-all duration-300 ease-in-out open:opacity-50 hover:bg-linear-to-r`}
-            style={
-                {
-                    //backgroundImage: `linear-gradient(to right, ${colorType1}, ${colorType2})`,
-                }
-            }
-            className="card-pokemon-container bg-surface p-5 rounded-xl border border-transparent hover:border-border hover:shadow-lg transition-all group cursor-pointer relative overflow-hidden"
+            className="group card-pokemon-container bg-surface p-5 rounded-xl border border-transparent hover:border-border hover:shadow-lg transition-all group cursor-pointer relative overflow-hidden"
         >
+            <BgTypes
+                colorType1={colorType1}
+                colorType2={colorType2}
+                animation
+            />
             <Link prefetch={false} href={`/pokemon/${pokemon.id}`}>
                 <span className="absolute top-2 right-4 text-6xl font-black text-foreground/10 pointer-events-none">
                     #{pokemonNumber}

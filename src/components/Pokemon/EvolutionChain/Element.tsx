@@ -5,12 +5,13 @@ import React, { useMemo } from "react";
 import EvolutionChainDetails from "./Details";
 import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
 import clsx from "clsx";
+import { TreeEvolutionNode } from "@/helpers/evolutionChainPokemon";
 
 interface Props {
     pokemonId: number;
     firstPokemon: boolean;
     hasEvolution: boolean;
-    chain: IPokemonEvolutionChain[];
+    chain: TreeEvolutionNode[];
 }
 
 const EvolutionChainElement = ({
@@ -20,8 +21,6 @@ const EvolutionChainElement = ({
     pokemonId,
 }: Props) => {
     const chainElementLength = useMemo(() => chain.length, [chain]);
-
-    //const isMediumChain = chainElementLength > 1 && chainElementLength < 3;
     const moreThanOne = chainElementLength > 1;
 
     return (
@@ -30,13 +29,12 @@ const EvolutionChainElement = ({
                 "flex-col max-md:flex-row max-sm:w-full": moreThanOne,
                 "max-sm:flex-col": !moreThanOne,
             })}
-            //className="flex flex-col items-center group cursor-pointer flex-1"
         >
-            {chain.map((pokemon, key) => (
+            {chain.map((node, key) => (
                 <EvolutionChainDetails
                     key={`pokemon-chain-${key}`}
-                    pokemon={pokemon}
-                    isSelected={pokemonId === parseInt(pokemon.id)}
+                    pokemon={node}
+                    isSelected={pokemonId === node.id}
                     firstPokemon={firstPokemon}
                     hasEvolution={hasEvolution}
                     numberOfPosibleEvolutions={chainElementLength}

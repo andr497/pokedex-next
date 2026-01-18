@@ -2,11 +2,19 @@ import { Pokemon } from "./PokeApi/IPokemonApi";
 import { PokemonSpecies } from "./PokeApi/IPokemonSpecies";
 
 export interface GeneralInfoPokemon
-    extends Pick<
+    extends
+        Pick<
             Pokemon,
             "id" | "name" | "height" | "weight" | "types" | "forms" | "cries"
         >,
-        Pick<PokemonSpecies, "capture_rate" | "generation"> {
+        Pick<
+            PokemonSpecies,
+            | "capture_rate"
+            | "generation"
+            | "is_baby"
+            | "is_legendary"
+            | "is_mythical"
+        > {
     image: string;
     image_shiny: string;
     genera: string;

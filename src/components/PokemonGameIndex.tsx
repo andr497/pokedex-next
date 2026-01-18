@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Carousel from "react-multi-carousel";
 
-import { FlavorText } from "interfaces/PokeApi/CommonModels";
-import { PokemonSpecies } from "interfaces/PokeApi/IPokemonSpecies";
+import { FlavorText } from "@/interfaces/PokeApi/CommonModels";
+import { PokemonSpecies } from "@/interfaces/PokeApi/IPokemonSpecies";
 
 import "react-multi-carousel/lib/styles.css";
 
@@ -37,14 +37,14 @@ const PokemonGameIndex = ({ data, types }: Props) => {
     const [groupData, setGroupData] = useState<FlavorText[]>([]);
 
     useEffect(() => {
-        const filterdData: FlavorText[] = data.filter(
-            (item) => item.language.name === "en"
-        );
+        (async () => {
+            const filterdData: FlavorText[] = data.filter(
+                (item) => item.language.name === "en"
+            );
 
-        setGroupData(filterdData);
+            setGroupData(filterdData);
+        })();
     }, [data]);
-
-    console.log(types);
 
     return (
         <>
@@ -54,7 +54,7 @@ const PokemonGameIndex = ({ data, types }: Props) => {
                         {groupData.map((flavor, key) => (
                             <div
                                 key={`flavor-${key}`}
-                                className="p-6 rounded dark:bg-gray-600 max-w-[200px]"
+                                className="p-6 rounded dark:bg-gray-600 max-w-50"
                             >
                                 <h3 className="text-2xl font-bold mb-2 dark:text-gray-50 text-gray-900 capitalize">
                                     {`${flavor.version.name}`}

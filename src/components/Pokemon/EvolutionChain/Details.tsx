@@ -11,9 +11,10 @@ import useEvolutionChain from "@/hooks/useEvolutionChain";
 import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
 import { PokemonImage } from "@/components/StyledComponents/Image";
 import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
+import { TreeEvolutionNode } from "@/helpers/evolutionChainPokemon";
 
 interface Props {
-    pokemon: IPokemonEvolutionChain;
+    pokemon: TreeEvolutionNode;
     isSelected: boolean;
     firstPokemon: boolean;
     hasEvolution: boolean;
@@ -90,7 +91,7 @@ const EvolutionChainDetails = ({
                         <ArrowRightIcon className="w-11" />
                     )}
                     <p>
-                        {evolutionDescription
+                        {pokemon.evolution_method
                             .split("\n")
                             .map((value, index) => (
                                 <span
