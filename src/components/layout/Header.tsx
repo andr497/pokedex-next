@@ -1,5 +1,3 @@
-import Link from "next/link";
-import ThemeSwitcher from "../ThemeSwitcher";
 import Container from "./Container";
 import { Navbar } from "./Navbar";
 

@@ -17,7 +17,7 @@ const InputSearch = ({ onSearch, formClassName, ...props }: Props) => {
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <SearchIcon
                         className={`block h-6 w-6 ${
-                            focus ? "text-blue-300" : "text-gray-400"
+                            focus ? "text-primary" : "text-muted"
                         }`}
                     />
                     <span className="sr-only">Search icon</span>

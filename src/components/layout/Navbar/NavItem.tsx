@@ -10,7 +10,7 @@ type NavItemProps = {
 
 export const NavItem = ({ item }: NavItemProps) => {
     const className = clsx(
-        "text-sm font-medium transition-colors",
+        "block px-3 py-2 md:p-0 text-heading text-sm font-medium transition-colors",
         item.disabled ? "text-muted cursor-not-allowed" : "hover:text-primary"
     );
 
@@ -23,8 +23,10 @@ export const NavItem = ({ item }: NavItemProps) => {
     }
 
     return (
-        <Link href={item.url} className={className}>
-            {item.title}
-        </Link>
+        <li>
+            <Link href={item.url} className={className}>
+                {item.title}
+            </Link>
+        </li>
     );
 };
