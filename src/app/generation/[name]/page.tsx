@@ -2,9 +2,9 @@ import { Suspense } from "react";
 
 import { notFound } from "next/navigation";
 import { Loading } from "@/components/Loading";
-import { findPokemonByGenerations } from "@/server/PokemonRepository";
-import GenerationDetailsContainer from "@/components/Generation/Details/Container";
 import Container from "@/components/layout/Container";
+import { findPokemonByGenerations } from "@/server/PokemonRepository";
+import GenerationWrapper from "@/app/generation/[name]/components/GenerationWrapper";
 
 interface PropTypes {
     params: {
@@ -23,7 +23,7 @@ export default async function GenerationPage({ params }: PropTypes) {
     return (
         <Suspense fallback={<Loading />}>
             <Container>
-                <GenerationDetailsContainer
+                <GenerationWrapper
                     pokemonData={data.pokemonSpecies}
                     generation={data.generation}
                 />

@@ -1,18 +1,10 @@
-import { Suspense } from "react";
-
-import GenerationContainer from "@/components/Generation/Main/Container";
-
-import Loading from "./loading";
 import Container from "@/components/layout/Container";
-import HeroSection from "@/components/Home/HeroSection";
+import HomeHeroSection from "./components/HomeHeroSection";
 
-export default function Home() {
+export default function HomePage() {
     return (
-        <Suspense fallback={<Loading />}>
-            <Container>
-                <HeroSection />
-                <GenerationContainer />
-            </Container>
-        </Suspense>
+        <Container>
+            <HomeHeroSection />
+        </Container>
     );
 }

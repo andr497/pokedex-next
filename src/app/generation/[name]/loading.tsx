@@ -1,4 +1,4 @@
 import { Loading as Loader } from "@/components/Loading";
-export default function Loxading() {
+export default function Loading() {
     return <Loader />;
 }

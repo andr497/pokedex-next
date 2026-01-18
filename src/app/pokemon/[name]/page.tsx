@@ -3,14 +3,11 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 
 import { notFound } from "next/navigation";
-import { Loading } from "@/components/Loading";
 import { PokemonStats } from "@/components/Pokemon/Stats";
 import { colorPokemonTypes } from "@/helpers/pokemonHelpers";
 import { findPokemonById } from "@/server/PokemonRepository";
 import { findPokemonTypes } from "@/server/TypePokemonRepository";
 import {
-    PokemonDetailImage,
-    PokemonNavigationName,
     PokemonCardInfo,
     PokemonProfile,
     PokemonAbilities,
@@ -24,6 +21,7 @@ import {
     ChartBarIcon,
     RectangleGroupIcon,
 } from "@heroicons/react/20/solid";
+import PokemonVarietiesFilters from "@/components/Pokemon/Filters";
 
 //import { WrapperTable } from "@/components/TableMove";
 
@@ -60,8 +58,19 @@ export default async function PokemonPage({ params }: PropTypes) {
     const { colorType1, colorType2 } = colorPokemonTypes(data.general);
 
     return (
-        <Suspense fallback={<Loading />}>
+        <Suspense>
             <Container className="mt-4 space-y-4">
+                <section className="w-full">
+                    <div className="flex items-center justify-between mb-3">
+                        <h3 className="text-muted text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+                            Forms &amp; Varieties
+                        </h3>
+                    </div>
+                    <PokemonVarietiesFilters
+                        pokemonId={data.general.id.toString()}
+                        varieties={data.varieties}
+                    />
+                </section>
                 <section className="relative w-full rounded-2xl overflow-hidden bg-surface border border-border">
                     <PokemonProfile data={data.general} />
                 </section>
@@ -72,10 +81,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                                 <InformationCircleIcon className="w-6" />
                                 Profile
                             </h3>
-                            <PokemonCardInfo
-                                data={data.general}
-                                varieties={data.varieties}
-                            />
+                            <PokemonCardInfo data={data.general} />
                         </div>
 
                         <div className="bg-surface border border-border rounded-xl p-6">
@@ -107,6 +113,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                     <EvolutionChain
                         pokemonIdActual={data.general.id}
                         pokemonChain={data.evolution_chain}
+                        types={{ colorType1, colorType2 }}
                     />
                 </section>
             </Container>

@@ -1,4 +1,4 @@
 import { Loading as Loader } from "@/components/Loading";
-export default function Loading() {
+export function Loading() {
     return <Loader />;
 }
