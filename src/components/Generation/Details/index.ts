@@ -1,1 +1,1 @@
-export { default as GenerationContainer } from "./Container";
+export { default as GenerationContainer } from "../../../app/generation/[name]/components/Container";
