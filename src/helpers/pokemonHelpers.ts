@@ -1,4 +1,4 @@
-import { Pokemon } from "interfaces/PokeApi/IPokemonApi";
+import { Pokemon } from "@/interfaces/PokeApi/IPokemonApi";
 import { COLOR } from "./constants";
 
 export function colorPokemonTypes(types: Pick<Pokemon, "types">): {

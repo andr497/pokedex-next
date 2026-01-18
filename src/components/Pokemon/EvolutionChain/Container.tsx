@@ -8,7 +8,11 @@ interface Props {
     types: { colorType1: string; colorType2: string };
 }
 
-const Container = ({ pokemonChain, types, pokemonIdActual }: Props) => {
+export default function EvolutionChainContainer({
+    pokemonChain,
+    types,
+    pokemonIdActual,
+}: Props) {
     return (
         <div className="flex justify-center py-8">
             <EvolutionTreeNode
@@ -19,6 +23,4 @@ const Container = ({ pokemonChain, types, pokemonIdActual }: Props) => {
             />
         </div>
     );
-};
-
-export default Container;
+}

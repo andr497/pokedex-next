@@ -5,14 +5,14 @@ import { NextRequest } from "next/server";
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { pokemon_id: string } }
+    { params }: { params: Promise<{ pokemon_id: string }> },
 ) {
     try {
-        const { pokemon_id } = params;
+        const { pokemon_id } = await params;
 
         const { data: pokemonResponse } = await getPokemonById(pokemon_id);
         const movesDetailsResponse = await getAllMovesPokemonMoves(
-            pokemonResponse.moves
+            pokemonResponse.moves,
         );
 
         return Response.json(
@@ -21,7 +21,7 @@ export async function GET(
             },
             {
                 status: 200,
-            }
+            },
         );
     } catch (error) {
         if (error instanceof ServerError) {
@@ -32,7 +32,7 @@ export async function GET(
                 },
                 {
                     status: error.statusCode,
-                }
+                },
             );
         }
 
@@ -44,7 +44,7 @@ export async function GET(
                 },
                 {
                     status: 500,
-                }
+                },
             );
         }
     }

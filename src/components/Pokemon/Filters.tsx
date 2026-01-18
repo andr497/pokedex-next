@@ -1,10 +1,8 @@
 "use client";
 import { PokemonSpecies } from "@/interfaces/PokeApi/IPokemonSpecies";
 import { useParams, useRouter } from "next/navigation";
-import { Chip } from "../Common";
 import { fixVarietiesName } from "@/helpers/pokemonHelpers";
 import clsx from "clsx";
-import { PokemonImage } from "../StyledComponents/Image";
 import CustomImage from "../CustomImage";
 import { SPRITE_BASE_URL } from "@/helpers/constants";
 

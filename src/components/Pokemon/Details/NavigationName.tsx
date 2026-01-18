@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 import Link from "next/link";
 import { TOTAL_POKEMON } from "@/helpers/constants";
-import { GeneralInfoPokemon } from "interfaces/IPokemonDetails";
+import { GeneralInfoPokemon } from "@/interfaces/IPokemonDetails";
 import { colorPokemonTypes, fixPokemonName } from "@/helpers/pokemonHelpers";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
@@ -30,7 +30,7 @@ const NavigationName = ({ data }: Props) => {
             prevPokemon: data.id === 1 ? data.id : data.id - 1,
             nextPokemon: data.id === TOTAL_POKEMON ? 1 : data.id + 1,
         }),
-        [data]
+        [data],
     );
 
     return (
@@ -48,7 +48,7 @@ const NavigationName = ({ data }: Props) => {
                 <motion.div
                     initial={{ x: -50 }}
                     animate={{ x: 0 }}
-                    transition={{ duration: 0.5, origin: 1 }}
+                    transition={{ duration: 0.5 }}
                 >
                     <ChevronLeftIcon className="xl:w-36 lg:w-32 md:w-28 sm:w-24 w-12" />
                 </motion.div>
@@ -83,7 +83,7 @@ const NavigationName = ({ data }: Props) => {
                 <motion.div
                     initial={{ x: 50 }}
                     animate={{ x: 0 }}
-                    transition={{ duration: 0.5, origin: 1 }}
+                    transition={{ duration: 0.5 }}
                 >
                     <ChevronRightIcon className="xl:w-36 lg:w-32 md:w-28 sm:w-24 w-12" />
                 </motion.div>

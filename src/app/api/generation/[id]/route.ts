@@ -4,18 +4,21 @@ import { AxiosError } from "axios";
 import { NextRequest } from "next/server";
 
 type Params = {
-    params: {
-        id: string;
-    };
+    params: Promise<{ id: string }>;
 };
 
 export async function GET(request: NextRequest, { params }: Params) {
     try {
-        let { id } = params;
+        let { id } = await params;
 
+        const generationDataId = await getGenerationById(id);
+
+        if (!generationDataId) {
+            throw new Error("Generation not found!");
+        }
         const {
             data: { pokemon_species },
-        } = await getGenerationById(id);
+        } = generationDataId;
 
         const pokemonSpecies = await Promise.all(
             pokemon_species.map(async (pokemon) => {
@@ -29,7 +32,7 @@ export async function GET(request: NextRequest, { params }: Params) {
                     ...responsePokemon.data,
                     ...responsePokemonSpecies.data,
                 };
-            })
+            }),
         );
 
         return Response.json(
@@ -38,7 +41,7 @@ export async function GET(request: NextRequest, { params }: Params) {
             },
             {
                 status: 200,
-            }
+            },
         );
     } catch (e) {
         if (e instanceof AxiosError) {
@@ -48,7 +51,7 @@ export async function GET(request: NextRequest, { params }: Params) {
                 },
                 {
                     status: e.response?.status ?? 500,
-                }
+                },
             );
         }
         if (e instanceof Error) {
@@ -58,7 +61,7 @@ export async function GET(request: NextRequest, { params }: Params) {
                 },
                 {
                     status: 500,
-                }
+                },
             );
         }
     }

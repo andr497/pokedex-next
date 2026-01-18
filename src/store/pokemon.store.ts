@@ -1,7 +1,7 @@
 import { IPokemonList } from "@/interfaces/IPokemonList";
 import { AllPokemonSpecies } from "@/interfaces/PokeApi/IPokemonSpecies";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface PokemonStore {
     countPokemon: number;
@@ -15,7 +15,6 @@ interface PokemonStore {
     setSearchTextPokemon: (text: string) => void;
     reset: () => void;
 }
-
 export const usePokemonStore = create<PokemonStore>()(
     persist(
         (set) => ({
@@ -39,20 +38,7 @@ export const usePokemonStore = create<PokemonStore>()(
         }),
         {
             name: "pokemon-data-persist",
-            storage: {
-                getItem: (name) =>
-                    typeof window !== "undefined"
-                        ? sessionStorage.getItem(name)
-                        : null,
-                setItem: (name, value) =>
-                    typeof window !== "undefined"
-                        ? sessionStorage.setItem(name, value)
-                        : undefined,
-                removeItem: (name) =>
-                    typeof window !== "undefined"
-                        ? sessionStorage.removeItem(name)
-                        : undefined,
-            },
-        }
-    )
+            storage: createJSONStorage(() => sessionStorage),
+        },
+    ),
 );

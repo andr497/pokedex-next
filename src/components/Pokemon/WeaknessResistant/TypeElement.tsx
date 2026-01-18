@@ -1,8 +1,8 @@
 "use client";
-import { Divider } from "@/components/Common";
 import { PokemonType } from "@/interfaces/PokeApi/IPokemonApi";
 import React, { useMemo } from "react";
 import TypeChip from "./TypeChip";
+import Divider from "@/components/ui/Divider";
 
 interface Props {
     types: PokemonType["type"]["name"][];

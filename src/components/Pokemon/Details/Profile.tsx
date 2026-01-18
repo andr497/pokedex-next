@@ -352,7 +352,7 @@ const PokemonCryPlayer = ({
     );
 };
 
-function PokemonRarity({ data }) {
+function PokemonRarity({ data }: Props) {
     let rarity = {
         text: "Normal",
         icon: MinusCircleIcon,

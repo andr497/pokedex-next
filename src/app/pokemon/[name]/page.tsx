@@ -12,8 +12,6 @@ import {
     PokemonProfile,
     PokemonAbilities,
 } from "@/components/Pokemon/Details";
-import { EvolutionChain } from "@/components/Pokemon/EvolutionChain";
-import { WeaknessResistantList } from "@/components/Pokemon/WeaknessResistant";
 import Container from "@/components/layout/Container";
 import {
     InformationCircleIcon,
@@ -22,8 +20,7 @@ import {
     RectangleGroupIcon,
 } from "@heroicons/react/20/solid";
 import PokemonVarietiesFilters from "@/components/Pokemon/Filters";
-
-//import { WrapperTable } from "@/components/TableMove";
+import EvolutionChainContainer from "@/components/Pokemon/EvolutionChain/Container";
 
 interface PropTypes {
     params: {
@@ -110,7 +107,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                         <RectangleGroupIcon className="w-6" />
                         Evolution Chain
                     </h3>
-                    <EvolutionChain
+                    <EvolutionChainContainer
                         pokemonIdActual={data.general.id}
                         pokemonChain={data.evolution_chain}
                         types={{ colorType1, colorType2 }}
