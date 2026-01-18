@@ -38,16 +38,16 @@ const ButtonToTop = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     className={`z-50 back-to-top fixed bottom-8 right-8 
-                                flex justify-center items-center
-                                bg-gray-600 outline-4 outline-gray-50 p-0 
-                                rounded-full h-14 w-14 
-                                transition-all duration-1300  ease-in-out`}
+                                flex justify-center items-center p-0 bg-surface
+                                rounded-full h-10 w-10 transition-all duration-300 
+                                ease-in-out shadow shadow-foreground/20
+                                cursor-pointer hover:scale-120`}
                     onClick={scrollToTop}
                 >
                     <ArrowUpIcon
                         width={20}
                         height={20}
-                        className="text-gray-50"
+                        className="text-foreground"
                     />
                 </motion.button>
             )}
