@@ -39,5 +39,5 @@ next-env.d.ts
 # Some more things
 /TODO.md
 .vscode
-.pnpm-workspace.yml
+pnpm-workspace.yaml
 .claude
