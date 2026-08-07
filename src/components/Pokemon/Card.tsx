@@ -28,8 +28,6 @@ const Card = ({ pokemon }: PokemonCardProps) => {
 
     const pokemonNumber = addZero(pokemon.id);
 
-    console.log(pokemon);
-
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.8 }}

@@ -11,7 +11,6 @@ type IdName = number | string;
 
 export const typeRepository = {
     async getAll(params: Params): Promise<PaginationData<NamedAPIResource[]>> {
-        console.log(params);
         const { data } = await http.get(`/type`, {
             params: params ?? {},
         });

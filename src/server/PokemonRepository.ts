@@ -74,7 +74,6 @@ export const findPokemonById = cache(async (idToSearch: number | string) => {
             flavor_text_entries: pokemon.flavor_text_entries,
         };
     } catch (e) {
-        console.error(e);
         return null;
     }
 });
