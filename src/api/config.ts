@@ -12,14 +12,14 @@ export const axiosCacheInstance = setupCache(axiosInstance);
 // TODO: Cambiar esto de manera dinamica del dominio y usar .env
 
 export const clientAxios = axios.create({
-    baseURL: "http://localhost:3000/api",
+    baseURL: "/api",
 });
 
 type FetchOptions = RequestInit & {
     next?: NextFetchRequestConfig;
 };
 
-const BASE = "http://localhost:3000/api";
+const BASE = "/api";
 
 export async function clientHttp<T>(
     url: string,
