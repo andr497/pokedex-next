@@ -1,6 +1,6 @@
-import { getPokemonByGenerations } from "@/api/generation";
 import { getPokemonById, getPokemonSpeciesById } from "@/api/pokemon";
 import axios, { AxiosResponse } from "axios";
+import { cache } from "react";
 import {
     convertDecimeterToMeter,
     convertHectogramToKilogram,
@@ -12,7 +12,7 @@ import {
 import { CustomPokemon } from "@/interfaces/CustomPokeApi/CustomPokemon";
 import { axiosCacheInstance } from "@/api/config";
 
-export const findPokemonById = async (idToSearch: number | string) => {
+export const findPokemonById = cache(async (idToSearch: number | string) => {
     try {
         const { data: pokemonData } = await getPokemonById(idToSearch);
         const id = pokemonData.is_default
@@ -77,7 +77,7 @@ export const findPokemonById = async (idToSearch: number | string) => {
         console.error(e);
         return null;
     }
-};
+});
 
 const getEvolutionChain = async (url: string): Promise<TreeEvolutionNode> => {
     const evolutionData = await axios(url, {
@@ -87,21 +87,6 @@ const getEvolutionChain = async (url: string): Promise<TreeEvolutionNode> => {
     });
     return fixEvolutionNode(evolutionData.chain);
     //return processEvolutionChain(evolutionData);
-};
-
-export const findPokemonByGenerations = async (idToSearch: number | string) => {
-    const data = await getPokemonByGenerations(idToSearch);
-
-    if (!data) return null;
-
-    const { pokemonSpecies, generation } = data;
-
-    return {
-        pokemonSpecies: pokemonSpecies.sort((a, b) =>
-            a.id < b.id ? -1 : a.id > b.id ? 1 : 0,
-        ),
-        generation,
-    };
 };
 
 export const searchPokemonByName = async (

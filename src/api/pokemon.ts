@@ -43,7 +43,7 @@ export const getPokemonList = async (url: string) => {
         data.results.map(async (value: any) => {
             let pokemonId = value.url.split("/")[6];
             let pokemon = await getPokemonById(pokemonId).then(
-                (res) => res.data
+                (res) => res.data,
             );
 
             return {
@@ -51,7 +51,7 @@ export const getPokemonList = async (url: string) => {
                 name: pokemon.species.name,
                 types: pokemon.types,
             };
-        })
+        }),
     );
 
     return {
@@ -75,7 +75,7 @@ export const getAllPokemon = async (): Promise<
 };
 
 export const getPokemonById = async (
-    id: number | string
+    id: number | string,
 ): Promise<AxiosResponse<Pokemon>> => {
     const response = await axiosCacheInstance({
         method: "get",
@@ -86,7 +86,7 @@ export const getPokemonById = async (
 };
 
 export const getPokemonSpeciesById = async (
-    id: number | string
+    id: number | string,
 ): Promise<AxiosResponse<PokemonSpecies>> => {
     const response = await axiosCacheInstance({
         method: "get",
@@ -97,7 +97,7 @@ export const getPokemonSpeciesById = async (
 };
 
 export const getAbilityById = async (
-    id: number | string
+    id: number | string,
 ): Promise<IAbility> => {
     const response = await axiosInstance({
         method: "get",
@@ -105,4 +105,16 @@ export const getAbilityById = async (
     });
 
     return response.data;
+};
+
+export const getAllVersionGroups = async (limit: number) => {
+    const response = await axiosInstance({
+        method: "get",
+        url: "/version-group",
+        params: {
+            limit: -1,
+        },
+    });
+
+    return response.data.results;
 };

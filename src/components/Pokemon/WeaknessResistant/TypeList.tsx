@@ -1,27 +1,28 @@
 "use client";
 
-import { PokemonType } from "@/interfaces/PokeApi/IPokemonApi";
-import { TypeDefenses } from "@/interfaces/PokeApi/IPokemonTypes";
-
 import TypeElement from "./TypeElement";
+import {
+    TypeEffectiveness,
+    TypeMultiplier,
+} from "@/server/TypePokemonRepository";
 
 interface Props {
-    data: TypeDefenses;
+    data: TypeEffectiveness;
 }
 
 const TypeList = ({ data }: Props) => {
     return (
-        <ul className="w-full">
+        <div className="space-y-6">
             {Object.entries(data).map(
-                ([key, values]: [string, PokemonType["type"]["name"][]]) => (
+                ([key, values]: [string, TypeMultiplier[]]) => (
                     <TypeElement
                         key={`typing-weakness-${key}`}
                         types={values}
                         label={key}
                     />
-                )
+                ),
             )}
-        </ul>
+        </div>
     );
 };
 

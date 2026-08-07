@@ -1,11 +1,11 @@
 "use client";
 import { PokemonType } from "@/interfaces/PokeApi/IPokemonApi";
-import React, { useMemo } from "react";
 import TypeChip from "./TypeChip";
-import Divider from "@/components/ui/Divider";
+import { useMemo } from "react";
+import { TypeMultiplier } from "@/server/TypePokemonRepository";
 
 interface Props {
-    types: PokemonType["type"]["name"][];
+    types: TypeMultiplier[];
     label: string;
 }
 
@@ -15,19 +15,20 @@ const TypeElement = ({ types, label }: Props) => {
     return (
         <>
             {types.length > 0 && (
-                <li className="flex flex-col justify-center items-center">
-                    <div className="w-full capitalize">
-                        <Divider label={fixLabel} />
-                    </div>
-                    <div className="min-h-12.5">
-                        {types.map((type, key) => (
+                <div className="space-y-2">
+                    <h4 className="text-muted text-xs font-bold uppercase tracking-wider">
+                        {fixLabel}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                        {types.map(({ type, multiplier }, key) => (
                             <TypeChip
                                 key={`card-type-${type}-${key}`}
+                                multiplier={multiplier}
                                 type={type}
                             />
                         ))}
                     </div>
-                </li>
+                </div>
             )}
         </>
     );

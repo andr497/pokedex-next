@@ -1,9 +1,10 @@
+import { IPokemonSimpleList } from "@/interfaces/IPokemonList";
 import { NamedAPIResource } from "@/interfaces/PokeApi/CommonModels";
 import React, { SVGProps } from "react";
 
 interface Props {
     label: string;
-    list: NamedAPIResource[];
+    list: NamedAPIResource[] | IPokemonSimpleList[];
     icon: React.ComponentType<SVGProps<SVGSVGElement>>;
 }
 

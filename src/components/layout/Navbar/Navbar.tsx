@@ -25,8 +25,8 @@ const menu: MenuItem[] = [
     },
     {
         title: "Types",
-        url: "#",
-        disabled: true,
+        url: "/type",
+        disabled: false,
     },
     {
         title: "Moves",

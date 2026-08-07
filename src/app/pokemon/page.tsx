@@ -1,4 +1,4 @@
-import { PokemonContainer } from "@/components/Pokemon";
+import { PokemonGrid } from "@/components/Pokemon";
 import { searchPokemonByName } from "@/server/PokemonRepository";
 import NotFound from "../not-found";
 import { Suspense } from "react";
@@ -12,7 +12,7 @@ interface Props {
 export default async function PokemonSearchPage({ searchParams }: Props) {
     const { q: name } = await searchParams;
 
-    const pokemon = await searchPokemonByName(name);
+    const pokemon = name?.trim() ? await searchPokemonByName(name) : [];
 
     return (
         <Suspense fallback={<Loading />}>
@@ -32,7 +32,7 @@ export default async function PokemonSearchPage({ searchParams }: Props) {
                                 </p>
                             </div>
                         </section>
-                        <PokemonContainer pokemons={pokemon} />
+                        <PokemonGrid pokemons={pokemon} />
                     </>
                 )}
                 {pokemon.length < 1 && <NotFound />}

@@ -14,7 +14,7 @@ export default function EvolutionChainContainer({
     pokemonIdActual,
 }: Props) {
     return (
-        <div className="flex justify-center py-8">
+        <div className="w-full flex justify-center py-8">
             <EvolutionTreeNode
                 pokemon={pokemonChain}
                 types={types}

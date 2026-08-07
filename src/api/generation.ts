@@ -6,12 +6,13 @@ import {
     PaginationData,
 } from "@/interfaces/PokeApi/CommonModels";
 
-import { axiosInstance } from "./config";
+import { axiosInstance, clientAxios, clientHttp } from "./config";
 import { getPokemonById } from "./pokemon";
 import { IPokemonList } from "@/interfaces/IPokemonList";
+import { IGenerationDetails } from "@/interfaces/IGeneration";
 
 export const getGenerationById = async (
-    id: string | number
+    id: string | number,
 ): Promise<AxiosResponse<Generation> | null> => {
     try {
         const response = await axiosInstance({
@@ -32,32 +33,24 @@ export const getGenerationById = async (
 };
 
 export const getGenerations = async (): Promise<Generation[]> => {
-    const response: AxiosResponse<PaginationData<NamedAPIResource[]>> =
-        await axiosInstance({
-            method: "get",
-            url: `/generation`,
-        });
+    const response: AxiosResponse<Generation[]> =
+        await clientAxios.get(`/generations`);
 
-    const responseGenerations = await Promise.all(
-        response.data.results.map(async (value) => {
-            const splitted = value.url
-                .split("/")
-                .filter((value) => value !== "");
-            const id = splitted[splitted.length - 1];
-
-            const generation = (await getGenerationById(
-                id
-            )) as AxiosResponse<Generation>;
-
-            return generation.data;
-        })
-    );
-
-    return responseGenerations;
+    return response.data;
 };
 
-export const getPokemonByGenerations = async (
-    id: string | number
+export const getGenerationDetail = async (
+    id: string | number,
+): Promise<IGenerationDetails> => {
+    const response: AxiosResponse<IGenerationDetails> = await clientAxios.get(
+        `/generations/${id}`,
+    );
+
+    return response.data;
+};
+
+export const getPokemonByGenerations2 = async (
+    id: string | number,
 ): Promise<{
     pokemonSpecies: IPokemonList[];
     generation: Generation;
@@ -83,7 +76,7 @@ export const getPokemonByGenerations = async (
                 name: pokemon.name,
                 types,
             };
-        })
+        }),
     );
 
     return {

@@ -32,6 +32,12 @@ export async function GET(request: NextRequest) {
         const limit = request.nextUrl.searchParams.get("limit") ?? -1;
         const name = request.nextUrl.searchParams.get("name") ?? "";
 
+        const cleanName = name.trim().replaceAll(" ", "-").toLocaleLowerCase();
+
+        if (!cleanName) {
+            return Response.json({ pokemon: [] }, { status: 200 });
+        }
+
         const pokemonSpecies: AxiosResponse<
             PaginationData<NamedAPIResource[]>
         > = await axiosCacheInstance.get(`pokemon-species`, {
@@ -39,8 +45,6 @@ export async function GET(request: NextRequest) {
                 limit,
             },
         });
-
-        const cleanName = name.trim().replaceAll(" ", "-").toLocaleLowerCase();
 
         const filteredPokemonSpecies: NamedAPIResource[] =
             pokemonSpecies.data.results.filter((value) =>

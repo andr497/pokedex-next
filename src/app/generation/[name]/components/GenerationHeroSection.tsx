@@ -1,7 +1,7 @@
 "use client";
 
 import CounterApiResource from "@/components/ApiNamedResource/Counter";
-import { Generation } from "@/interfaces/PokeApi/IGenerations";
+import { IGenerationDetails } from "@/interfaces/IGeneration";
 import {
     Squares2X2Icon,
     BoltIcon,
@@ -11,13 +11,13 @@ import {
 import { useMemo } from "react";
 
 interface Props {
-    generation: Generation;
+    generation: IGenerationDetails;
 }
 
 const GenerationHeroSection = ({ generation }: Props) => {
     const generationName = useMemo(
         () => generation.names.filter((name) => name.language.name === "en"),
-        [generation]
+        [generation],
     );
 
     return (
@@ -40,7 +40,7 @@ const GenerationHeroSection = ({ generation }: Props) => {
             <section className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
                 <CounterApiResource
                     label={"Total species"}
-                    list={generation.pokemon_species}
+                    list={generation.pokemon}
                     icon={Squares2X2Icon}
                 />
                 <CounterApiResource

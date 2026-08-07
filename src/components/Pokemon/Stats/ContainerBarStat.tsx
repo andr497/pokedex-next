@@ -22,6 +22,7 @@ const ContainerBarStat = ({ stats, types }: Props) => {
     const [prevSelected, setPrevSelected] = useState<number>(0);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setPrevSelected(selected);
     }, [selected]);
 

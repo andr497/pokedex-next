@@ -73,8 +73,8 @@ export default function HomeHeroSection() {
                             <h3 className="text-xl font-bold">Regional Data</h3>
                             <p className="text-muted text-sm">
                                 Explore the unique ecosystems of the Pokémon
-                                world, from Kanto's lush forests to Paldea's
-                                vast craters.
+                                world, from Kanto&apos;s lush forests to
+                                Paldea&apos;s vast craters.
                             </p>
                         </div>
                     </div>

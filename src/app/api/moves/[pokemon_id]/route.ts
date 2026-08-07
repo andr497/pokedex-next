@@ -1,4 +1,7 @@
-import { getAllMovesPokemonMoves } from "@/api/moves";
+import {
+    getAllMovesPokemonMoves,
+    getMovesByPokemonAndVersion,
+} from "@/api/moves";
 import { getPokemonById } from "@/api/pokemon";
 import ServerError from "@/helpers/ServerError";
 import { NextRequest } from "next/server";
@@ -10,9 +13,12 @@ export async function GET(
     try {
         const { pokemon_id } = await params;
 
+        const { searchParams } = new URL(request.url);
         const { data: pokemonResponse } = await getPokemonById(pokemon_id);
-        const movesDetailsResponse = await getAllMovesPokemonMoves(
+
+        const movesDetailsResponse = await getMovesByPokemonAndVersion(
             pokemonResponse.moves,
+            searchParams,
         );
 
         return Response.json(

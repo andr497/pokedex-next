@@ -18,9 +18,12 @@ import {
     BoltIcon,
     ChartBarIcon,
     RectangleGroupIcon,
+    ShieldCheckIcon,
 } from "@heroicons/react/20/solid";
 import PokemonVarietiesFilters from "@/components/Pokemon/Filters";
 import EvolutionChainContainer from "@/components/Pokemon/EvolutionChain/Container";
+import { WeaknessResistantList } from "@/components/Pokemon/WeaknessResistant";
+import { PokemonMoves } from "@/components/Pokemon/Moves";
 
 interface PropTypes {
     params: {
@@ -103,15 +106,30 @@ export default async function PokemonPage({ params }: PropTypes) {
                     </div>
                 </section>
                 <section className="bg-surface border border-border rounded-xl p-6 lg:p-8">
+                    <h3 className="text-base-content text-lg font-bold flex items-center gap-2 mb-6">
+                        <RectangleGroupIcon className="w-6" />
+                        Type Defenses
+                    </h3>
+                    <WeaknessResistantList data={typesDetails} />
+                </section>
+                <section className="bg-surface border border-border rounded-xl p-6 lg:p-8">
                     <h3 className="text-base-content text-lg font-bold flex items-center gap-2">
                         <RectangleGroupIcon className="w-6" />
                         Evolution Chain
                     </h3>
+
                     <EvolutionChainContainer
                         pokemonIdActual={data.general.id}
                         pokemonChain={data.evolution_chain}
                         types={{ colorType1, colorType2 }}
                     />
+                </section>
+                <section className="bg-surface border border-border rounded-xl p-6 lg:p-8">
+                    <h3 className="text-base-content text-lg font-bold flex items-center gap-2">
+                        <ShieldCheckIcon className="w-6" />
+                        Move sets
+                    </h3>
+                    <PokemonMoves pokemonId={data.general.id} />
                 </section>
             </Container>
         </Suspense>

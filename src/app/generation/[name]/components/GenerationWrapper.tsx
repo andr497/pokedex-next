@@ -1,25 +1,23 @@
 "use client";
 
 import useSearch from "@/hooks/useSearch";
-import { PokemonContainer } from "@/components/Pokemon";
-import { IPokemonList } from "@/interfaces/IPokemonList";
-import { Generation } from "@/interfaces/PokeApi/IGenerations";
+import { PokemonGrid } from "@/components/Pokemon";
 
 import GenerationSectionFilters from "./GenerationSectionFilters";
 import GenerationHeroSection from "./GenerationHeroSection";
+import { IGenerationDetails } from "@/interfaces/IGeneration";
 
-interface Props {
-    pokemonData: IPokemonList[];
-    generation: Generation;
-}
+type Props = {
+    generation: IGenerationDetails;
+};
 
-const GenerationWrapper = ({ pokemonData, generation }: Props) => {
+const GenerationWrapper = ({ generation }: Props) => {
     const {
         handleChange,
         handleFiltersChange,
         list: pokemonList,
     } = useSearch({
-        data: pokemonData,
+        data: generation.pokemon,
         key: "name",
         filters: [
             {
@@ -48,7 +46,7 @@ const GenerationWrapper = ({ pokemonData, generation }: Props) => {
                 handleFiltersChange={handleFiltersChange}
             />
 
-            <PokemonContainer pokemons={pokemonList} />
+            <PokemonGrid pokemons={pokemonList} />
         </section>
     );
 };

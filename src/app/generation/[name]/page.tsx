@@ -1,9 +1,10 @@
 import { Suspense } from "react";
 
+import axios from "axios";
 import { notFound } from "next/navigation";
 import { Loading } from "@/components/Loading";
 import Container from "@/components/layout/Container";
-import { findPokemonByGenerations } from "@/server/PokemonRepository";
+import { getGenerationDetail } from "@/api/generation";
 import GenerationWrapper from "@/app/generation/[name]/components/GenerationWrapper";
 
 interface PropTypes {
@@ -15,18 +16,17 @@ interface PropTypes {
 export default async function GenerationPage({ params }: PropTypes) {
     const { name } = await params;
 
-    const data = await findPokemonByGenerations(name);
-    if (!data) {
-        return notFound();
-    }
+    const data = await getGenerationDetail(name).catch((e) => {
+        if (axios.isAxiosError(e) && e.response?.status === 404) {
+            notFound();
+        }
+        throw e;
+    });
 
     return (
         <Suspense fallback={<Loading />}>
             <Container>
-                <GenerationWrapper
-                    pokemonData={data.pokemonSpecies}
-                    generation={data.generation}
-                />
+                <GenerationWrapper generation={data} />
             </Container>
         </Suspense>
     );

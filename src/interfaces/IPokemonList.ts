@@ -5,6 +5,11 @@ import { PokemonSpecies } from "./PokeApi/IPokemonSpecies";
 
 export type PokemonData = Pokemon & PokemonSpecies;
 
+export interface IPokemonSimpleList extends Pick<
+    Pokemon,
+    "id" | "name" | "types"
+> {}
+
 export interface IPokemonList {
     id: Pokemon["id"];
     name: Pokemon["name"];

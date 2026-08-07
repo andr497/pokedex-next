@@ -7,7 +7,7 @@ const TextAlign = {
 };
 
 interface ChipProps extends ComponentPropsWithoutRef<"div"> {
-    label: string;
+    label: ReactNode | string;
     alignText?: keyof typeof TextAlign;
     size?: "small" | "large";
     rounded?: "normal" | "full";

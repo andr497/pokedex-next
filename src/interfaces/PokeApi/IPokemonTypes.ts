@@ -9,8 +9,8 @@ export interface TypeDetail {
     generation: NamedAPIResource;
     move_damage_class: NamedAPIResource;
     names: Name;
-    pokemon: TypePokemon;
-    moves: NamedAPIResource;
+    pokemon: TypePokemon[];
+    moves: NamedAPIResource[];
 }
 
 export interface TypePokemon {

@@ -11,56 +11,73 @@ interface Props {
     type: keyof typeof COLOR;
 }
 
+const svgCache = new Map<string, string>();
+
 const useSvgTypeBackground = ({ type }: Props) => {
     const { theme } = useTheme();
 
     useEffect(() => {
-        (async () => {
-            const response = await axiosCacheInstance({
-                method: "get",
-                baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-                url: `/assets/types/${type}.svg`,
-            });
+        let mounted = true;
 
-            const { data } = response;
+        const loadSvg = async () => {
+            try {
+                const cacheKey = `${type}-${theme}`;
 
-            const parser = new DOMParser();
-            const svgDOM = parser.parseFromString(data, "image/svg+xml");
+                let modifiedSvgString = svgCache.get(cacheKey);
 
-            const svgElements = svgDOM.getElementsByTagName("path");
+                if (!modifiedSvgString) {
+                    const { data } = await axiosCacheInstance({
+                        method: "get",
+                        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+                        url: `/assets/types/${type}.svg`,
+                    });
 
-            const fillColor = COLOR[type];
+                    const parser = new DOMParser();
+                    const svgDOM = parser.parseFromString(
+                        data,
+                        "image/svg+xml",
+                    );
 
-            Array.from(svgElements).forEach((element) => {
-                element.setAttribute("fill", fillColor);
-                element.setAttribute(
-                    "opacity",
-                    theme === "dark" ? "0.2" : "0.2"
-                );
-            });
+                    const paths = svgDOM.getElementsByTagName("path");
+                    const fillColor = COLOR[type];
 
-            const modifiedSvgString = new XMLSerializer().serializeToString(
-                svgDOM
-            );
+                    Array.from(paths).forEach((element) => {
+                        element.setAttribute("fill", fillColor);
+                        element.setAttribute(
+                            "opacity",
+                            theme === "dark" ? "0.2" : "0.5",
+                        );
+                    });
 
-            const pokemonContainer = document.querySelector(
-                "#image-pokemon-container"
-            ) as HTMLDivElement;
-            if (!pokemonContainer) return;
+                    modifiedSvgString = new XMLSerializer().serializeToString(
+                        svgDOM,
+                    );
 
-            pokemonContainer.style.backgroundImage = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(
-                modifiedSvgString
-            )}")`;
-            pokemonContainer.style.backgroundSize = "contain";
-            pokemonContainer.style.backgroundRepeat = "no-repeat";
-            pokemonContainer.style.backgroundPosition = "center";
-        })().catch((error) => {
-            if (error instanceof AxiosError) {
-                console.error(error);
-            } else if (error instanceof Error) {
-                console.error(error);
+                    svgCache.set(cacheKey, modifiedSvgString);
+                }
+
+                if (!mounted) return;
+
+                const pokemonContainer = document.getElementById(
+                    "image-pokemon-container",
+                ) as HTMLDivElement | null;
+
+                if (!pokemonContainer) return;
+
+                pokemonContainer.style.backgroundImage = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+                    modifiedSvgString,
+                )}")`;
+
+                pokemonContainer.style.backgroundSize = "contain";
+                pokemonContainer.style.backgroundRepeat = "no-repeat";
+                pokemonContainer.style.backgroundPosition = "center";
+            } catch (error) {
+                if (error instanceof AxiosError || error instanceof Error) {
+                    console.error("Failed on load SVG: ", error);
+                }
             }
-        });
+        };
+        loadSvg();
     }, [type, theme]);
 };
 

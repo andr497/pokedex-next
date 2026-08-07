@@ -13,38 +13,58 @@ interface TableProps {
     game: VersionGroup;
 }
 
-const Table = ({
-    moves,
-    isLoading = false,
-    method,
-    game,
-}: TableProps) => {
+const Table = ({ moves, isLoading = false, method, game }: TableProps) => {
     return (
-        <div className="table-container overflow-x-auto rounded max-h-[330px] min-h-[330px] w-full">
-            <table className="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" className="sticky top-0 px-6 py-3">
-                            Level
+        <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+                <thead className="sticky top-0">
+                    <tr className="bg-border/80 border-b border-border">
+                        <th
+                            scope="col"
+                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider w-16"
+                        >
+                            LVL
                         </th>
-                        <th scope="col" className="sticky top-0 px-6 py-3">
+                        <th
+                            scope="col"
+                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                        >
                             Move
                         </th>
                         <th
                             scope="col"
-                            className="sticky top-0 px-6 py-3 text-center"
+                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
                         >
                             Type
                         </th>
-                        <th scope="col" className="sticky top-0 px-6 py-3">
-                            Power
+                        <th
+                            scope="col"
+                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                        >
+                            Cat.
                         </th>
-                        <th scope="col" className="sticky top-0 px-6 py-3">
+                        <th
+                            scope="col"
+                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                        >
+                            Pwr.
+                        </th>
+
+                        <th
+                            scope="col"
+                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                        >
+                            Acc.
+                        </th>
+                        <th
+                            scope="col"
+                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                        >
                             PP
                         </th>
                     </tr>
                 </thead>
-                <tbody className="scrollable-body max-h-[340px] overflow-y-auto">
+                <tbody className="divide-y divide-border text-sm">
                     {isLoading ? (
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td
@@ -60,14 +80,14 @@ const Table = ({
                                 game={game}
                                 method={method}
                                 pokemonMove={move}
-                                key={`tr-move-${move.move.name}`}
+                                key={`tr-move-${move.name}`}
                             />
                         ))
                     ) : (
-                        <tr className="h-[290px] bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <tr className="h-72.5 bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td
                                 colSpan={100}
-                                className="px-6 py-4 text-center text-muted font-extrabold text-gray-900 whitespace-nowrap"
+                                className="px-6 py-4 text-center text-muted font-extrabold whitespace-nowrap"
                             >
                                 No set moves
                             </td>

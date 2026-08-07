@@ -140,7 +140,7 @@ function PokemonImage({ data }: Props) {
                             className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center "
                         >
                             <CustomImage
-                                loading="lazy"
+                                loading="eager"
                                 alt={data.name}
                                 src={data.image}
                                 width={width}
@@ -153,7 +153,7 @@ function PokemonImage({ data }: Props) {
                                 }
                             />
                             <CustomImage
-                                loading="lazy"
+                                loading="eager"
                                 alt={data.name}
                                 src={data.image_shiny ?? null}
                                 width={width}
