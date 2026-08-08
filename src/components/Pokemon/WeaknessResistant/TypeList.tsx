@@ -12,7 +12,7 @@ interface Props {
 
 const TypeList = ({ data }: Props) => {
     return (
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {Object.entries(data).map(
                 ([key, values]: [string, TypeMultiplier[]]) => (
                     <TypeElement

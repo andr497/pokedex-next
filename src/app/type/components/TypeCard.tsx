@@ -1,9 +1,7 @@
-"use client";
 import SvgPokeball from "@/components/SvgPokeball";
 import { COLOR } from "@/helpers/constants";
 import { ColorType } from "@/interfaces/ICommons";
 import { TypeDetail } from "@/interfaces/PokeApi/IPokemonTypes";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 
 type Props = {
@@ -18,10 +16,8 @@ function hexToRgba(hex: string, alpha: number) {
 }
 
 const TypeCard = ({ type }: Props) => {
-    const { theme } = useTheme();
-    const isDark = theme === "dark";
-    const baseColor =
-        COLOR[type.name as ColorType] ?? (isDark ? "#f2f7fe" : "#0c1425");
+    // ponytail: fallback fijo; stellar/unknown/shadow no estan en COLOR, color neutro para ambos temas
+    const baseColor = COLOR[type.name as ColorType] ?? "#64748b";
     const colorType = hexToRgba(baseColor, 0.4);
 
     return (

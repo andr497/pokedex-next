@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import axios from "axios";
 import { notFound } from "next/navigation";
 import TypeWrapper from "./components/TypeWrapper";
-import { getTypeDetail } from "@/api/types";
+import { typeService } from "@/server/services/types.service";
 
 interface Prop {
     params: {
@@ -15,7 +15,7 @@ interface Prop {
 export default async function TypePage({ params }: Prop) {
     const { name } = await params;
 
-    const data = await getTypeDetail(name).catch((e) => {
+    const data = await typeService.getDetailById(name).catch((e) => {
         if (axios.isAxiosError(e) && e.response?.status === 404) {
             notFound();
         }

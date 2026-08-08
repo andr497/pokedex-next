@@ -28,20 +28,17 @@ const TypeChip = ({ type, multiplier }: Props) => {
     const fontColor: string = useBrightness(COLOR[type]);
     return (
         <Chip
-            icon={
-                <IconSvg
-                    className="aspect-auto me-1"
-                    src={`/assets/types/${type}.svg`}
-                    title={`icon-${type}`}
-                    width={18}
-                    color={fontColor}
-                />
-            }
             className="capitalize"
             label={
-                <span className="flex items-center">
-                    <span className="me-1">{type}</span>
-                    <span className="bg-foreground/30 rounded-md m-1 text-xs font-semibold w-7 h-7 flex items-center justify-center">
+                <span className="inline-flex items-center gap-1.5">
+                    <IconSvg
+                        src={`/assets/types/${type}.svg`}
+                        title={`icon-${type}`}
+                        width={14}
+                        color={fontColor}
+                    />
+                    <span>{type}</span>
+                    <span className="bg-foreground/30 rounded text-xs font-semibold px-1.5 py-0.5 text-center leading-none">
                         x{formatMultiplier(multiplier)}
                     </span>
                 </span>

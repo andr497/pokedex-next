@@ -21,44 +21,44 @@ const Table = ({ moves, isLoading = false, method, game }: TableProps) => {
                     <tr className="bg-border/80 border-b border-border">
                         <th
                             scope="col"
-                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider w-16"
+                            className="p-2.5 text-muted text-xs font-bold uppercase tracking-wider w-16"
                         >
                             LVL
                         </th>
                         <th
                             scope="col"
-                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                            className="p-2.5 text-muted text-xs font-bold uppercase tracking-wider"
                         >
                             Move
                         </th>
                         <th
                             scope="col"
-                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                            className="p-2.5 text-muted text-xs font-bold uppercase tracking-wider"
                         >
                             Type
                         </th>
                         <th
                             scope="col"
-                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                            className="p-2.5 text-muted text-xs font-bold uppercase tracking-wider"
                         >
                             Cat.
                         </th>
                         <th
                             scope="col"
-                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                            className="p-2.5 text-muted text-xs font-bold uppercase tracking-wider"
                         >
                             Pwr.
                         </th>
 
                         <th
                             scope="col"
-                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                            className="p-2.5 text-muted text-xs font-bold uppercase tracking-wider"
                         >
                             Acc.
                         </th>
                         <th
                             scope="col"
-                            className="p-4 text-muted text-xs font-bold uppercase tracking-wider"
+                            className="p-2.5 text-muted text-xs font-bold uppercase tracking-wider"
                         >
                             PP
                         </th>
@@ -69,7 +69,7 @@ const Table = ({ moves, isLoading = false, method, game }: TableProps) => {
                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td
                                 colSpan={100}
-                                className="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                className="px-4 py-3 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
                                 Loading...
                             </td>
@@ -84,10 +84,10 @@ const Table = ({ moves, isLoading = false, method, game }: TableProps) => {
                             />
                         ))
                     ) : (
-                        <tr className="h-72.5 bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <tr className="h-40 bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td
                                 colSpan={100}
-                                className="px-6 py-4 text-center text-muted font-extrabold whitespace-nowrap"
+                                className="px-4 py-3 text-center text-muted font-extrabold whitespace-nowrap"
                             >
                                 No set moves
                             </td>

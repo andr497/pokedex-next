@@ -20,31 +20,31 @@ const TableFilters = <T extends string>({
     setVersionGroup,
 }: TableRadioFiltersProps<T>) => {
     return (
-        <>
-            <SelectFetch
-                name="version_group"
-                label="Versión"
-                endpoint="/api/version-group"
-                value={versionGroup}
-                valueKey="value"
-                labelKey="label"
-                onChange={(value) => setVersionGroup(value as VersionGroup)}
-            />
+        <div className="flex flex-col gap-2 md:flex-row md:items-end md:gap-4">
+            <div className="w-full md:w-64">
+                <SelectFetch
+                    name="version_group"
+                    label="Versión"
+                    endpoint="/api/version-group"
+                    value={versionGroup}
+                    valueKey="value"
+                    labelKey="label"
+                    onChange={(value) => setVersionGroup(value as VersionGroup)}
+                />
+            </div>
 
             <RadioGroup
                 value={method}
                 onChange={setMethod}
-                className={
-                    "w-full grid grid-cols-4 justify-center items-center gap-2 my-2"
-                }
+                className="w-full md:flex-1 grid grid-cols-4 items-center gap-2"
             >
                 {METHODS.map(({ label, value }) => (
-                    <Field key={`label-method-${value}`} className={"w-full"}>
+                    <Field key={`label-method-${value}`} className="w-full">
                         <Radio
                             value={value}
                             className="group 
                         relative h-full flex cursor-pointer rounded 
-                        bg-gray-700 py-4 px-5 text-white shadow-md transition 
+                        bg-gray-700 py-2 px-3 text-white shadow-md transition 
                         focus:outline-none data-focus:outline-1 data-focus:outline-white data-checked:bg-gray-800
                         hover:bg-blue-500 duration-300
                         max-sm:p-2
@@ -59,7 +59,7 @@ const TableFilters = <T extends string>({
                     </Field>
                 ))}
             </RadioGroup>
-        </>
+        </div>
     );
 };
 

@@ -79,7 +79,7 @@ export function SelectFetch<T>({
                 disabled={disabled || isLoading || error}
                 value={value}
                 onChange={(e) => onChange?.(e.target.value)}
-                className={`appearance-none w-full bg-base-100 border border-border text-foreground py-3.5 pl-4 pr-10 rounded-lg focus:outline-none focus:right-2 focus:ring-primary cursor-pointer
+                className={`appearance-none w-full bg-base-100 border border-border text-foreground py-2 pl-3 pr-8 rounded-lg focus:outline-none focus:right-2 focus:ring-primary cursor-pointer
         ${className}`}
             >
                 <option value="">

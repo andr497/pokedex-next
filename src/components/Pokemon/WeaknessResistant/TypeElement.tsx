@@ -15,8 +15,8 @@ const TypeElement = ({ types, label }: Props) => {
     return (
         <>
             {types.length > 0 && (
-                <div className="space-y-2">
-                    <h4 className="text-muted text-xs font-bold uppercase tracking-wider">
+                <div className="bg-foreground/5 border border-border/50 rounded-xl p-3">
+                    <h4 className="text-muted text-xs font-bold uppercase tracking-wider mb-2">
                         {fixLabel}
                     </h4>
                     <div className="flex flex-wrap gap-2">

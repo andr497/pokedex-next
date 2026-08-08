@@ -9,7 +9,7 @@ interface IProps {
 export default function Container({ className, children }: IProps) {
     return (
         <div
-            className={cn("max-w-300 mx-auto px-4 sm:px-6 lg:px-8", className)}
+            className={cn("max-w-5xl mx-auto px-4 sm:px-6 lg:px-8", className)}
         >
             {children}
         </div>

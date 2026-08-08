@@ -77,7 +77,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                 <section className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                     <div className="space-y-4">
                         <div className="bg-surface border border-border rounded-xl p-6">
-                            <h3 className="text-base-content text-lg font-bold mb-6 flex items-center gap-2">
+                            <h3 className="text-base-content text-lg font-bold mb-4 flex items-center gap-2">
                                 <InformationCircleIcon className="w-6" />
                                 Profile
                             </h3>
@@ -85,7 +85,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                         </div>
 
                         <div className="bg-surface border border-border rounded-xl p-6">
-                            <h3 className="text-base-content text-lg font-bold mb-6 flex items-center gap-2">
+                            <h3 className="text-base-content text-lg font-bold mb-4 flex items-center gap-2">
                                 <BoltIcon className="w-6" />
                                 Abilities
                             </h3>
@@ -93,7 +93,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                         </div>
                     </div>
                     <div className="bg-surface border border-border rounded-xl p-6">
-                        <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center justify-between mb-4">
                             <h3 className="text-base-content text-lg font-bold flex items-center gap-2">
                                 <ChartBarIcon className="w-6" />
                                 Base Stats
@@ -105,14 +105,14 @@ export default async function PokemonPage({ params }: PropTypes) {
                         />
                     </div>
                 </section>
-                <section className="bg-surface border border-border rounded-xl p-6 lg:p-8">
-                    <h3 className="text-base-content text-lg font-bold flex items-center gap-2 mb-6">
+                <section className="bg-surface border border-border rounded-xl p-4 sm:p-6">
+                    <h3 className="text-base-content text-lg font-bold flex items-center gap-2 mb-4">
                         <RectangleGroupIcon className="w-6" />
                         Type Defenses
                     </h3>
                     <WeaknessResistantList data={typesDetails} />
                 </section>
-                <section className="bg-surface border border-border rounded-xl p-6 lg:p-8">
+                <section className="bg-surface border border-border rounded-xl p-4 sm:p-6">
                     <h3 className="text-base-content text-lg font-bold flex items-center gap-2">
                         <RectangleGroupIcon className="w-6" />
                         Evolution Chain
@@ -124,7 +124,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                         types={{ colorType1, colorType2 }}
                     />
                 </section>
-                <section className="bg-surface border border-border rounded-xl p-6 lg:p-8">
+                <section className="bg-surface border border-border rounded-xl p-4 sm:p-6">
                     <h3 className="text-base-content text-lg font-bold flex items-center gap-2">
                         <ShieldCheckIcon className="w-6" />
                         Move sets

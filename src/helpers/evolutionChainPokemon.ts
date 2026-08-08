@@ -1,5 +1,5 @@
 import { IPokemonEvolutionChain } from "@/interfaces/IGeneral";
-import { ARTWORK_BASE_URL } from "./constants";
+import { ARTWORK_BASE_URL, IMAGE_ITEM_BASE_URL } from "./constants";
 import { GeneralInfoPokemon } from "@/interfaces/IPokemonDetails";
 
 interface NodeWithPath<T> {
@@ -11,13 +11,12 @@ type GetChildrenFunction<T> = (node: T) => T[] | undefined;
 
 const depthFirst =
     <T>(getChildren: GetChildrenFunction<T>) =>
-    (tree: T, path: T[] = []): NodeWithPath<T>[] =>
-        [
-            { node: tree, path },
-            ...(getChildren(tree) || []).flatMap((node) =>
-                depthFirst(getChildren)(node, [...path, tree])
-            ),
-        ];
+    (tree: T, path: T[] = []): NodeWithPath<T>[] => [
+        { node: tree, path },
+        ...(getChildren(tree) || []).flatMap((node) =>
+            depthFirst(getChildren)(node, [...path, tree]),
+        ),
+    ];
 
 export interface IEvolutionChain {
     id: number;
@@ -39,6 +38,7 @@ interface ChainLink {
 type BaseType = { name: string } | null;
 
 interface IEvolutionDetails {
+    is_default: boolean;
     min_level?: number;
     trigger?: BaseType;
     item?: BaseType;
@@ -60,7 +60,7 @@ interface IEvolutionDetails {
 }
 
 export const processEvolutionChain = (
-    pokemon_evolution: IEvolutionChain
+    pokemon_evolution: IEvolutionChain,
 ): IPokemonEvolutionChain[][] => {
     return Object.values(
         depthFirst((node: ChainLink) => {
@@ -119,7 +119,7 @@ export const processEvolutionChain = (
                         },
                     ],
                 };
-            }, {})
+            }, {}),
     );
 };
 
@@ -174,15 +174,15 @@ export const fixEvolutionMethod = (evolutionChain: IPokemonEvolutionChain) => {
                 ? minLevelArray[0][1]
                 : `${minLevelArray[0][1]} of ${minLevelArray[0][0].replace(
                       "min_",
-                      ""
+                      "",
                   )}`
             : "";
 
     const fixItem = item
         ? ` ${item.replace("-", " ")}`
         : held_item
-        ? ` holding ${held_item.replace("-", " ")}`
-        : "";
+          ? ` holding ${held_item.replace("-", " ")}`
+          : "";
 
     //Data to show if
 
@@ -190,10 +190,10 @@ export const fixEvolutionMethod = (evolutionChain: IPokemonEvolutionChain) => {
         relative_physical_stats === 0
             ? "Attack = Defense"
             : relative_physical_stats === 1
-            ? "Attack > Defense"
-            : relative_physical_stats === -1
-            ? "Attack < Defense"
-            : null,
+              ? "Attack > Defense"
+              : relative_physical_stats === -1
+                ? "Attack < Defense"
+                : null,
         known_move && `knowing ${known_move}`,
         known_move_type && `knowing a ${known_move_type} move`,
         time_of_day && `at ${time_of_day} time`,
@@ -216,17 +216,25 @@ export interface TreeEvolutionNode {
     species_name: string;
     image: string;
     evolution_method: string;
+    item_name: string | null;
+    item_image: string | null;
     children: TreeEvolutionNode[];
 }
 
 export const fixEvolutionNode = (node: ChainLink): TreeEvolutionNode => {
     const pokemonID = Number(node?.species?.url.split("/")[6]);
-    const evoDetails = node.evolution_details?.[0];
+    const evoDetails = node.evolution_details?.filter(
+        (ed) => ed.is_default,
+    )?.[0];
+    const itemName =
+        evoDetails?.item?.name ?? evoDetails?.held_item?.name ?? null;
 
     return {
         id: pokemonID,
         species_name: node.species.name,
         image: ARTWORK_BASE_URL + pokemonID + ".png",
+        item_name: itemName,
+        item_image: itemName ? IMAGE_ITEM_BASE_URL + itemName + ".png" : null,
         evolution_method: evoDetails
             ? fixEvolutionMethod({
                   ...evoDetails,
@@ -260,4 +268,25 @@ export const fixEvolutionNode = (node: ChainLink): TreeEvolutionNode => {
             : "Not available",
         children: (node.evolves_to || []).map(fixEvolutionNode),
     };
+};
+
+export const isLinearChain = (node: TreeEvolutionNode): boolean =>
+    node.children.length <= 1 && node.children.every(isLinearChain);
+
+export interface EvolutionStep {
+    node: TreeEvolutionNode;
+    method: string | null;
+}
+
+export const flattenChain = (root: TreeEvolutionNode): EvolutionStep[] => {
+    const steps: EvolutionStep[] = [{ node: root, method: null }];
+    let current = root;
+
+    while (current.children.length > 0) {
+        const child = current.children[0];
+        steps.push({ node: child, method: child.evolution_method });
+        current = child;
+    }
+
+    return steps;
 };
