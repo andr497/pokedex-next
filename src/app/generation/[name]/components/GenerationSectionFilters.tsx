@@ -2,17 +2,20 @@
 import React from "react";
 import { MagnifyingGlassIcon as SearchIcon } from "@heroicons/react/20/solid";
 import SelectType from "@/components/Select/SelectType";
+import { NamedAPIResource } from "@/interfaces/PokeApi/CommonModels";
 
 interface Props {
     placeholder: string;
     handleChange: React.ChangeEventHandler<HTMLInputElement>;
     handleFiltersChange: React.ChangeEventHandler<HTMLSelectElement>;
+    pokemonTypes: NamedAPIResource[];
 }
 
 const GenerationSectionFilters = ({
     handleFiltersChange,
     handleChange,
     placeholder,
+    pokemonTypes,
 }: Props) => {
     return (
         <section className="flex flex-col lg:flex-row gap-4 mb-8">
@@ -34,6 +37,7 @@ const GenerationSectionFilters = ({
                         name="types"
                         aria-label="pokemon-types"
                         onChange={handleFiltersChange}
+                        options={pokemonTypes}
                     />
                 </div>
             </div>

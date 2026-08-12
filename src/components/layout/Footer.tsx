@@ -1,3 +1,4 @@
+import GitHubIcon from "@/components/Common/GitHubIcon";
 import Container from "./Container";
 
 export default function Footer() {
@@ -37,6 +38,7 @@ export default function Footer() {
                         hover:-translate-y-1
                     "
                 >
+                    <GitHubIcon />
                     <div className="flex flex-col leading-tight">
                         <span>View Repository</span>
                         <span className="text-xs text-muted">

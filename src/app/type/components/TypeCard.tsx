@@ -53,7 +53,7 @@ const TypeCard = ({ type }: Props) => {
                             },
                         },
                     }}
-                    className="absolute top-1/2 left-1/2 translate-x-1/2 -translate-y-1/3 group-hover:scale-115 group-hover:opacity-80 opacity-30 rotate-0 transition duration-150 ease-out hover:ease-in"
+                    className="absolute translate-x-1/2 -translate-y-1/3 group-hover:scale-115 group-hover:opacity-80 opacity-30 rotate-0 transition duration-150 ease-out hover:ease-in"
                     title={type.name}
                 />
             </div>

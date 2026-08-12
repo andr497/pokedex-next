@@ -3,7 +3,7 @@ import { setupCache } from "axios-cache-interceptor";
 import { env } from "./env";
 
 const axiosBase = Axios.create({
-    baseURL: env.POKEMON_API,
+    baseURL: env.POKEAPI_URL,
     timeout: 5000,
 });
 

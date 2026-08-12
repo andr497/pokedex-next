@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { PokemonStats } from "@/components/Pokemon/Stats";
 import { colorPokemonTypes } from "@/helpers/pokemonHelpers";
 import { findPokemonById } from "@/server/PokemonRepository";
+import { abilityRepository } from "@/server/repositories/ability.repository";
 import { findPokemonTypes } from "@/server/TypePokemonRepository";
 import {
     PokemonCardInfo,
@@ -56,6 +57,13 @@ export default async function PokemonPage({ params }: PropTypes) {
     }
     const typesDetails = await findPokemonTypes(data.general.types);
     const { colorType1, colorType2 } = colorPokemonTypes(data.general);
+    const abilities = await Promise.all(
+        data.abilities.map(async ({ is_hidden, slot, ability }) => ({
+            is_hidden,
+            slot,
+            detail: await abilityRepository.getById(ability.name),
+        })),
+    );
 
     return (
         <Suspense>
@@ -89,7 +97,7 @@ export default async function PokemonPage({ params }: PropTypes) {
                                 <BoltIcon className="w-6" />
                                 Abilities
                             </h3>
-                            <PokemonAbilities abilities={data.abilities} />
+                            <PokemonAbilities abilities={abilities} />
                         </div>
                     </div>
                     <div className="bg-surface border border-border rounded-xl p-6">

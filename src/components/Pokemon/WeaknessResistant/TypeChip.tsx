@@ -28,16 +28,16 @@ const TypeChip = ({ type, multiplier }: Props) => {
     const fontColor: string = useBrightness(COLOR[type]);
     return (
         <Chip
-            className="capitalize"
+            className="outline-green-500!"
             label={
-                <span className="inline-flex items-center gap-1.5">
+                <span className="flex items-center gap-1.5">
                     <IconSvg
                         src={`/assets/types/${type}.svg`}
                         title={`icon-${type}`}
                         width={14}
                         color={fontColor}
                     />
-                    <span>{type}</span>
+                    <span className="capitalize">{type}</span>
                     <span className="bg-foreground/30 rounded text-xs font-semibold px-1.5 py-0.5 text-center leading-none">
                         x{formatMultiplier(multiplier)}
                     </span>

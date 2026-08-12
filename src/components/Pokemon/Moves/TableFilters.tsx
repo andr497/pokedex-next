@@ -1,36 +1,44 @@
 "use client";
 import React from "react";
 
-import { SelectFetch } from "@/components/Select/SelectFetch";
-import { VersionGroup } from "@/interfaces/TableMoveTypes";
 import { Field, Radio, RadioGroup } from "@headlessui/react";
-import { METHODS } from "@/helpers/constants";
+import { METHODS, VERSION_GROUP } from "@/helpers/constants";
+import { MoveLearnMethod } from "@/interfaces/TableMoveTypes";
 
-interface TableRadioFiltersProps<T extends string> {
-    method: T;
-    setMethod: React.Dispatch<React.SetStateAction<T>>;
-    versionGroup: VersionGroup;
-    setVersionGroup: React.Dispatch<React.SetStateAction<VersionGroup>>;
+interface TableRadioFiltersProps {
+    method: MoveLearnMethod;
+    setMethod: React.Dispatch<React.SetStateAction<MoveLearnMethod>>;
+    versionGroup: string;
+    setVersionGroup: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const TableFilters = <T extends string>({
+const TableFilters = ({
     method,
     setMethod,
     versionGroup,
     setVersionGroup,
-}: TableRadioFiltersProps<T>) => {
+}: TableRadioFiltersProps) => {
     return (
         <div className="flex flex-col gap-2 md:flex-row md:items-end md:gap-4">
             <div className="w-full md:w-64">
-                <SelectFetch
+                <label className="block mb-1 text-sm font-medium">
+                    Version
+                </label>
+                <select
                     name="version_group"
-                    label="Versión"
-                    endpoint="/api/version-group"
                     value={versionGroup}
-                    valueKey="value"
-                    labelKey="label"
-                    onChange={(value) => setVersionGroup(value as VersionGroup)}
-                />
+                    onChange={(e) => setVersionGroup(e.target.value)}
+                    className="appearance-none w-full bg-base-100 border border-border text-foreground py-3.5 pl-4 pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+                >
+                    <option key="all" value="">
+                        All games
+                    </option>
+                    {VERSION_GROUP.map(({ value, label }) => (
+                        <option key={value} value={value}>
+                            {label}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <RadioGroup
@@ -42,16 +50,10 @@ const TableFilters = <T extends string>({
                     <Field key={`label-method-${value}`} className="w-full">
                         <Radio
                             value={value}
-                            className="group 
-                        relative h-full flex cursor-pointer rounded 
-                        bg-gray-700 py-2 px-3 text-white shadow-md transition 
-                        focus:outline-none data-focus:outline-1 data-focus:outline-white data-checked:bg-gray-800
-                        hover:bg-blue-500 duration-300
-                        max-sm:p-2
-                        "
+                            className="group relative h-full flex cursor-pointer rounded bg-border/40 py-2 px-3 text-foreground shadow-sm transition duration-300 focus:outline-none data-focus:outline-1 data-focus:outline-primary data-checked:bg-primary data-checked:text-primary-content hover:bg-border/60 max-sm:p-2"
                         >
                             <div className="flex w-full items-center justify-between">
-                                <p className="w-full text-center font-semibold text-white capitalize max-sm:text-xs">
+                                <p className="w-full text-center font-semibold capitalize max-sm:text-xs">
                                     {label}
                                 </p>
                             </div>

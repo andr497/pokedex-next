@@ -1,4 +1,3 @@
-import { getAllPokemonTypes } from "@/api/types";
 import { PokemonType } from "@/interfaces/PokeApi/IPokemonApi";
 import { TypeRelations } from "@/interfaces/PokeApi/IPokemonTypes";
 import { typeRepository } from "./repositories/types.repository";
@@ -15,10 +14,6 @@ export interface TypeEffectiveness {
     resistances: TypeMultiplier[];
     immunes: TypeMultiplier[];
 }
-
-export const findAllPokemonType = async () => {
-    return await getAllPokemonTypes({});
-};
 
 export const findPokemonTypes = async (
     types: PokemonType[],

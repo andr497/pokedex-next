@@ -1,5 +1,3 @@
-import { getPokemonById, getPokemonSpeciesById } from "@/api/pokemon";
-import axios, { AxiosResponse } from "axios";
 import { cache } from "react";
 import {
     convertDecimeterToMeter,
@@ -10,16 +8,23 @@ import {
     TreeEvolutionNode,
 } from "@/helpers/evolutionChainPokemon";
 import { CustomPokemon } from "@/interfaces/CustomPokeApi/CustomPokemon";
-import { axiosCacheInstance } from "@/api/config";
+import {
+    NamedAPIResource,
+    PaginationData,
+} from "@/interfaces/PokeApi/CommonModels";
+import { http } from "./config/http";
+import { pokemonRepository } from "./repositories/pokemon.repository";
+import { speciesRepository } from "./repositories/species.repository";
+import { extractIdFromUrl } from "./utils/url";
 
 export const findPokemonById = cache(async (idToSearch: number | string) => {
     try {
-        const { data: pokemonData } = await getPokemonById(idToSearch);
+        const pokemonData = await pokemonRepository.getById(idToSearch);
         const id = pokemonData.is_default
             ? idToSearch
             : pokemonData.species.name;
 
-        const { data: pokemonSpeciesData } = await getPokemonSpeciesById(id);
+        const pokemonSpeciesData = await speciesRepository.getById(id);
 
         const pokemon = { ...pokemonData, ...pokemonSpeciesData };
 
@@ -73,32 +78,48 @@ export const findPokemonById = cache(async (idToSearch: number | string) => {
             evolution_chain: evolutionChain,
             flavor_text_entries: pokemon.flavor_text_entries,
         };
-    } catch (e) {
+    } catch {
         return null;
     }
 });
 
 const getEvolutionChain = async (url: string): Promise<TreeEvolutionNode> => {
-    const evolutionData = await axios(url, {
-        method: "GET",
-    }).then(async (res) => {
-        return await res.data;
-    });
-    return fixEvolutionNode(evolutionData.chain);
-    //return processEvolutionChain(evolutionData);
+    const { data } = await http.get(url);
+    return fixEvolutionNode(data.chain);
 };
 
 export const searchPokemonByName = async (
     name: string,
 ): Promise<CustomPokemon[]> => {
-    const response: AxiosResponse<{ pokemon: CustomPokemon[] }> =
-        await axiosCacheInstance({
-            url: `/api/pokemon`,
-            baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-            params: {
-                name,
-            },
-        });
+    const cleanName = name.trim().replaceAll(" ", "-").toLocaleLowerCase();
 
-    return response.data.pokemon;
+    if (!cleanName) return [];
+
+    const { data: speciesList } = await http.get<
+        PaginationData<NamedAPIResource[]>
+    >("/pokemon-species", {
+        params: {
+            limit: -1,
+        },
+    });
+
+    const filteredPokemonSpecies: NamedAPIResource[] =
+        speciesList.results.filter((value) => value.name.includes(cleanName));
+
+    return Promise.all(
+        filteredPokemonSpecies.map(async (pokemon) => {
+            const id = extractIdFromUrl(pokemon.url);
+
+            const [species, pokemonData] = await Promise.all([
+                speciesRepository.getById(id),
+                pokemonRepository.getById(id),
+            ]);
+
+            return {
+                id: species.id,
+                name: species.name,
+                types: pokemonData.types,
+            };
+        }),
+    );
 };

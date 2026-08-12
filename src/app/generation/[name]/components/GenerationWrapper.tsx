@@ -2,6 +2,7 @@
 
 import useSearch from "@/hooks/useSearch";
 import { PokemonGrid } from "@/components/Pokemon";
+import { NamedAPIResource } from "@/interfaces/PokeApi/CommonModels";
 
 import GenerationSectionFilters from "./GenerationSectionFilters";
 import GenerationHeroSection from "./GenerationHeroSection";
@@ -9,9 +10,10 @@ import { IGenerationDetails } from "@/interfaces/IGeneration";
 
 type Props = {
     generation: IGenerationDetails;
+    pokemonTypes: NamedAPIResource[];
 };
 
-const GenerationWrapper = ({ generation }: Props) => {
+const GenerationWrapper = ({ generation, pokemonTypes }: Props) => {
     const {
         handleChange,
         handleFiltersChange,
@@ -44,6 +46,7 @@ const GenerationWrapper = ({ generation }: Props) => {
                 placeholder={`Search a pokémon`}
                 handleChange={handleChange}
                 handleFiltersChange={handleFiltersChange}
+                pokemonTypes={pokemonTypes}
             />
 
             <PokemonGrid pokemons={pokemonList} />

@@ -4,8 +4,7 @@ import { useEffect } from "react";
 import { useTheme } from "next-themes";
 
 import { COLOR } from "@/helpers/constants";
-import { axiosCacheInstance } from "@/api/config";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 
 interface Props {
     type: keyof typeof COLOR;
@@ -26,9 +25,8 @@ const useSvgTypeBackground = ({ type }: Props) => {
                 let modifiedSvgString = svgCache.get(cacheKey);
 
                 if (!modifiedSvgString) {
-                    const { data } = await axiosCacheInstance({
+                    const { data } = await axios({
                         method: "get",
-                        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
                         url: `/assets/types/${type}.svg`,
                     });
 

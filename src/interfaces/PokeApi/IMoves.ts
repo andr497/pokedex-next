@@ -6,7 +6,7 @@ import {
     VerboseEffect,
 } from "./CommonModels";
 import { AbilityEffectChange } from "./IAbility";
-import { PokemonMove, PokemonMoveVersion } from "./IPokemonApi";
+import { PokemonMoveVersion } from "./IPokemonApi";
 
 export type CombinePokemonMove = Moves & { version_group?: PokemonMoveVersion };
 

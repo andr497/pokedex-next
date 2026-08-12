@@ -46,37 +46,6 @@ export const GENERATION_HOVER_COLORS = {
     "generation-ix": ["group-hover:from-[#bb171f]", "group-hover:to-[#731f92]"],
 };
 
-export const VERSION_GROUP_ARRAY = [
-    "red-blue",
-    "yellow",
-    "gold-silver",
-    "crystal",
-    "ruby-sapphire",
-    "emerald",
-    "firered-leafgreen",
-    "diamond-pearl",
-    "platinum",
-    "heartgold-soulsilver",
-    "black-white",
-    "colosseum",
-    "xd",
-    "black-2-white-2",
-    "x-y",
-    "omega-ruby-alpha-sapphire",
-    "sun-moon",
-    "ultra-sun-ultra-moon",
-    "lets-go-pikachu-lets-go-eevee",
-    "sword-shield",
-    "the-isle-of-armor",
-    "the-crown-tundra",
-    "brilliant-diamond-and-shining-pearl",
-    "legends-arceus",
-    "scarlet-violet",
-    "the-teal-mask",
-];
-
-export const MOVES_METHODS_ARRAY = ["level-up", "machine", "egg", "tutor"];
-
 export const METHODS: ValueLabel<MoveLearnMethod>[] = [
     { value: "level-up", label: "Level Up" },
     { value: "machine", label: "Machine" },
@@ -85,27 +54,47 @@ export const METHODS: ValueLabel<MoveLearnMethod>[] = [
 ];
 
 export const VERSION_GROUP: ValueLabel<VersionGroup>[] = [
-    { value: "red-blue", label: "R/B" },
-    { value: "yellow", label: "Y" },
-    { value: "gold-silver", label: "G/S" },
-    { value: "crystal", label: "C" },
-    { value: "ruby-sapphire", label: "R/S" },
-    { value: "emerald", label: "E" },
-    { value: "firered-leafgreen", label: "FR/LG" },
-    { value: "diamond-pearl", label: "D/P" },
-    { value: "platinum", label: "P" },
-    { value: "heartgold-soulsilver", label: "HG/SS" },
-    { value: "black-white", label: "B/W" },
-    { value: "black-2-white-2", label: "B2/W2" },
-    { value: "x-y", label: "X/Y" },
-    { value: "omega-ruby-alpha-sapphire", label: "OR/AS" },
-    { value: "sun-moon", label: "S/M" },
-    { value: "ultra-sun-ultra-moon", label: "US/UM" },
-    { value: "lets-go-pikachu-lets-go-eevee", label: "LGP/LGE" },
-    { value: "sword-shield", label: "S/S" },
-    { value: "brilliant-diamond-and-shining-pearl", label: "BP/SP" },
-    { value: "legends-arceus", label: "LA" },
-    { value: "scarlet-violet", label: "S/V" },
+    { value: "red-blue", label: "Red / Blue" },
+    { value: "yellow", label: "Yellow" },
+    { value: "gold-silver", label: "Gold / Silver" },
+    { value: "crystal", label: "Crystal" },
+    { value: "ruby-sapphire", label: "Ruby / Sapphire" },
+    { value: "emerald", label: "Emerald" },
+    { value: "firered-leafgreen", label: "FireRed / LeafGreen" },
+    { value: "diamond-pearl", label: "Diamond / Pearl" },
+    { value: "platinum", label: "Platinum" },
+    { value: "heartgold-soulsilver", label: "HeartGold / SoulSilver" },
+    { value: "black-white", label: "Black / White" },
+    { value: "colosseum", label: "Colosseum" },
+    { value: "xd", label: "XD" },
+    { value: "black-2-white-2", label: "Black 2 / White 2" },
+    { value: "x-y", label: "X / Y" },
+    {
+        value: "omega-ruby-alpha-sapphire",
+        label: "Omega Ruby / Alpha Sapphire",
+    },
+    { value: "sun-moon", label: "Sun / Moon" },
+    { value: "ultra-sun-ultra-moon", label: "Ultra Sun / Ultra Moon" },
+    {
+        value: "lets-go-pikachu-lets-go-eevee",
+        label: "Let's Go Pikachu / Let's Go Eevee",
+    },
+    { value: "sword-shield", label: "Sword / Shield" },
+    { value: "the-isle-of-armor", label: "The Isle of Armor" },
+    { value: "the-crown-tundra", label: "The Crown Tundra" },
+    {
+        value: "brilliant-diamond-shining-pearl",
+        label: "Brilliant Diamond / Shining Pearl",
+    },
+    { value: "legends-arceus", label: "Legends: Arceus" },
+    { value: "scarlet-violet", label: "Scarlet / Violet" },
+    { value: "the-teal-mask", label: "The Teal Mask" },
+    { value: "the-indigo-disk", label: "The Indigo Disk" },
+    { value: "red-green-japan", label: "Red / Green (Japan)" },
+    { value: "blue-japan", label: "Blue (Japan)" },
+    { value: "legends-za", label: "Legends: Z-A" },
+    { value: "mega-dimension", label: "Mega Dimension" },
+    { value: "champions", label: "Champions" },
 ];
 
 export const ARTWORK_BASE_URL =
@@ -114,8 +103,5 @@ export const IMAGE_ITEM_BASE_URL =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/";
 export const SPRITE_BASE_URL =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
-
-export const LIMIT_PAGE = 1500;
-export const OFFSET_PAGE = 0;
 
 export const TOTAL_POKEMON = 1025;

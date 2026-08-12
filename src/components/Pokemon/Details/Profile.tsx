@@ -26,6 +26,7 @@ import {
     addZero,
     checkBrightness,
     colorPokemonTypes,
+    fixGenerationName,
     fixPokemonName,
 } from "@/helpers/pokemonHelpers";
 
@@ -226,7 +227,10 @@ function PokemonImage({ data }: Props) {
                             );
                         })}
                     </div>
-                    <p className="text-muted/80 text-sm leading-relaxed max-w-md mx-auto md:mx-0 pt-4">
+                    <p className="text-muted text-lg leading-relaxed max-w-md mx-auto md:mx-0 pt-2 m-0">
+                        {fixGenerationName(data.generation.name)}
+                    </p>
+                    <p className="text-muted/80 text-sm leading-relaxed max-w-md mx-auto md:mx-0">
                         {data.flavor_entry}
                     </p>
                     <div className="flex flex-wrap gap-2">

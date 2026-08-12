@@ -1,8 +1,5 @@
-import {
-    getAllMovesPokemonMoves,
-    getMovesByPokemonAndVersion,
-} from "@/api/moves";
-import { getPokemonById } from "@/api/pokemon";
+import { pokemonRepository } from "@/server/repositories/pokemon.repository";
+import { moveService } from "@/server/services/move.service";
 import ServerError from "@/helpers/ServerError";
 import { NextRequest } from "next/server";
 
@@ -14,12 +11,13 @@ export async function GET(
         const { pokemon_id } = await params;
 
         const { searchParams } = new URL(request.url);
-        const { data: pokemonResponse } = await getPokemonById(pokemon_id);
+        const pokemonResponse = await pokemonRepository.getById(pokemon_id);
 
-        const movesDetailsResponse = await getMovesByPokemonAndVersion(
-            pokemonResponse.moves,
-            searchParams,
-        );
+        const movesDetailsResponse =
+            await moveService.getMovesByPokemonAndVersion(
+                pokemonResponse.moves,
+                searchParams,
+            );
 
         return Response.json(
             {

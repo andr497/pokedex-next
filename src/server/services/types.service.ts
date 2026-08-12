@@ -6,7 +6,6 @@ import { IdName } from "@/interfaces/ICommons";
 import { IPokemonTypeDetails } from "@/interfaces/IPokemonTypes";
 import { pokemonRepository } from "../repositories/pokemon.repository";
 import { pokemonService } from "./pokemon.service";
-import { speciesRepository } from "../repositories/species.repository";
 
 export const typeService = {
     async getList(): Promise<TypeDetail[]> {

@@ -91,6 +91,11 @@ export function fixVersionGroupName(name: string): string {
     return name.replaceAll("-", "/");
 }
 
+export function fixGenerationName(name: string) {
+    const roman = name.split("-")[1].toUpperCase();
+    return `Generation ${roman}`;
+}
+
 export function addZero(
     id: number,
     maxLength: number = 4,
