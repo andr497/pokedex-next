@@ -16,6 +16,7 @@ export interface IPokemonEvolutionChain {
     min_affection: number;
     min_beauty: number;
     min_happiness: number;
+    min_steps: number;
 
     needs_overworld_rain: boolean;
     party_species: string;

@@ -11,13 +11,13 @@ interface Props {
 const ItemImage = ({ src, alt, width = 28, height = 28 }: Props) => {
     const [show, setShow] = useState(true);
 
-    if (!show) return null;
+    if (!src || !show) return null;
 
     return (
         // eslint-disable-next-line @next/next/no-img-element
         <img
             src={src}
-            alt={alt}
+            alt=""
             title={alt}
             width={width}
             height={height}

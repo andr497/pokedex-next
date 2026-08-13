@@ -48,6 +48,7 @@ interface IEvolutionDetails {
     min_affection?: number;
     min_beauty?: number;
     min_happiness?: number;
+    min_steps?: number;
     needs_overworld_rain: boolean;
     party_species?: BaseType;
     party_type?: BaseType;
@@ -96,6 +97,7 @@ export const processEvolutionChain = (
                             min_affection: evo_details?.min_affection ?? null,
                             min_beauty: evo_details?.min_beauty ?? null,
                             min_happiness: evo_details?.min_happiness ?? null,
+                            min_steps: evo_details?.min_steps ?? null,
 
                             needs_overworld_rain:
                                 evo_details?.needs_overworld_rain ?? null,
@@ -159,23 +161,29 @@ export const fixEvolutionMethod = (evolutionChain: IPokemonEvolutionChain) => {
         turn_upside_down,
         trade_species,
         party_species,
+        party_type,
+        min_steps,
     } = evolutionChain;
     let fixTrigger = fixTriggerName(trigger_name);
-    let minLevelArray = Object.entries({
+    const formatMinValue: Record<string, (value: number) => string> = {
+        min_level: (value) => `level ${value}`,
+        min_steps: (value) => `after ${value} steps`,
+        min_happiness: (value) => `when happiness reaches ${value}`,
+        min_affection: (value) => `when affection reaches ${value}`,
+        min_beauty: (value) => `when beauty reaches ${value}`,
+    };
+
+    const minLevelArray = Object.entries({
         min_level,
         min_happiness,
         min_affection,
         min_beauty,
-    }).filter(([, v]) => v !== null);
+        min_steps,
+    }).filter(([, value]) => value !== null);
 
     const textLevel =
         minLevelArray.length === 1
-            ? minLevelArray[0][0] === "min_level"
-                ? minLevelArray[0][1]
-                : `${minLevelArray[0][1]} of ${minLevelArray[0][0].replace(
-                      "min_",
-                      "",
-                  )}`
+            ? (formatMinValue[minLevelArray[0][0]]?.(minLevelArray[0][1]) ?? "")
             : "";
 
     const fixItem = item
@@ -202,6 +210,7 @@ export const fixEvolutionMethod = (evolutionChain: IPokemonEvolutionChain) => {
         turn_upside_down && "holding the console upside down",
         trade_species && `with ${trade_species}`,
         party_species && `with ${party_species} in party`,
+        party_type && `with pokemon ${party_type} type in party`,
     ]
         .filter(Boolean)
         .join("\n");
@@ -268,25 +277,4 @@ export const fixEvolutionNode = (node: ChainLink): TreeEvolutionNode => {
             : "Not available",
         children: (node.evolves_to || []).map(fixEvolutionNode),
     };
-};
-
-export const isLinearChain = (node: TreeEvolutionNode): boolean =>
-    node.children.length <= 1 && node.children.every(isLinearChain);
-
-export interface EvolutionStep {
-    node: TreeEvolutionNode;
-    method: string | null;
-}
-
-export const flattenChain = (root: TreeEvolutionNode): EvolutionStep[] => {
-    const steps: EvolutionStep[] = [{ node: root, method: null }];
-    let current = root;
-
-    while (current.children.length > 0) {
-        const child = current.children[0];
-        steps.push({ node: child, method: child.evolution_method });
-        current = child;
-    }
-
-    return steps;
 };

@@ -25,7 +25,7 @@ const EvolutionCard = ({
         <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center gap-2"
+            className="flex flex-col items-center gap-2 px-2"
         >
             <Link
                 href={`/pokemon/${pokemon.id}`}
@@ -36,7 +36,7 @@ const EvolutionCard = ({
             >
                 <div
                     className={clsx(
-                        "relative flex flex-col items-center justify-center border border-border/50 bg-foreground/10 rounded-xl p-2 transition duration-300",
+                        "relative flex flex-col items-center justify-center border border-border/50 bg-foreground/10 rounded-xl p-2 pt-7 transition duration-300",
                         {
                             "group-hover:bg-foreground/20": !current,
                         },
@@ -49,11 +49,11 @@ const EvolutionCard = ({
                         height={size}
                     />
 
-                    <span className="absolute -top-2 -right-2 bg-muted/20 border border-border text-muted text-xs font-bold px-2 py-1 rounded-full transition duration-300 group-hover:bg-primary/10">
+                    <span className="absolute top-2 right-2 z-10 bg-muted/20 border border-border text-muted text-xs font-bold px-2 py-0.5 rounded-full transition duration-300 group-hover:bg-primary/10">
                         #{pokemon.id.toString().padStart(3, "0")}
                     </span>
 
-                    <span className="capitalize text-muted text-xs font-bold px-2 py-1">
+                    <span className="capitalize text-foreground/80 text-sm font-bold px-2 py-1">
                         {pokemon.species_name}
                     </span>
                 </div>

@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, ViewTransition } from "react";
+import {
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+    ViewTransition,
+    type KeyboardEvent,
+} from "react";
 
 import clsx from "clsx";
 
@@ -118,9 +125,17 @@ export default function PokemonProfile({ data }: Props) {
 function PokemonImage({ data }: Props) {
     useSvgTypeBackground({ type: data.types[0].type.name });
     const [activeShiny, setActiveShiny] = useState<boolean>(false);
+    const hasShiny = Boolean(data.image_shiny);
 
     const toggleImage = () => {
         setActiveShiny((prev) => !prev);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            toggleImage();
+        }
     };
 
     const { colorType1, colorType2 } = useMemo(() => {
@@ -138,7 +153,17 @@ function PokemonImage({ data }: Props) {
                     <ViewTransition name="pokemon-image">
                         <div
                             id="image-pokemon-container"
-                            className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center "
+                            role={hasShiny ? "button" : undefined}
+                            aria-pressed={hasShiny ? activeShiny : undefined}
+                            aria-label={hasShiny ? "Toggle shiny" : undefined}
+                            tabIndex={hasShiny ? 0 : undefined}
+                            onClick={hasShiny ? toggleImage : undefined}
+                            onKeyDown={hasShiny ? handleKeyDown : undefined}
+                            className={`relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center ${
+                                hasShiny
+                                    ? "cursor-pointer transition-transform hover:scale-[1.02] active:scale-95"
+                                    : ""
+                            }`}
                         >
                             <CustomImage
                                 loading="eager"
@@ -149,9 +174,6 @@ function PokemonImage({ data }: Props) {
                                 className={`${
                                     activeShiny ? "opacity-0" : "opacity-100"
                                 } absolute w-full h-full object-contain drop-shadow-2xl z-10 `}
-                                onClick={
-                                    data.image_shiny ? toggleImage : () => {}
-                                }
                             />
                             <CustomImage
                                 loading="eager"
@@ -162,22 +184,24 @@ function PokemonImage({ data }: Props) {
                                 className={`${
                                     activeShiny ? "opacity-100" : "opacity-0"
                                 } absolute w-full h-full object-contain drop-shadow-2xl z-10`}
-                                onClick={
-                                    data.image_shiny ? toggleImage : () => {}
-                                }
                             />
+                            {hasShiny && (
+                                <span
+                                    aria-hidden="true"
+                                    className={`absolute top-2 right-2 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold transition-all text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.7)]`}
+                                >
+                                    {activeShiny && (
+                                        <span className="flex gap-2 text-lg">
+                                            <SparklesIcon className="w-6" />
+                                            Shiny
+                                        </span>
+                                    )}
+                                </span>
+                            )}
                             <span className="absolute bottom-0 text-muted text-xs z-10">
-                                {!data.image_shiny ? (
-                                    <>No image shiny available</>
-                                ) : (
-                                    <>
-                                        {activeShiny ? (
-                                            <>See normal version</>
-                                        ) : (
-                                            <>See shiny version</>
-                                        )}
-                                    </>
-                                )}
+                                {hasShiny
+                                    ? "Click the image to shine"
+                                    : "No image shiny available"}
                             </span>
                         </div>
                     </ViewTransition>

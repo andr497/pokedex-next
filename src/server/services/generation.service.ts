@@ -45,7 +45,11 @@ export const generationService = {
         return {
             ...generation,
             pokemon: pokemonService.sortedSimpleList(
-                pokemons.map(({ id, name, types }) => ({ id, name, types })),
+                pokemons.map(({ id, species: { name }, types }) => ({
+                    id,
+                    name,
+                    types,
+                })),
             ),
         };
     },

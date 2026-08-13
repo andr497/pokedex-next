@@ -1,10 +1,6 @@
 "use client";
-import {
-    TreeEvolutionNode,
-    isLinearChain,
-} from "@/helpers/evolutionChainPokemon";
-import EvolutionTreeNode from "./Tree";
-import LinearChain from "./LinearChain";
+import { TreeEvolutionNode } from "@/helpers/evolutionChainPokemon";
+import EvolutionTree from "./EvolutionTree";
 
 interface Props {
     pokemonIdActual: number;
@@ -17,25 +13,14 @@ export default function EvolutionChainContainer({
     types,
     pokemonIdActual,
 }: Props) {
-    const isLinear = isLinearChain(pokemonChain);
-
-    console.log(pokemonChain);
     return (
-        <div className="w-full flex justify-center py-2">
-            {isLinear ? (
-                <LinearChain
-                    pokemon={pokemonChain}
-                    types={types}
-                    pokemonIdActual={pokemonIdActual}
-                />
-            ) : (
-                <EvolutionTreeNode
-                    pokemon={pokemonChain}
-                    types={types}
-                    pokemonIdActual={pokemonIdActual}
-                    isRoot
-                />
-            )}
+        <div className="w-full flex justify-center overflow-x-auto pt-2 pb-4 scrollbar-thin">
+            <EvolutionTree
+                isRoot
+                pokemon={pokemonChain}
+                types={types}
+                pokemonIdActual={pokemonIdActual}
+            />
         </div>
     );
 }
